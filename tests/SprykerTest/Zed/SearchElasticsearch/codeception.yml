@@ -1,4 +1,4 @@
-namespace: SprykerTest\Client\SearchElasticsearch
+namespace: SprykerTest\Zed\SearchElasticsearch
 
 paths:
     tests: .
@@ -14,16 +14,15 @@ coverage:
             - '../../../../src/*'
 
 suites:
-    Client:
-        path: .
-        class_name: SearchElasticsearchClientTester
+    Business:
+        path: Business
+        class_name: SearchElasticsearchZedTester
         modules:
             enabled:
             - Asserts
             - \SprykerTest\Shared\SearchElasticsearch\Helper\ElasticsearchHelper
-            - \SprykerTest\Shared\Session\Helper\SessionHelper
+            - \SprykerTest\Shared\Testify\Helper\BusinessHelper
             - \SprykerTest\Shared\Testify\Helper\Environment
             - \SprykerTest\Shared\Testify\Helper\ConfigHelper
-            - \SprykerTest\Shared\Testify\Helper\LocatorHelper
             - \SprykerTest\Shared\Testify\Helper\DependencyHelper
-            - \SprykerTest\Shared\Testify\Helper\ConfigHelper
+            - \SprykerTest\Shared\Testify\Helper\VirtualFilesystemHelper
