@@ -15,6 +15,7 @@
 
     <transfer name="SearchContext">
         <property name="elasticsearchContext" type="ElasticsearchSearchContext"/>
+        <property name="sourceIdentifier" type="string"/>
     </transfer>
 
     <transfer name="FacetConfig">
@@ -92,6 +93,10 @@
 
     <transfer name="Money">
         <property name="amount" type="string"/>
+    </transfer>
+
+    <transfer name="Store">
+        <property name="name" type="string"/>
     </transfer>
 
     <transfer name="PageMap">
