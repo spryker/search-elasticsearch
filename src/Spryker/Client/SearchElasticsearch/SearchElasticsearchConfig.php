@@ -18,7 +18,7 @@ class SearchElasticsearchConfig extends AbstractBundleConfig
     /**
      * @var int
      */
-    public const FACET_NAME_AGGREGATION_SIZE = 10;
+    public const FACET_NAME_AGGREGATION_SIZE = 100;
 
     /**
      * @api
