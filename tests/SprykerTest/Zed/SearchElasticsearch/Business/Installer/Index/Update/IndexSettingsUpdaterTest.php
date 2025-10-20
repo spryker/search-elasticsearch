@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\SearchElasticsearch\tests\SprykerTest\Zed\SearchElasticsearch\Business\Installer\Index\Update;
+namespace SprykerTest\Zed\SearchElasticsearch\Business\Installer\Index\Update;
 
 use Codeception\Test\Unit;
 use Elastica\Client;
@@ -18,9 +18,6 @@ use Spryker\Zed\SearchElasticsearch\SearchElasticsearchConfig;
 /**
  * Auto-generated group annotations
  *
- * @group Spryker
- * @group SearchElasticsearch
- * @group tests
  * @group SprykerTest
  * @group Zed
  * @group SearchElasticsearch
@@ -30,8 +27,6 @@ use Spryker\Zed\SearchElasticsearch\SearchElasticsearchConfig;
  * @group Update
  * @group IndexSettingsUpdaterTest
  * Add your own group annotations below this line
- *
- * @property \SprykerTest\Zed\SearchElasticsearch\SearchElasticsearchZedTester $tester
  */
 class IndexSettingsUpdaterTest extends Unit
 {
