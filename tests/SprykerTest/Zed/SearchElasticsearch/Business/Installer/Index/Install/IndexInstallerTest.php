@@ -10,7 +10,7 @@ namespace SprykerTest\Zed\SearchElasticsearch\Business\Installer\Index\Install;
 use Elastica\Request;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Spryker\SearchElasticsearch\tests\SprykerTest\Zed\SearchElasticsearch\Business\Installer\Index\AbstractIndexTest;
+use SprykerTest\Zed\SearchElasticsearch\Business\Installer\Index\AbstractIndexTest;
 use Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Install\IndexInstaller;
 
 /**
