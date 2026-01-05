@@ -9,11 +9,11 @@ namespace SprykerTest\Zed\SearchElasticsearch\Business\Installer\Index\Update;
 
 use Elastica\Client;
 use Psr\Log\NullLogger;
-use SprykerTest\Zed\SearchElasticsearch\Business\Installer\Index\AbstractIndexTest;
 use Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Mapping\MappingBuilderInterface;
 use Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Update\AbstractIndexUpdater;
 use Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Update\IndexUpdater;
 use Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Update\MappingTypeAwareIndexUpdater;
+use SprykerTest\Zed\SearchElasticsearch\Business\Installer\Index\AbstractIndexTest;
 
 /**
  * Auto-generated group annotations
