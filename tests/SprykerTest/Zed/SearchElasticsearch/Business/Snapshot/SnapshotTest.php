@@ -8,6 +8,7 @@
 namespace SprykerTest\Zed\SearchElasticsearch\Business\Snapshot;
 
 use Codeception\Test\Unit;
+use Elastica\Response;
 use Elastica\Snapshot as ElasticaSnapshot;
 use RuntimeException;
 use Spryker\Zed\SearchElasticsearch\Business\Snapshot\Snapshot;
@@ -70,6 +71,10 @@ class SnapshotTest extends Unit
      */
     public function testCanCreateSnapshot(): void
     {
+        $responseMock = $this->createMock(Response::class);
+        $responseMock
+            ->method('isOk')
+            ->willReturn(true);
         $this->elasticaSnapshotMock
             ->expects($this->once())
             ->method('createSnapshot')
@@ -79,7 +84,7 @@ class SnapshotTest extends Unit
                 static::OPTIONS,
                 true,
             )
-            ->willReturnSelf();
+            ->willReturn($responseMock);
 
         $this->elasticsearchSnapshot->createSnapshot(static::REPOSITORY_NAME, static::SNAPSHOT_NAME, static::OPTIONS);
     }
@@ -89,6 +94,10 @@ class SnapshotTest extends Unit
      */
     public function testCanRestoreSnapshot(): void
     {
+        $responseMock = $this->createMock(Response::class);
+        $responseMock
+            ->method('isOk')
+            ->willReturn(true);
         $this->elasticaSnapshotMock
             ->expects($this->once())
             ->method('restoreSnapshot')
@@ -98,7 +107,7 @@ class SnapshotTest extends Unit
                 static::OPTIONS,
                 true,
             )
-            ->willReturnSelf();
+            ->willReturn($responseMock);
 
         $this->elasticsearchSnapshot->restoreSnapshot(static::REPOSITORY_NAME, static::SNAPSHOT_NAME, static::OPTIONS);
     }
@@ -109,11 +118,15 @@ class SnapshotTest extends Unit
     public function testCanGetSnapshot(): void
     {
         // Arrange
+        $responseMock = $this->createMock(Response::class);
+        $responseMock
+            ->method('isOk')
+            ->willReturn(true);
         $this->elasticaSnapshotMock
             ->expects($this->once())
             ->method('getSnapshot')
             ->with(static::REPOSITORY_NAME, static::SNAPSHOT_NAME)
-            ->willReturnSelf();
+            ->willReturn($responseMock);
 
         // Act
         $result = $this->elasticsearchSnapshot->existsSnapshot(static::REPOSITORY_NAME, static::SNAPSHOT_NAME);
@@ -146,10 +159,8 @@ class SnapshotTest extends Unit
     {
         $elasticaSnapshotMock = $this->getMockBuilder(ElasticaSnapshot::class)
             ->setConstructorArgs([$this->tester->getFactory()->getElasticsearchClient()])
-            ->addMethods(['isOk'])
             ->onlyMethods(['createSnapshot', 'restoreSnapshot', 'getSnapshot', 'deleteSnapshot'])
             ->getMock();
-        $elasticaSnapshotMock->method('isOk')->willReturn(true);
 
         return $elasticaSnapshotMock;
     }

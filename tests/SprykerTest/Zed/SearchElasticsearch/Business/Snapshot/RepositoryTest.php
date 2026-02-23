@@ -89,11 +89,15 @@ class RepositoryTest extends Unit
      */
     public function testBuildsSettingsWithLocation(array $expectedSettings, string $type, array $inputSettings): void
     {
+        $responseMock = $this->createMock(Response::class);
+        $responseMock
+            ->method('isOk')
+            ->willReturn(true);
         $this->elasticaSnapshotMock
             ->expects($this->once())
             ->method('registerRepository')
             ->with(static::REPOSITORY_NAME, $type, $expectedSettings)
-            ->willReturnSelf();
+            ->willReturn($responseMock);
 
         $this->elasticsearchRepository->registerSnapshotRepository(static::REPOSITORY_NAME, $type, $inputSettings);
     }
@@ -200,9 +204,7 @@ class RepositoryTest extends Unit
         $elasticaSnapshotMock = $this->getMockBuilder(ElasticaSnapshot::class)
             ->setConstructorArgs([$this->tester->getFactory()->getElasticsearchClient()])
             ->onlyMethods(['registerRepository', 'getRepository'])
-            ->addMethods(['isOk'])
             ->getMock();
-        $elasticaSnapshotMock->method('isOk')->willReturn(true);
 
         return $elasticaSnapshotMock;
     }
