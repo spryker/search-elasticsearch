@@ -9,18 +9,9 @@ namespace Spryker\Client\SearchElasticsearch\Config;
 
 interface SearchConfigInterface
 {
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\FacetConfigInterface
-     */
     public function getFacetConfig(): FacetConfigInterface;
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SortConfigInterface
-     */
     public function getSortConfig(): SortConfigInterface;
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\PaginationConfigInterface
-     */
     public function getPaginationConfig(): PaginationConfigInterface;
 }

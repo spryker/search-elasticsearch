@@ -9,10 +9,5 @@ namespace Spryker\Zed\SearchElasticsearch\Dependency\Service;
 
 interface SearchElasticsearchToUtilSanitizeServiceInterface
 {
-    /**
-     * @param array $array
-     *
-     * @return array
-     */
     public function filterOutBlankValuesRecursively(array $array): array;
 }

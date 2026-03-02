@@ -9,8 +9,5 @@ namespace Spryker\Shared\SearchElasticsearch\MappingType;
 
 interface MappingTypeSupportDetectorInterface
 {
-    /**
-     * @return bool
-     */
     public function isMappingTypeSupported(): bool;
 }

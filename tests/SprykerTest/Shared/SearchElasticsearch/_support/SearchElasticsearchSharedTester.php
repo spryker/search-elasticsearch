@@ -46,11 +46,6 @@ class SearchElasticsearchSharedTester extends Actor
      */
     public const DEFAULT_ELASTICSEARCH_PORT = '9001';
 
-    /**
-     * @param array $clientConfig
-     *
-     * @return \Spryker\Shared\SearchElasticsearch\Logger\ElasticsearchLoggerInterface
-     */
     public function createElasticsearchInMemoryLogger(array $clientConfig = []): ElasticsearchLoggerInterface
     {
         $clientConfig = array_merge([

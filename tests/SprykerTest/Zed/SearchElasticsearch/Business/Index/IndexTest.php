@@ -65,9 +65,6 @@ class IndexTest extends Unit
      */
     protected $index;
 
-    /**
-     * @return void
-     */
     protected function _setUp(): void
     {
         parent::_setUp();
@@ -116,9 +113,6 @@ class IndexTest extends Unit
         $this->index->openIndexes();
     }
 
-    /**
-     * @return array
-     */
     public function canCorrectlyResolveMultiIndexNamesDataProvider(): array
     {
         return [
@@ -128,9 +122,6 @@ class IndexTest extends Unit
         ];
     }
 
-    /**
-     * @return void
-     */
     public function testCanResolveIndexNameFromSearchContextTransfer(): void
     {
         $indexName = 'index-name';
@@ -143,9 +134,6 @@ class IndexTest extends Unit
         $this->index->openIndex($searchContextTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testCanCopyIndexFromSourceToTarget(): void
     {
         $reindexUrl = 'reindex-url';
@@ -174,11 +162,6 @@ class IndexTest extends Unit
         $this->index->copyIndex($sourceSearchContextTransfer, $targetSearchContextTransfer);
     }
 
-    /**
-     * @param string $indexName
-     *
-     * @return \Generated\Shared\Transfer\SearchContextTransfer
-     */
     protected function buildSearchContextTransferForIndexName(string $indexName): SearchContextTransfer
     {
         $elasticsearchContext = (new ElasticsearchSearchContextTransfer())->setIndexName($indexName);

@@ -17,17 +17,11 @@ class IndexMapCleaner implements IndexMapCleanerInterface
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\SearchElasticsearch\SearchElasticsearchConfig $config
-     */
     public function __construct(SearchElasticsearchConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @return void
-     */
     public function cleanDirectory(): void
     {
         if (is_dir($this->config->getClassTargetDirectory())) {

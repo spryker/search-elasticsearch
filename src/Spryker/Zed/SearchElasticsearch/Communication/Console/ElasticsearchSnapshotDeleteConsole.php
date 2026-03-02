@@ -43,9 +43,6 @@ class ElasticsearchSnapshotDeleteConsole extends Console
      */
     public const ARGUMENT_SNAPSHOT_NAME = 'snapshot-name';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this->setName(static::COMMAND_NAME);
@@ -57,12 +54,6 @@ class ElasticsearchSnapshotDeleteConsole extends Console
         parent::configure();
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $snapshotRepository */

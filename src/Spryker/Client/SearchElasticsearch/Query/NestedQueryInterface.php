@@ -11,8 +11,5 @@ use Elastica\Query\Nested;
 
 interface NestedQueryInterface
 {
-    /**
-     * @return \Elastica\Query\Nested
-     */
     public function createNestedQuery(): Nested;
 }

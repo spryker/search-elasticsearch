@@ -30,11 +30,6 @@ class FacetConfig implements FacetConfigInterface
         return $this;
     }
 
-    /**
-     * @param string $facetName
-     *
-     * @return \Generated\Shared\Transfer\FacetConfigTransfer|null
-     */
     public function get(string $facetName): ?FacetConfigTransfer
     {
         return $this->facetConfigTransfers[$facetName] ?? null;
@@ -84,11 +79,6 @@ class FacetConfig implements FacetConfigInterface
         return array_keys($this->getActive($requestParameters));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return void
-     */
     protected function assertFacetConfigTransfer(FacetConfigTransfer $facetConfigTransfer): void
     {
         $facetConfigTransfer

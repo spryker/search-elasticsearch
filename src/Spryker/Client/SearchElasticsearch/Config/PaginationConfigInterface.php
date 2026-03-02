@@ -11,16 +11,8 @@ use Generated\Shared\Transfer\PaginationConfigTransfer;
 
 interface PaginationConfigInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\PaginationConfigTransfer $paginationConfigTransfer
-     *
-     * @return void
-     */
     public function setPagination(PaginationConfigTransfer $paginationConfigTransfer): void;
 
-    /**
-     * @return \Generated\Shared\Transfer\PaginationConfigTransfer
-     */
     public function get(): PaginationConfigTransfer;
 
     /**

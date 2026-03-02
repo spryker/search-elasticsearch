@@ -31,9 +31,6 @@ use Spryker\Zed\SearchElasticsearch\Business\SearchElasticsearchBusinessFactory;
  */
 class MappingBuilderFactoryTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testCanCreateMappingBuilder(): void
     {
         // Arrange

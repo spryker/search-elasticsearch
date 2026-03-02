@@ -46,11 +46,6 @@ class SpellingSuggestionResultFormatterPlugin extends AbstractElasticsearchResul
         return $spellingSuggestion;
     }
 
-    /**
-     * @param array $suggests
-     *
-     * @return string|null
-     */
     protected function extractSpellingSuggestion(array $suggests): ?string
     {
         if (!isset($suggests[SpellingSuggestionQueryExpanderPlugin::SUGGESTION_NAME])) {

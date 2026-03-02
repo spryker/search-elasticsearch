@@ -23,10 +23,6 @@ class IndexDefinitionBuilder implements IndexDefinitionBuilderInterface
      */
     protected $indexDefinitionMerger;
 
-    /**
-     * @param \Spryker\Zed\SearchElasticsearch\Business\Definition\Loader\IndexDefinitionLoaderInterface $indexDefinitionLoader
-     * @param \Spryker\Zed\SearchElasticsearch\Business\Definition\Merger\IndexDefinitionMergerInterface $indexDefinitionMerger
-     */
     public function __construct(
         IndexDefinitionLoaderInterface $indexDefinitionLoader,
         IndexDefinitionMergerInterface $indexDefinitionMerger
@@ -50,12 +46,6 @@ class IndexDefinitionBuilder implements IndexDefinitionBuilderInterface
         return $this->buildIndexDefinitionTransferCollection($indexDefinitions);
     }
 
-    /**
-     * @param array $indexDefinitions
-     * @param array $indexDefinition
-     *
-     * @return array
-     */
     protected function mergeAndAddIndexDefinition(array $indexDefinitions, array $indexDefinition): array
     {
         $indexName = $indexDefinition['name'];
@@ -88,12 +78,6 @@ class IndexDefinitionBuilder implements IndexDefinitionBuilderInterface
         return $indexDefinitionTransferCollection;
     }
 
-    /**
-     * @param string $indexName
-     * @param array $indexDefinition
-     *
-     * @return \Generated\Shared\Transfer\IndexDefinitionTransfer
-     */
     protected function buildIndexDefinitionTransfer(string $indexName, array $indexDefinition): IndexDefinitionTransfer
     {
         $settings = $indexDefinition['settings'] ?? [];

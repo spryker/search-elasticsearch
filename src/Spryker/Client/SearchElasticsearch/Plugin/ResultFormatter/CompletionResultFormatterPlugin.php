@@ -52,11 +52,6 @@ class CompletionResultFormatterPlugin extends AbstractElasticsearchResultFormatt
         return $this->getCompletionFromSuggests($searchResult);
     }
 
-    /**
-     * @param \Elastica\ResultSet $searchResult
-     *
-     * @return array
-     */
     protected function getCompletionFromSuggests(ResultSet $searchResult): array
     {
         $result = [];

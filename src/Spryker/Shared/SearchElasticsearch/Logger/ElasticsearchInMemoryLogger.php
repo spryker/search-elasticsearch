@@ -31,10 +31,6 @@ class ElasticsearchInMemoryLogger implements ElasticsearchLoggerInterface
      */
     protected $elasticsearchClientConfig;
 
-    /**
-     * @param \Spryker\Shared\SearchElasticsearch\Dependency\Service\SearchElasticsearchToUtilEncodingServiceInterface $utilEncodingService
-     * @param array $elasticsearchClientConfig
-     */
     public function __construct(
         SearchElasticsearchToUtilEncodingServiceInterface $utilEncodingService,
         array $elasticsearchClientConfig = []
@@ -58,17 +54,11 @@ class ElasticsearchInMemoryLogger implements ElasticsearchLoggerInterface
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getLogs(): array
     {
         return static::$logs;
     }
 
-    /**
-     * @return string
-     */
     protected function buildElasticsearchUri(): string
     {
         return sprintf(

@@ -51,17 +51,11 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface
-     */
     protected function createBaseQueryPlugin(): QueryInterface
     {
         return new BaseQueryPlugin();
     }
 
-    /**
-     * @return \Elastica\Query
-     */
     protected function createBaseQuery(): Query
     {
         $baseQuery = (new Query())
@@ -149,9 +143,6 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
         return $searchFactoryMock;
     }
 
-    /**
-     * @return \Elastica\Aggregation\AbstractAggregation
-     */
     protected function getExpectedStringFacetAggregation(): AbstractAggregation
     {
         $searchElasticSearchClientConfig = new ClientSearchElasticsearchConfig();
@@ -165,9 +156,6 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
                     ->setSize($searchElasticSearchClientConfig->getFacetValueAggregationSize())));
     }
 
-    /**
-     * @return \Elastica\Aggregation\AbstractAggregation
-     */
     protected function getExpectedIntegerFacetAggregation(): AbstractAggregation
     {
         return (new Nested(PageIndexMap::INTEGER_FACET, PageIndexMap::INTEGER_FACET))
@@ -178,18 +166,12 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
                     ->setField(PageIndexMap::INTEGER_FACET_FACET_VALUE)));
     }
 
-    /**
-     * @return \Elastica\Aggregation\AbstractAggregation
-     */
     protected function getExpectedCategoryFacetAggregation(): AbstractAggregation
     {
         return (new Terms(PageIndexMap::CATEGORY_ALL_PARENTS))
             ->setField(PageIndexMap::CATEGORY_ALL_PARENTS);
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createStringSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -205,9 +187,6 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createMultiStringSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -237,9 +216,6 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createIntegerSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -255,9 +231,6 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createMultiIntegerSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -287,9 +260,6 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createCategorySearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -305,9 +275,6 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createMultiCategorySearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -337,9 +304,6 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createMixedSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -369,9 +333,6 @@ abstract class AbstractQueryExpanderPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\SearchElasticsearchFactory
-     */
     protected function getSearchElasticsearchFactory(): SearchElasticsearchFactory
     {
         return new SearchElasticsearchFactory();

@@ -17,17 +17,11 @@ class Connection implements ConnectionInterface
      */
     protected $client;
 
-    /**
-     * @param \Elastica\Client $client
-     */
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\SearchConnectionResponseTransfer
-     */
     public function checkConnection(): SearchConnectionResponseTransfer
     {
         $clientStatusData = $this->client->getStatus()->getData();

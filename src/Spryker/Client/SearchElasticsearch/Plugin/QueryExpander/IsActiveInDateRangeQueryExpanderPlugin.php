@@ -40,11 +40,6 @@ class IsActiveInDateRangeQueryExpanderPlugin extends AbstractPlugin implements Q
         return $searchQuery;
     }
 
-    /**
-     * @param \Elastica\Query $query
-     *
-     * @return void
-     */
     protected function addIsActiveInDateRangeFilterToQuery(Query $query): void
     {
         $boolQuery = $this->getBoolQuery($query);
@@ -75,9 +70,6 @@ class IsActiveInDateRangeQueryExpanderPlugin extends AbstractPlugin implements Q
         return $boolQuery;
     }
 
-    /**
-     * @return \Elastica\Query\BoolQuery
-     */
     protected function createActiveFromQuery(): BoolQuery
     {
         $rangeFromQuery = new Range();
@@ -100,9 +92,6 @@ class IsActiveInDateRangeQueryExpanderPlugin extends AbstractPlugin implements Q
         return $boolFromQuery;
     }
 
-    /**
-     * @return \Elastica\Query\BoolQuery
-     */
     protected function createActiveToQuery(): BoolQuery
     {
         $rangeToQuery = new Range();

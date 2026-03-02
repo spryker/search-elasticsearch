@@ -17,19 +17,11 @@ class IndexDefinitionReader implements IndexDefinitionReaderInterface
      */
     protected $utilEncodingService;
 
-    /**
-     * @param \Spryker\Shared\SearchElasticsearch\Dependency\Service\SearchElasticsearchToUtilEncodingServiceInterface $utilEncodingService
-     */
     public function __construct(SearchElasticsearchToUtilEncodingServiceInterface $utilEncodingService)
     {
         $this->utilEncodingService = $utilEncodingService;
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $fileInfo
-     *
-     * @return array
-     */
     public function read(SplFileInfo $fileInfo): array
     {
         return $this->utilEncodingService->decodeJson($fileInfo->getContents(), true);

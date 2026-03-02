@@ -18,29 +18,16 @@ class AggregationExtractorFactory implements AggregationExtractorFactoryInterfac
      */
     protected $moneyClient;
 
-    /**
-     * @param \Spryker\Client\SearchElasticsearch\Dependency\Client\SearchElasticsearchToMoneyClientInterface $moneyClient
-     */
     public function __construct(SearchElasticsearchToMoneyClientInterface $moneyClient)
     {
         $this->moneyClient = $moneyClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\AggregationExtractor\AggregationExtractorInterface
-     */
     public function create(FacetConfigTransfer $facetConfigTransfer): AggregationExtractorInterface
     {
         return $this->createByType($facetConfigTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\AggregationExtractor\AggregationExtractorInterface
-     */
     protected function createByType(FacetConfigTransfer $facetConfigTransfer): AggregationExtractorInterface
     {
         switch ($facetConfigTransfer->getType()) {
@@ -55,11 +42,6 @@ class AggregationExtractorFactory implements AggregationExtractorFactoryInterfac
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\AggregationExtractor\AggregationExtractorInterface
-     */
     protected function createRangeExtractor(FacetConfigTransfer $facetConfigTransfer): AggregationExtractorInterface
     {
         return new RangeExtractor(
@@ -68,31 +50,16 @@ class AggregationExtractorFactory implements AggregationExtractorFactoryInterfac
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\AggregationExtractor\AggregationExtractorInterface
-     */
     protected function createPriceRangeExtractor(FacetConfigTransfer $facetConfigTransfer): AggregationExtractorInterface
     {
         return new PriceRangeExtractor($facetConfigTransfer, $this->moneyClient);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\AggregationExtractor\AggregationExtractorInterface
-     */
     protected function createFacetExtractor(FacetConfigTransfer $facetConfigTransfer): AggregationExtractorInterface
     {
         return new FacetExtractor($facetConfigTransfer, $this->createFacetValueTransformerFactory());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\AggregationExtractor\AggregationExtractorInterface
-     */
     protected function createCategoryExtractor(FacetConfigTransfer $facetConfigTransfer): AggregationExtractorInterface
     {
         return new CategoryExtractor($facetConfigTransfer);

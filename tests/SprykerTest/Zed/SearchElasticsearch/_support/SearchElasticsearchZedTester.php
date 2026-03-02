@@ -44,9 +44,6 @@ class SearchElasticsearchZedTester extends Actor
      */
     protected const INDEX_MAP_DESTINATION_DIR = 'IndexMap';
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\SearchElasticsearchBusinessFactory
-     */
     public function getSearchElasticsearchBusinessFactory(): SearchElasticsearchBusinessFactory
     {
         $searchElasticsearchBusinessFactory = new SearchElasticsearchBusinessFactory();
@@ -57,11 +54,6 @@ class SearchElasticsearchZedTester extends Actor
         return $searchElasticsearchBusinessFactory;
     }
 
-    /**
-     * @param string $sourceIdentifier
-     *
-     * @return string
-     */
     public function translateSourceIdentifierToIndexName(string $sourceIdentifier): string
     {
         return $this->getSearchElasticsearchBusinessFactory()
@@ -69,11 +61,6 @@ class SearchElasticsearchZedTester extends Actor
             ->translateToIndexName($sourceIdentifier, static::CURRENT_STORE);
     }
 
-    /**
-     * @param string $sourceIdentifier
-     *
-     * @return void
-     */
     public function assertIndexMapGenerated(string $sourceIdentifier): void
     {
         $indexMapFileName = $this->getIndexMapFileNameFromSourceIdentifier($sourceIdentifier);
@@ -90,19 +77,11 @@ class SearchElasticsearchZedTester extends Actor
         return [codecept_data_dir('Fixtures/Definition/Schema/')];
     }
 
-    /**
-     * @return string
-     */
     public function getFixturesIndexMapDirectory(): string
     {
         return $this->getVirtualDirectory() . static::INDEX_MAP_DESTINATION_DIR . DIRECTORY_SEPARATOR;
     }
 
-    /**
-     * @param string $sourceIdentifier
-     *
-     * @return string
-     */
     public function getIndexMapFileNameFromSourceIdentifier(string $sourceIdentifier): string
     {
         $classPrefix = $this->normalizeToClassPrefix($sourceIdentifier);
@@ -110,11 +89,6 @@ class SearchElasticsearchZedTester extends Actor
         return $classPrefix . 'IndexMap.php';
     }
 
-    /**
-     * @param string|null $indexName
-     *
-     * @return \Generated\Shared\Transfer\SearchContextTransfer
-     */
     public function buildSearchContextTransferFromIndexName(?string $indexName): SearchContextTransfer
     {
         $elasticsearchSearchContext = new ElasticsearchSearchContextTransfer();
@@ -126,11 +100,6 @@ class SearchElasticsearchZedTester extends Actor
         return $searchContextTransfer;
     }
 
-    /**
-     * @param string $sourceIdentifier
-     *
-     * @return string
-     */
     protected function normalizeToClassPrefix(string $sourceIdentifier): string
     {
         $normalized = preg_replace('/\\W+/', '_', $sourceIdentifier);

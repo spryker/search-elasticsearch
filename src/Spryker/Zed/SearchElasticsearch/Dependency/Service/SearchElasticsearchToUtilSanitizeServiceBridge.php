@@ -22,11 +22,6 @@ class SearchElasticsearchToUtilSanitizeServiceBridge implements SearchElasticsea
         $this->utilSanitizeService = $utilSanitizeService;
     }
 
-    /**
-     * @param array $array
-     *
-     * @return array
-     */
     public function filterOutBlankValuesRecursively(array $array): array
     {
         return $this->utilSanitizeService->filterOutBlankValuesRecursively($array);

@@ -24,9 +24,6 @@ class SearchElasticsearchToStoreFacadeBridge implements SearchElasticsearchToSto
         $this->storeFacade = $storeFacade;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getCurrentStore(): StoreTransfer
     {
         return $this->storeFacade->getCurrentStore();
@@ -40,9 +37,6 @@ class SearchElasticsearchToStoreFacadeBridge implements SearchElasticsearchToSto
         return $this->storeFacade->getAllStores();
     }
 
-    /**
-     * @return bool
-     */
     public function isDynamicStoreEnabled(): bool
     {
         return $this->storeFacade->isDynamicStoreEnabled();

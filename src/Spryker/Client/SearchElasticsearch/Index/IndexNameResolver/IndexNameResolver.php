@@ -27,22 +27,12 @@ class IndexNameResolver implements IndexNameResolverInterface
      */
     protected static $storeName;
 
-    /**
-     * @param \Spryker\Client\SearchElasticsearch\Dependency\Client\SearchElasticsearchToStoreClientInterface $storeClient
-     * @param \Spryker\Client\SearchElasticsearch\SearchElasticsearchConfig $searchElasticsearchConfig
-     */
     public function __construct(SearchElasticsearchToStoreClientInterface $storeClient, SearchElasticsearchConfig $searchElasticsearchConfig)
     {
         $this->storeClient = $storeClient;
         $this->searchElasticsearchConfig = $searchElasticsearchConfig;
     }
 
-    /**
-     * @param string $sourceIdentifier
-     * @param string|null $storeName
-     *
-     * @return string
-     */
     public function resolve(string $sourceIdentifier, ?string $storeName = null): string
     {
         $indexParameters = [
@@ -54,9 +44,6 @@ class IndexNameResolver implements IndexNameResolverInterface
         return mb_strtolower(implode('_', array_filter($indexParameters)));
     }
 
-    /**
-     * @return string
-     */
     protected function getStoreName(): string
     {
         if (static::$storeName === null) {

@@ -41,13 +41,6 @@ class IndexMapInstaller implements IndexMapInstallerInterface
      */
     protected SearchElasticsearchConfig $config;
 
-    /**
-     * @param \Spryker\Zed\SearchElasticsearch\Business\Definition\Builder\IndexDefinitionBuilderInterface $indexDefinitionBuilder
-     * @param \Spryker\Zed\SearchElasticsearch\Business\Installer\IndexMap\Cleaner\IndexMapCleanerInterface $indexMapCleaner
-     * @param \Spryker\Zed\SearchElasticsearch\Business\Installer\IndexMap\Generator\IndexMapGeneratorInterface $indexMapGenerator
-     * @param \Spryker\Zed\SearchElasticsearch\Dependency\Facade\SearchElasticsearchToStoreFacadeInterface $storeFacade
-     * @param \Spryker\Zed\SearchElasticsearch\SearchElasticsearchConfig $config
-     */
     public function __construct(
         IndexDefinitionBuilderInterface $indexDefinitionBuilder,
         IndexMapCleanerInterface $indexMapCleaner,
@@ -62,11 +55,6 @@ class IndexMapInstaller implements IndexMapInstallerInterface
         $this->config = $config;
     }
 
-    /**
-     * @param \Psr\Log\LoggerInterface $logger
-     *
-     * @return void
-     */
     public function install(LoggerInterface $logger): void
     {
         $this->indexMapCleaner->cleanDirectory();
@@ -100,9 +88,6 @@ class IndexMapInstaller implements IndexMapInstallerInterface
         return $this->indexDefinitionBuilder->build(null);
     }
 
-    /**
-     * @return string
-     */
     protected function getCurrentStore(): string
     {
         return APPLICATION_STORE;

@@ -46,9 +46,6 @@ class StoreQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
         $this->assertEquals($expectedQuery, $query);
     }
 
-    /**
-     * @return array
-     */
     public function storeQueryExpanderDataProvider(): array
     {
         return [
@@ -56,9 +53,6 @@ class StoreQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataForSimpleStoreFilteredQuery(): array
     {
         $expectedQuery = (new Query())

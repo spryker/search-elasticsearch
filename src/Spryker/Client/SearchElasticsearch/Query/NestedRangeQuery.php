@@ -57,9 +57,6 @@ class NestedRangeQuery extends AbstractNestedQuery
         parent::__construct($queryBuilder);
     }
 
-    /**
-     * @return \Elastica\Query\Nested
-     */
     public function createNestedQuery(): Nested
     {
         $fieldName = $this->facetConfigTransfer->getFieldName();
@@ -87,11 +84,6 @@ class NestedRangeQuery extends AbstractNestedQuery
         $this->setMinMaxValuesFromString($rangeValues);
     }
 
-    /**
-     * @param array $rangeValues
-     *
-     * @return void
-     */
     protected function setMinMaxValuesFromArray(array $rangeValues): void
     {
         $this->minValue = $rangeValues[static::RANGE_MIN] ?? null;
@@ -100,11 +92,6 @@ class NestedRangeQuery extends AbstractNestedQuery
         $this->convertMinMaxValues();
     }
 
-    /**
-     * @param string $rangeValues
-     *
-     * @return void
-     */
     protected function setMinMaxValuesFromString(string $rangeValues): void
     {
         $values = explode(static::RANGE_DIVIDER, $rangeValues);
@@ -120,9 +107,6 @@ class NestedRangeQuery extends AbstractNestedQuery
         $this->convertMinMaxValues();
     }
 
-    /**
-     * @return void
-     */
     protected function convertMinMaxValues(): void
     {
         if ($this->minValue !== null) {

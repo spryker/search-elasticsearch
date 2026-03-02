@@ -17,9 +17,6 @@ class Snapshot implements SnapshotInterface
      */
     protected $elasticaSnapshot;
 
-    /**
-     * @param \Elastica\Snapshot $elasticaSnapshot
-     */
     public function __construct(ElasticaSnapshot $elasticaSnapshot)
     {
         $this->elasticaSnapshot = $elasticaSnapshot;
@@ -49,12 +46,6 @@ class Snapshot implements SnapshotInterface
         return $this->elasticaSnapshot->restoreSnapshot($repositoryName, $snapshotName, $options, true)->isOk();
     }
 
-    /**
-     * @param string $repositoryName
-     * @param string $snapshotName
-     *
-     * @return bool
-     */
     public function existsSnapshot(string $repositoryName, string $snapshotName): bool
     {
         try {
@@ -66,12 +57,6 @@ class Snapshot implements SnapshotInterface
         }
     }
 
-    /**
-     * @param string $repositoryName
-     * @param string $snapshotName
-     *
-     * @return bool
-     */
     public function deleteSnapshot(string $repositoryName, string $snapshotName): bool
     {
         return $this->elasticaSnapshot->deleteSnapshot($repositoryName, $snapshotName)->isOk();

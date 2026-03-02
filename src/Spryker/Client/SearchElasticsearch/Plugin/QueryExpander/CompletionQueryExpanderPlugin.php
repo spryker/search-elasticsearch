@@ -76,12 +76,6 @@ class CompletionQueryExpanderPlugin extends AbstractPlugin implements QueryExpan
         return $searchQuery;
     }
 
-    /**
-     * @param \Elastica\Query $query
-     * @param string|null $searchString
-     *
-     * @return void
-     */
     protected function addAggregation(Query $query, ?string $searchString): void
     {
         $termsAggregation = $this->getFactory()
@@ -94,11 +88,6 @@ class CompletionQueryExpanderPlugin extends AbstractPlugin implements QueryExpan
         $query->addAggregation($termsAggregation);
     }
 
-    /**
-     * @param string|null $searchString
-     *
-     * @return string
-     */
     protected function getRegexpQueryString(?string $searchString): string
     {
         if (!$searchString) {

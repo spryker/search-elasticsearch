@@ -17,19 +17,11 @@ class SourceIdentifier implements SourceIdentifierInterface
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Client\SearchElasticsearch\SearchElasticsearchConfig $config
-     */
     public function __construct(SearchElasticsearchConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return bool
-     */
     public function isSupported(SearchContextTransfer $searchContextTransfer): bool
     {
         $sourceIdentifier = $searchContextTransfer->requireSourceIdentifier()->getSourceIdentifier();

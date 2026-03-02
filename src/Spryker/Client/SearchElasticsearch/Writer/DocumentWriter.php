@@ -18,19 +18,11 @@ class DocumentWriter implements DocumentWriterInterface
      */
     protected $elasticaClient;
 
-    /**
-     * @param \Elastica\Client $client
-     */
     public function __construct(Client $client)
     {
         $this->elasticaClient = $client;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return bool
-     */
     public function writeDocument(SearchDocumentTransfer $searchDocumentTransfer): bool
     {
         $index = $this->elasticaClient->getIndex(
@@ -55,11 +47,6 @@ class DocumentWriter implements DocumentWriterInterface
         return $response->isOk();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return bool
-     */
     public function deleteDocument(SearchDocumentTransfer $searchDocumentTransfer): bool
     {
         $index = $this->elasticaClient->getIndex(
@@ -103,11 +90,6 @@ class DocumentWriter implements DocumentWriterInterface
         return $documents;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return string
-     */
     protected function getIndexName(SearchDocumentTransfer $searchDocumentTransfer): string
     {
         return $searchDocumentTransfer->requireSearchContext()

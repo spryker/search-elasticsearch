@@ -22,11 +22,6 @@ class NestedTermQuery extends AbstractNestedQuery
      */
     protected $filterValue;
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     * @param string $filterValue
-     * @param \Spryker\Client\SearchElasticsearch\Query\QueryBuilderInterface $queryBuilder
-     */
     public function __construct(FacetConfigTransfer $facetConfigTransfer, string $filterValue, QueryBuilderInterface $queryBuilder)
     {
         $this->facetConfigTransfer = $facetConfigTransfer;
@@ -35,9 +30,6 @@ class NestedTermQuery extends AbstractNestedQuery
         parent::__construct($queryBuilder);
     }
 
-    /**
-     * @return \Elastica\Query\Nested
-     */
     public function createNestedQuery(): Nested
     {
         $fieldName = $this->facetConfigTransfer->getFieldName();

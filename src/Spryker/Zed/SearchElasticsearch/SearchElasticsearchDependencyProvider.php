@@ -43,11 +43,6 @@ class SearchElasticsearchDependencyProvider extends AbstractBundleDependencyProv
      */
     public const SEARCH_INSTALLER_PLUGINS = 'SEARCH_INSTALLER_PLUGINS';
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = $this->addSearchClient($container);
@@ -58,11 +53,6 @@ class SearchElasticsearchDependencyProvider extends AbstractBundleDependencyProv
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addSearchClient(Container $container): Container
     {
         $container->set(static::CLIENT_SEARCH, function (Container $container) {
@@ -72,11 +62,6 @@ class SearchElasticsearchDependencyProvider extends AbstractBundleDependencyProv
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addUtilEncodingFacade(Container $container): Container
     {
         $container->set(static::SERVICE_UTIL_ENCODING, function (Container $container) {
@@ -88,11 +73,6 @@ class SearchElasticsearchDependencyProvider extends AbstractBundleDependencyProv
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addUtilSanitizeService(Container $container): Container
     {
         $container->set(static::SERVICE_UTIL_SANITIZE, function (Container $container) {
@@ -102,11 +82,6 @@ class SearchElasticsearchDependencyProvider extends AbstractBundleDependencyProv
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStoreFacade(Container $container): Container
     {
         $container->set(static::FACADE_STORE, function (Container $container) {

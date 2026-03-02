@@ -11,8 +11,5 @@ use Elastica\Aggregation\AbstractAggregation;
 
 interface FacetAggregationInterface
 {
-    /**
-     * @return \Elastica\Aggregation\AbstractAggregation
-     */
     public function createAggregation(): AbstractAggregation;
 }

@@ -20,19 +20,11 @@ class DocumentReaderFactory implements DocumentReaderFactoryInterface
      */
     protected $mappingTypeSupportDetector;
 
-    /**
-     * @param \Spryker\Shared\SearchElasticsearch\MappingType\MappingTypeSupportDetectorInterface $mappingTypeSupportDetector
-     */
     public function __construct(MappingTypeSupportDetectorInterface $mappingTypeSupportDetector)
     {
         $this->mappingTypeSupportDetector = $mappingTypeSupportDetector;
     }
 
-    /**
-     * @param \Elastica\Client $client
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Reader\DocumentReaderInterface
-     */
     public function createDocumentReader(Client $client): DocumentReaderInterface
     {
         if ($this->mappingTypeSupportDetector->isMappingTypeSupported()) {

@@ -51,11 +51,6 @@ class SuggestionByTypeQueryExpanderPlugin extends AbstractPlugin implements Quer
         return $searchQuery;
     }
 
-    /**
-     * @param \Elastica\Query $query
-     *
-     * @return void
-     */
     protected function addAggregation(Query $query): void
     {
         $topHits = $this->getFactory()

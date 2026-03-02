@@ -40,9 +40,6 @@ class MappingBuilderTest extends Unit
         ],
     ];
 
-    /**
-     * @return void
-     */
     public function testCanBuildTypelessMapping(): void
     {
         /** @var \Elastica\Index|\PHPUnit\Framework\MockObject\MockObject $indexMock */
@@ -58,9 +55,6 @@ class MappingBuilderTest extends Unit
         }
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Mapping\MappingBuilderInterface
-     */
     protected function createMappingBuilder(): MappingBuilderInterface
     {
         if ($this->tester->supportsMappingTypes()) {

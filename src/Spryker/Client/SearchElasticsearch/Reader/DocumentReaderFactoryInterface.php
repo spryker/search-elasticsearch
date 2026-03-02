@@ -14,10 +14,5 @@ use Elastica\Client;
  */
 interface DocumentReaderFactoryInterface
 {
-    /**
-     * @param \Elastica\Client $client
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Reader\DocumentReaderInterface
-     */
     public function createDocumentReader(Client $client): DocumentReaderInterface;
 }

@@ -30,11 +30,6 @@ class MappingBuilder implements MappingBuilderInterface
         return $mapping;
     }
 
-    /**
-     * @param array $mappings
-     *
-     * @return array
-     */
     protected function getMappingData(array $mappings): array
     {
         return $mappings ? array_shift($mappings) : [];

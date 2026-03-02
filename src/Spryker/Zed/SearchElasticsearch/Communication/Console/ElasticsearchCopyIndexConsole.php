@@ -45,9 +45,6 @@ class ElasticsearchCopyIndexConsole extends Console
      */
     protected const ARGUMENT_TARGET_INDEX_NAME = 'target-index-name';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this->setName(static::COMMAND_NAME);
@@ -60,12 +57,6 @@ class ElasticsearchCopyIndexConsole extends Console
         parent::configure();
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $sourceIndexName */
@@ -86,11 +77,6 @@ class ElasticsearchCopyIndexConsole extends Console
         return static::CODE_ERROR;
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     *
-     * @return string
-     */
     protected function buildInfoMessageFromInput(InputInterface $input): string
     {
         /** @var string $sourceIndexName */
@@ -105,11 +91,6 @@ class ElasticsearchCopyIndexConsole extends Console
         );
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     *
-     * @return string
-     */
     protected function buildErrorMessageFromInput(InputInterface $input): string
     {
         /** @var string $sourceIndexName */
@@ -124,11 +105,6 @@ class ElasticsearchCopyIndexConsole extends Console
         );
     }
 
-    /**
-     * @param string $indexName
-     *
-     * @return \Generated\Shared\Transfer\SearchContextTransfer
-     */
     protected function buildSearchContextTransferFromIndexName(string $indexName): SearchContextTransfer
     {
         $elasticsearchSearchContext = new ElasticsearchSearchContextTransfer();

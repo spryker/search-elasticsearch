@@ -52,11 +52,6 @@ class NestedPriceRangeQuery extends NestedRangeQuery
         }
     }
 
-    /**
-     * @param float $value
-     *
-     * @return int
-     */
     protected function convertFromFloatToInteger(float $value): int
     {
         $moneyTransfer = $this->moneyClient->fromFloat((float)$value);

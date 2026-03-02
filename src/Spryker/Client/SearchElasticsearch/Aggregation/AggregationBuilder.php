@@ -15,51 +15,26 @@ use Elastica\Aggregation\TopHits;
 
 class AggregationBuilder implements AggregationBuilderInterface
 {
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\GlobalAggregation
-     */
     public function createGlobalAggregation(string $name): GlobalAggregation
     {
         return new GlobalAggregation($name);
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\Filter
-     */
     public function createFilterAggregation(string $name): Filter
     {
         return new Filter($name);
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\Terms
-     */
     public function createTermsAggregation(string $name): Terms
     {
         return new Terms($name);
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\Stats
-     */
     public function createStatsAggregation(string $name): Stats
     {
         return new Stats($name);
     }
 
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\TopHits
-     */
     public function createTopHitsAggregation(string $name): TopHits
     {
         return new TopHits($name);

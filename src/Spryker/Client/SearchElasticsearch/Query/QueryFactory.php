@@ -25,10 +25,6 @@ class QueryFactory implements QueryFactoryInterface
      */
     protected $moneyClient;
 
-    /**
-     * @param \Spryker\Client\SearchElasticsearch\Query\QueryBuilderInterface $queryBuilder
-     * @param \Spryker\Client\SearchElasticsearch\Dependency\Client\SearchElasticsearchToMoneyClientInterface $moneyClient
-     */
     public function __construct(QueryBuilderInterface $queryBuilder, SearchElasticsearchToMoneyClientInterface $moneyClient)
     {
         $this->queryBuilder = $queryBuilder;
@@ -111,34 +107,16 @@ class QueryFactory implements QueryFactoryInterface
         return new NestedPriceRangeQuery($facetConfigTransfer, $filterValue, $this->queryBuilder, $this->moneyClient);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     * @param array $filterValues
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Query\NestedQueryInterface
-     */
     protected function createNestedTermsQuery(FacetConfigTransfer $facetConfigTransfer, array $filterValues): NestedQueryInterface
     {
         return new NestedTermsQuery($facetConfigTransfer, $filterValues, $this->queryBuilder);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     * @param string $filterValue
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Query\NestedQueryInterface
-     */
     protected function createNestedTermQuery(FacetConfigTransfer $facetConfigTransfer, string $filterValue): NestedQueryInterface
     {
         return new NestedTermQuery($facetConfigTransfer, $filterValue, $this->queryBuilder);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     * @param string $filterValue
-     *
-     * @return \Elastica\Query\Term
-     */
     protected function createTermQuery(FacetConfigTransfer $facetConfigTransfer, string $filterValue): Term
     {
         return $this

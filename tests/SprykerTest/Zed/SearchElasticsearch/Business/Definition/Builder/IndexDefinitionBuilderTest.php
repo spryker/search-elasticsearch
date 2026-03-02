@@ -81,9 +81,6 @@ class IndexDefinitionBuilderTest extends Unit
         $this->assertEquals($dummyIndexDefinitions[0]['definition']['settings'], $result[0]->getSettings());
     }
 
-    /**
-     * @return array
-     */
     public function buildReturnsResultProvider(): array
     {
         $emptyIndexDefinition = [

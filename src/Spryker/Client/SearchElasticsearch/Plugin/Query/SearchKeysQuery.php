@@ -52,12 +52,6 @@ class SearchKeysQuery implements QueryInterface, SearchContextAwareQueryInterfac
      */
     protected $searchContextTransfer;
 
-    /**
-     * @param string $searchString
-     * @param \Spryker\Client\SearchElasticsearch\SearchElasticsearchConfig $config
-     * @param int|null $limit
-     * @param int|null $offset
-     */
     public function __construct(string $searchString, SearchElasticsearchConfig $config, ?int $limit = null, ?int $offset = null)
     {
         $this->searchString = $searchString;
@@ -125,11 +119,6 @@ class SearchKeysQuery implements QueryInterface, SearchContextAwareQueryInterfac
         $this->searchContextTransfer = $searchContextTransfer;
     }
 
-    /**
-     * @param string $searchString
-     *
-     * @return \Elastica\Query\BoolQuery
-     */
     protected function createFullTextSearchQuery(string $searchString): BoolQuery
     {
         $fields = [
@@ -148,11 +137,6 @@ class SearchKeysQuery implements QueryInterface, SearchContextAwareQueryInterfac
         return $boolQuery;
     }
 
-    /**
-     * @param \Elastica\Query $baseQuery
-     *
-     * @return void
-     */
     protected function setLimit(Query $baseQuery): void
     {
         if ($this->limit !== null) {
@@ -160,11 +144,6 @@ class SearchKeysQuery implements QueryInterface, SearchContextAwareQueryInterfac
         }
     }
 
-    /**
-     * @param \Elastica\Query $baseQuery
-     *
-     * @return void
-     */
     protected function setOffset(Query $baseQuery): void
     {
         if ($this->offset !== null) {
@@ -172,9 +151,6 @@ class SearchKeysQuery implements QueryInterface, SearchContextAwareQueryInterfac
         }
     }
 
-    /**
-     * @return void
-     */
     protected function setupDefaultSearchContext(): void
     {
         $searchContextTransfer = new SearchContextTransfer();
@@ -183,9 +159,6 @@ class SearchKeysQuery implements QueryInterface, SearchContextAwareQueryInterfac
         $this->searchContextTransfer = $searchContextTransfer;
     }
 
-    /**
-     * @return bool
-     */
     protected function hasSearchContext(): bool
     {
         return (bool)$this->searchContextTransfer;

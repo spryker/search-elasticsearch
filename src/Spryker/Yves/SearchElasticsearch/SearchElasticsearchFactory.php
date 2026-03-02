@@ -19,9 +19,6 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
  */
 class SearchElasticsearchFactory extends AbstractFactory
 {
-    /**
-     * @return \Symfony\Component\HttpKernel\DataCollector\DataCollector
-     */
     public function createSearchDataCollector(): DataCollector
     {
         return new ElasticsearchDataCollector(
@@ -29,9 +26,6 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\Logger\ElasticsearchLoggerInterface
-     */
     public function createElasticsearchLogger(): ElasticsearchLoggerInterface
     {
         return new ElasticsearchInMemoryLogger(
@@ -40,9 +34,6 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\Dependency\Service\SearchElasticsearchToUtilEncodingServiceInterface
-     */
     public function getUtilEncodingService(): SearchElasticsearchToUtilEncodingServiceInterface
     {
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::SERVICE_UTIL_ENCODING);

@@ -17,15 +17,6 @@ use Elastica\Query\Terms;
 
 class QueryBuilder implements QueryBuilderInterface
 {
-    /**
-     * @param string $fieldName
-     * @param string|null $minValue
-     * @param string|null $maxValue
-     * @param string $greaterParam
-     * @param string $lessParam
-     *
-     * @return \Elastica\Query\Range
-     */
     public function createRangeQuery(string $fieldName, ?string $minValue, ?string $maxValue, string $greaterParam = 'gte', string $lessParam = 'lte'): Range
     {
         $arguments = [];
@@ -44,11 +35,6 @@ class QueryBuilder implements QueryBuilderInterface
         return $rangeQuery;
     }
 
-    /**
-     * @param string $fieldName
-     *
-     * @return \Elastica\Query\Nested
-     */
     public function createNestedQuery(string $fieldName): Nested
     {
         $nestedQuery = new Nested();
@@ -56,12 +42,6 @@ class QueryBuilder implements QueryBuilderInterface
         return $nestedQuery->setPath($fieldName);
     }
 
-    /**
-     * @param string $field
-     * @param string $value
-     *
-     * @return \Elastica\Query\Term
-     */
     public function createTermQuery(string $field, string $value): Term
     {
         $termQuery = new Term();
@@ -69,12 +49,6 @@ class QueryBuilder implements QueryBuilderInterface
         return $termQuery->setTerm($field, $value);
     }
 
-    /**
-     * @param string $field
-     * @param array $values
-     *
-     * @return \Elastica\Query\Terms
-     */
     public function createTermsQuery(string $field, array $values): Terms
     {
         $termQuery = new Terms($field, $values);
@@ -82,9 +56,6 @@ class QueryBuilder implements QueryBuilderInterface
         return $termQuery;
     }
 
-    /**
-     * @return \Elastica\Query\BoolQuery
-     */
     public function createBoolQuery(): BoolQuery
     {
         return new BoolQuery();
@@ -102,9 +73,6 @@ class QueryBuilder implements QueryBuilderInterface
         return new $matchQueryClassName();
     }
 
-    /**
-     * @return \Elastica\Query\MatchAll
-     */
     public function createMatchAllQuery(): MatchAll
     {
         return new MatchAll();

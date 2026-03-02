@@ -84,9 +84,6 @@ class FacetResultFormatterPluginTest extends AbstractResultFormatterPluginTest
         $this->assertEquals($expectedResult, $formattedResult);
     }
 
-    /**
-     * @return array
-     */
     public function resultFormatterDataProvider(): array
     {
         return [
@@ -101,9 +98,6 @@ class FacetResultFormatterPluginTest extends AbstractResultFormatterPluginTest
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function getEmptyResultTestData(): array
     {
         $searchConfig = $this->createStringSearchConfig();
@@ -113,9 +107,6 @@ class FacetResultFormatterPluginTest extends AbstractResultFormatterPluginTest
         return [$searchConfig, $aggregationResult, $expectedResult];
     }
 
-    /**
-     * @return array
-     */
     protected function getStringFacetResultTestData(): array
     {
         $searchConfigMock = $this->createStringSearchConfig();
@@ -157,9 +148,6 @@ class FacetResultFormatterPluginTest extends AbstractResultFormatterPluginTest
         return [$searchConfigMock, $aggregationResult, $expectedResult];
     }
 
-    /**
-     * @return array
-     */
     protected function getMultiStringFacetResultTestData(): array
     {
         $searchConfigMock = $this->createMultiStringSearchConfig();
@@ -245,9 +233,6 @@ class FacetResultFormatterPluginTest extends AbstractResultFormatterPluginTest
         return [$searchConfigMock, $aggregationResult, $expectedResult];
     }
 
-    /**
-     * @return array
-     */
     protected function getIntegerFacetResultTestData(): array
     {
         $searchConfigMock = $this->createIntegerSearchConfig();
@@ -289,9 +274,6 @@ class FacetResultFormatterPluginTest extends AbstractResultFormatterPluginTest
         return [$searchConfigMock, $aggregationResult, $expectedResult];
     }
 
-    /**
-     * @return array
-     */
     protected function getMultiIntegerFacetResultTestData(): array
     {
         $searchConfigMock = $this->createMultiIntegerSearchConfig();
@@ -370,9 +352,6 @@ class FacetResultFormatterPluginTest extends AbstractResultFormatterPluginTest
         return [$searchConfigMock, $aggregationResult, $expectedResult];
     }
 
-    /**
-     * @return array
-     */
     protected function getMultiIntegerFacetResultTestDataForParams(): array
     {
         [$searchConfig, $aggregationResult, $expectedResult] = $this->getMultiIntegerFacetResultTestData();
@@ -393,9 +372,6 @@ class FacetResultFormatterPluginTest extends AbstractResultFormatterPluginTest
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function getCategoryResultTestData(): array
     {
         $searchConfigMock = $this->createCategorySearchConfig();
@@ -428,9 +404,6 @@ class FacetResultFormatterPluginTest extends AbstractResultFormatterPluginTest
         return [$searchConfigMock, $aggregationResult, $expectedResult];
     }
 
-    /**
-     * @return array
-     */
     protected function getFilteredResultTestData(): array
     {
         $searchConfigMock = $this->createSearchConfigMock();

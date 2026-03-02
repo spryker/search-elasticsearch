@@ -17,9 +17,6 @@ class SchemaDefinitionFinder implements SchemaDefinitionFinderInterface
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\SearchElasticsearch\SearchElasticsearchConfig $config
-     */
     public function __construct(SearchElasticsearchConfig $config)
     {
         $this->config = $config;

@@ -24,9 +24,6 @@ use Spryker\Shared\SearchElasticsearch\MappingType\MappingTypeSupportDetector;
  */
 class MappingTypeSupportDetectorTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testCanDetectMappingTypeSupport(): void
     {
         // Arrange

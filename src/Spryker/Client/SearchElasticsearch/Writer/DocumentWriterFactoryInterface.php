@@ -14,10 +14,5 @@ use Elastica\Client;
  */
 interface DocumentWriterFactoryInterface
 {
-    /**
-     * @param \Elastica\Client $client
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Writer\DocumentWriterInterface
-     */
     public function createDocumentWriter(Client $client): DocumentWriterInterface;
 }

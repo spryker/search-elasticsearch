@@ -38,11 +38,6 @@ class LocalizedQueryExpanderPlugin extends AbstractPlugin implements QueryExpand
         return $searchQuery;
     }
 
-    /**
-     * @param \Elastica\Query $query
-     *
-     * @return void
-     */
     protected function addLocaleFilterToQuery(Query $query): void
     {
         $boolQuery = $this->getBoolQuery($query);
@@ -76,9 +71,6 @@ class LocalizedQueryExpanderPlugin extends AbstractPlugin implements QueryExpand
         return $boolQuery;
     }
 
-    /**
-     * @return string
-     */
     protected function getCurrentLocale(): string
     {
         return $this->getFactory()->getLocaleClient()->getCurrentLocale();

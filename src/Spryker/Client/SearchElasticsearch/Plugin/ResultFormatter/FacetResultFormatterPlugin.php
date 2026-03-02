@@ -88,21 +88,11 @@ class FacetResultFormatterPlugin extends AbstractElasticsearchResultFormatterPlu
         return [];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return string
-     */
     protected function getBucketName(FacetConfigTransfer $facetConfigTransfer): string
     {
         return FacetQueryExpanderPlugin::AGGREGATION_GLOBAL_PREFIX . $facetConfigTransfer->getName();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return string
-     */
     protected function getFieldName(FacetConfigTransfer $facetConfigTransfer): string
     {
         if ($facetConfigTransfer->getAggregationParams()) {
@@ -115,12 +105,6 @@ class FacetResultFormatterPlugin extends AbstractElasticsearchResultFormatterPlu
         return $facetConfigTransfer->getFieldName();
     }
 
-    /**
-     * @param string $fieldName
-     * @param string $nestedFieldName
-     *
-     * @return string
-     */
     protected function addNestedFieldPrefix(string $fieldName, string $nestedFieldName): string
     {
         return $fieldName . static::PATH_SEPARATOR . $nestedFieldName;

@@ -25,9 +25,6 @@ use Spryker\Shared\SearchElasticsearch\ElasticaClient\ElasticaClientFactory;
  */
 class ElasticaClientFactoryTest extends Unit
 {
-    /**
-     * @return void
-     */
     protected function _setUp(): void
     {
         parent::_setUp();
@@ -35,9 +32,6 @@ class ElasticaClientFactoryTest extends Unit
         $this->setUpClientMock();
     }
 
-    /**
-     * @return void
-     */
     public function testElasticaClientIsNotRecreated(): void
     {
         $elasticClientFactory = new ElasticaClientFactory();
@@ -46,9 +40,6 @@ class ElasticaClientFactoryTest extends Unit
         $this->assertInstanceOf(MockObject::class, $client);
     }
 
-    /**
-     * @return void
-     */
     protected function setUpClientMock(): void
     {
         $factoryReflectionClass = new ReflectionClass(ElasticaClientFactory::class);

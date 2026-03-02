@@ -53,8 +53,5 @@ abstract class AbstractFacetQueryExpanderPluginQueryTest extends AbstractQueryEx
         $this->assertEquals($expectedQuery, $query);
     }
 
-    /**
-     * @return array
-     */
     abstract public function facetQueryExpanderDataProvider(): array;
 }

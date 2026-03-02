@@ -11,11 +11,5 @@ use Psr\Log\LoggerInterface;
 
 interface IndexInstallBrokerInterface
 {
-    /**
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param string $storeName
-     *
-     * @return void
-     */
     public function install(LoggerInterface $logger, string $storeName): void;
 }

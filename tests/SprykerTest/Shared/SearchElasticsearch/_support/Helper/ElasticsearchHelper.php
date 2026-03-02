@@ -51,11 +51,6 @@ class ElasticsearchHelper extends Module
      */
     protected static $client;
 
-    /**
-     * @param string $indexName
-     *
-     * @return \Elastica\Index
-     */
     public function haveIndex(string $indexName): Index
     {
         $client = $this->getClient();
@@ -73,11 +68,6 @@ class ElasticsearchHelper extends Module
         return $index;
     }
 
-    /**
-     * @param string $indexName
-     *
-     * @return void
-     */
     public function addCleanupForIndexByName(string $indexName): void
     {
         $client = $this->getClient();
@@ -86,11 +76,6 @@ class ElasticsearchHelper extends Module
         $this->addCleanup($index);
     }
 
-    /**
-     * @param \Elastica\Index $index
-     *
-     * @return void
-     */
     protected function addCleanup(Index $index): void
     {
         $this->cleanup[$index->getName()] = function () use ($index) {
@@ -104,13 +89,6 @@ class ElasticsearchHelper extends Module
         };
     }
 
-    /**
-     * @param string $indexName
-     * @param string $documentId
-     * @param array $documentData
-     *
-     * @return \Elastica\Index
-     */
     public function haveDocumentInIndex(string $indexName, string $documentId = 'foo', array $documentData = ['bar' => 'baz']): Index
     {
         $index = $this->haveIndex($indexName);
@@ -125,11 +103,6 @@ class ElasticsearchHelper extends Module
         return $index;
     }
 
-    /**
-     * @param string $indexName
-     *
-     * @return void
-     */
     public function assertIndexExists(string $indexName): void
     {
         $client = $this->getClient();
@@ -175,12 +148,6 @@ class ElasticsearchHelper extends Module
         return $this->getClient()->getIndex($indexName)->getDocument($documentId);
     }
 
-    /**
-     * @param string $documentId
-     * @param string $indexName
-     *
-     * @return void
-     */
     public function assertDocumentDoesNotExist(string $documentId, string $indexName): void
     {
         try {
@@ -191,11 +158,6 @@ class ElasticsearchHelper extends Module
         }
     }
 
-    /**
-     * @param \Codeception\TestInterface $test
-     *
-     * @return void
-     */
     public function _after(TestInterface $test): void
     {
         foreach ($this->cleanup as $indexName => $cleanup) {
@@ -205,9 +167,6 @@ class ElasticsearchHelper extends Module
         $this->resetClient();
     }
 
-    /**
-     * @return void
-     */
     protected function resetClient(): void
     {
         $factoryReflectionClass = new ReflectionClass(ElasticaClientFactory::class);
@@ -216,17 +175,11 @@ class ElasticsearchHelper extends Module
         $clientProperty->setValue(null);
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\SearchElasticsearchConfig
-     */
     public function getConfig(): SearchElasticsearchConfig
     {
         return new SearchElasticsearchConfig();
     }
 
-    /**
-     * @return \Elastica\Client
-     */
     protected function getClient(): Client
     {
         if (static::$client === null) {
@@ -236,13 +189,6 @@ class ElasticsearchHelper extends Module
         return static::$client;
     }
 
-    /**
-     * @param string $repositoryName
-     * @param string $type
-     * @param array $settings
-     *
-     * @return void
-     */
     public function registerSnapshotRepository(string $repositoryName, string $type = self::REPOSITORY_TYPE_FILESYSTEM, array $settings = []): void
     {
         $snapshot = new Snapshot($this->getClient());
@@ -274,12 +220,6 @@ class ElasticsearchHelper extends Module
         $this->addCleanupForSnapshotInRepository($repositoryName, $snapshotName);
     }
 
-    /**
-     * @param string $repositoryName
-     * @param string $snapshotName
-     *
-     * @return void
-     */
     public function addCleanupForSnapshotInRepository(string $repositoryName, string $snapshotName): void
     {
         $this->cleanup[] = function () use ($repositoryName, $snapshotName) {
@@ -289,12 +229,6 @@ class ElasticsearchHelper extends Module
         };
     }
 
-    /**
-     * @param string $repositoryName
-     * @param string $snapshotName
-     *
-     * @return bool
-     */
     public function existsSnapshotInRepository(string $repositoryName, string $snapshotName): bool
     {
         try {
@@ -306,25 +240,16 @@ class ElasticsearchHelper extends Module
         }
     }
 
-    /**
-     * @return \Elastica\Snapshot
-     */
     public function getSnapshot(): Snapshot
     {
         return new Snapshot($this->getClient());
     }
 
-    /**
-     * @return string
-     */
     public function getVirtualRepositoryLocation(): string
     {
         return $this->getVirtualFilesystemHelper()->getVirtualDirectory() . static::REPOSITORY_LOCATION_FILE_NAME;
     }
 
-    /**
-     * @return \SprykerTest\Shared\Testify\Helper\VirtualFilesystemHelper
-     */
     protected function getVirtualFilesystemHelper(): VirtualFilesystemHelper
     {
         /** @var \SprykerTest\Shared\Testify\Helper\VirtualFilesystemHelper $virtualFilesystemHelper */

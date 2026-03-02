@@ -22,10 +22,6 @@ class LoggableSearch implements SearchInterface
      */
     protected $elasticsearchLogger;
 
-    /**
-     * @param \Spryker\Client\SearchElasticsearch\Search\SearchInterface $search
-     * @param \Spryker\Shared\SearchElasticsearch\Logger\ElasticsearchLoggerInterface $elasticsearchLogger
-     */
     public function __construct(SearchInterface $search, ElasticsearchLoggerInterface $elasticsearchLogger)
     {
         $this->search = $search;

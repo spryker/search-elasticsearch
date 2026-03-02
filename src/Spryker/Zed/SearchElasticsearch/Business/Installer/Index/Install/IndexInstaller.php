@@ -26,21 +26,12 @@ class IndexInstaller implements InstallerInterface
      */
     protected $mappingBuilder;
 
-    /**
-     * @param \Elastica\Client $client
-     * @param \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Mapping\MappingBuilderInterface $mappingBuilder
-     */
     public function __construct(Client $client, MappingBuilderInterface $mappingBuilder)
     {
         $this->client = $client;
         $this->mappingBuilder = $mappingBuilder;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\IndexDefinitionTransfer $indexDefinitionTransfer
-     *
-     * @return bool
-     */
     public function accept(IndexDefinitionTransfer $indexDefinitionTransfer): bool
     {
         $index = $this->client->getIndex($indexDefinitionTransfer->getIndexName());
@@ -48,12 +39,6 @@ class IndexInstaller implements InstallerInterface
         return !$index->exists();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\IndexDefinitionTransfer $indexDefinitionTransfer
-     * @param \Psr\Log\LoggerInterface $logger
-     *
-     * @return void
-     */
     public function run(IndexDefinitionTransfer $indexDefinitionTransfer, LoggerInterface $logger): void
     {
         $index = $this->client->getIndex($indexDefinitionTransfer->getIndexName());

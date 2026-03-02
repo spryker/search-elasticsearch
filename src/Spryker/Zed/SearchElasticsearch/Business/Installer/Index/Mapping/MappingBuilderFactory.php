@@ -19,17 +19,11 @@ class MappingBuilderFactory implements MappingBuilderFactoryInterface
      */
     protected $mappingTypeSupportDetector;
 
-    /**
-     * @param \Spryker\Shared\SearchElasticsearch\MappingType\MappingTypeSupportDetectorInterface $mappingTypeSupportDetector
-     */
     public function __construct(MappingTypeSupportDetectorInterface $mappingTypeSupportDetector)
     {
         $this->mappingTypeSupportDetector = $mappingTypeSupportDetector;
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Mapping\MappingBuilderInterface
-     */
     public function createMappingBuilder(): MappingBuilderInterface
     {
         if ($this->mappingTypeSupportDetector->isMappingTypeSupported()) {

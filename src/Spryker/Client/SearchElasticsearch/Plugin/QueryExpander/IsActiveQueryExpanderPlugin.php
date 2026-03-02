@@ -37,11 +37,6 @@ class IsActiveQueryExpanderPlugin extends AbstractPlugin implements QueryExpande
         return $searchQuery;
     }
 
-    /**
-     * @param \Elastica\Query $query
-     *
-     * @return void
-     */
     protected function addIsActiveFilterToQuery(Query $query): void
     {
         $boolQuery = $this->getBoolQuery($query);

@@ -29,9 +29,6 @@ use Spryker\Client\SearchElasticsearch\Plugin\QueryExpander\FacetQueryExpanderPl
  */
 class FacetQueryExpanderPluginFilteredAggregationTest extends AbstractFacetQueryExpanderPluginAggregationTest
 {
-    /**
-     * @return array
-     */
     public function facetQueryExpanderDataProvider(): array
     {
         return [
@@ -44,9 +41,6 @@ class FacetQueryExpanderPluginFilteredAggregationTest extends AbstractFacetQuery
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredStringFacetData(): array
     {
         $searchConfigMock = $this->createStringSearchConfig();
@@ -68,9 +62,6 @@ class FacetQueryExpanderPluginFilteredAggregationTest extends AbstractFacetQuery
         return [$searchConfigMock, $expectedAggregations, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createMultiFilteredStringFacetData(): array
     {
         $searchConfigMock = $this->createMultiStringSearchConfig();
@@ -148,9 +139,6 @@ class FacetQueryExpanderPluginFilteredAggregationTest extends AbstractFacetQuery
         return [$searchConfigMock, $expectedAggregations, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredIntegerFacetData(): array
     {
         $searchConfigMock = $this->createIntegerSearchConfig();
@@ -172,9 +160,6 @@ class FacetQueryExpanderPluginFilteredAggregationTest extends AbstractFacetQuery
         return [$searchConfigMock, $expectedAggregations, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createMultiFilteredIntegerFacetData(): array
     {
         $searchConfigMock = $this->createMultiIntegerSearchConfig();
@@ -260,9 +245,6 @@ class FacetQueryExpanderPluginFilteredAggregationTest extends AbstractFacetQuery
         return [$searchConfigMock, $expectedAggregations, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredCategoryFacetData(): array
     {
         $searchConfigMock = $this->createCategorySearchConfig();
@@ -283,9 +265,6 @@ class FacetQueryExpanderPluginFilteredAggregationTest extends AbstractFacetQuery
         return [$searchConfigMock, $expectedAggregations, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredMixedFacetData(): array
     {
         $searchConfigMock = $this->createMixedSearchConfig();

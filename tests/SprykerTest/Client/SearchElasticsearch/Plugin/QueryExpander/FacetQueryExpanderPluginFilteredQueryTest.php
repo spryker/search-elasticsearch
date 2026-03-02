@@ -42,9 +42,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -52,9 +49,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         $this->createCurrencyClientMock();
     }
 
-    /**
-     * @return array
-     */
     public function facetQueryExpanderDataProvider(): array
     {
         return [
@@ -76,9 +70,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredStringFacetData(): array
     {
         $searchConfigMock = $this->createStringSearchConfig();
@@ -99,9 +90,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createMultiFilteredStringFacetData(): array
     {
         $searchConfigMock = $this->createMultiStringSearchConfig();
@@ -137,9 +125,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredStringFacetDataWithMultipleValues(): array
     {
         $searchConfigMock = $this->createStringSearchConfig();
@@ -161,9 +146,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createMultiValuedFilteredStringFacetData(): array
     {
         $searchConfigMock = $this->createStringSearchConfig();
@@ -206,9 +188,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredIntegerFacetData(): array
     {
         $searchConfigMock = $this->createIntegerSearchConfig();
@@ -228,9 +207,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredPriceRangeFacetData(): array
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -300,9 +276,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
                 return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredOpenPriceRangeFacetData(): array
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -369,9 +342,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
                 return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createMultiFilteredIntegerFacetData(): array
     {
         $searchConfigMock = $this->createMultiIntegerSearchConfig();
@@ -410,9 +380,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
                 return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createMultiValuedFilteredIntegerFacetData(): array
     {
         $searchConfigMock = $this->createIntegerSearchConfig();
@@ -455,9 +422,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredCategoryFacetData(): array
     {
         $searchConfigMock = $this->createCategorySearchConfig();
@@ -472,9 +436,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredMixedFacetData(): array
     {
         $searchConfigMock = $this->createMixedSearchConfig();
@@ -505,9 +466,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredIncorrectStringFacetData(): array
     {
         $searchConfigMock = $this->createMixedSearchConfig();
@@ -520,9 +478,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createMultiFilteredIncorrectValuesFacetData(): array
     {
         $searchConfigMock = $this->createMixedSearchConfig();
@@ -537,9 +492,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredStringFacetDataWithMultipleIncorrectValues(): array
     {
         $searchConfigMock = $this->createMixedSearchConfig();
@@ -556,9 +508,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return array
-     */
     protected function createFilteredZeroValuesFacetData(): array
     {
         $searchConfigMock = $this->createMixedSearchConfig();
@@ -586,9 +535,6 @@ class FacetQueryExpanderPluginFilteredQueryTest extends AbstractFacetQueryExpand
         return [$searchConfigMock, $expectedQuery, $parameters];
     }
 
-    /**
-     * @return void
-     */
     protected function createCurrencyClientMock(): void
     {
         $currencyTransfer = (new CurrencyTransfer())->setCode(static::DEFAULT_CURRENCY);

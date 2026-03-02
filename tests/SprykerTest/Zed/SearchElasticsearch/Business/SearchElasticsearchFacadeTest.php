@@ -69,9 +69,6 @@ class SearchElasticsearchFacadeTest extends Unit
      */
     protected const SNAPSHOT_NAME = 'search_test_snapshot';
 
-    /**
-     * @return void
-     */
     public function testInstallsIndexes(): void
     {
         // Arrange
@@ -87,9 +84,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->tester->assertIndexExists($expectedIndexName);
     }
 
-    /**
-     * @return void
-     */
     public function testGeneratesIndexMaps(): void
     {
         // Arrange
@@ -104,9 +98,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->tester->assertIndexMapGenerated(static::FIXTURE_SOURCE_IDENTIFIER);
     }
 
-    /**
-     * @return void
-     */
     public function testCanCloseIndex(): void
     {
         // Arrange
@@ -122,9 +113,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertSame(SearchElasticsearchConfig::INDEX_CLOSE_STATE, $this->getIndexState($index));
     }
 
-    /**
-     * @return void
-     */
     public function testCanCloseAllIndexes(): void
     {
         // Arrange
@@ -141,9 +129,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertAllIndexesAreOfExpectedState([$index, $anotherIndex], SearchElasticsearchConfig::INDEX_CLOSE_STATE);
     }
 
-    /**
-     * @return void
-     */
     public function testCanOpenOneIndex(): void
     {
         // Arrange
@@ -160,9 +145,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertSame(SearchElasticsearchConfig::INDEX_OPEN_STATE, $this->getIndexState($index));
     }
 
-    /**
-     * @return void
-     */
     public function testCanOpenAllIndexes(): void
     {
         // Arrange
@@ -181,9 +163,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertAllIndexesAreOfExpectedState([$index, $anotherIndex], SearchElasticsearchConfig::INDEX_OPEN_STATE);
     }
 
-    /**
-     * @return void
-     */
     public function testCanDeleteIndex(): void
     {
         // Arrange
@@ -197,9 +176,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertFalse($index->exists());
     }
 
-    /**
-     * @return void
-     */
     public function testCanDeleteAllIndexes(): void
     {
         // Arrange
@@ -257,11 +233,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertTrue($allIndexesAreDeleted);
     }
 
-    /**
-     * @param \Elastica\Index $index
-     *
-     * @return string
-     */
     protected function getIndexState(Index $index): string
     {
         $clusterState = $index->getClient()->getCluster()->getState();
@@ -273,9 +244,6 @@ class SearchElasticsearchFacadeTest extends Unit
         return '';
     }
 
-    /**
-     * @return void
-     */
     public function testCanCopyIndexContentToAnotherIndex(): void
     {
         // Arrange
@@ -296,13 +264,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertDocumentInIndexHasExpectedContent($destIndex, $documentId, $documentContent);
     }
 
-    /**
-     * @param \Elastica\Index $index
-     * @param string $documentId
-     * @param array $expectedContent
-     *
-     * @return void
-     */
     protected function assertDocumentInIndexHasExpectedContent(Index $index, string $documentId, array $expectedContent): void
     {
         $response = $index->request(sprintf('%s/%s', ElasticsearchHelper::DEFAULT_MAPPING_TYPE, $documentId), Request::GET);
@@ -310,9 +271,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertSame($expectedContent, $response->getData()[static::DOCUMENT_CONTENT_KEY]);
     }
 
-    /**
-     * @return void
-     */
     public function testCanCreateSnapshotRepository(): void
     {
         $this->skipIfCi();
@@ -328,9 +286,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertRepositoryExists(static::REPOSITORY_NAME);
     }
 
-    /**
-     * @return void
-     */
     public function testCanCheckForRepositoryExistence(): void
     {
         $this->skipIfCi();
@@ -368,11 +323,6 @@ class SearchElasticsearchFacadeTest extends Unit
         return $repositoryMock;
     }
 
-    /**
-     * @param string $repositoryName
-     *
-     * @return void
-     */
     protected function assertRepositoryExists(string $repositoryName): void
     {
         $this->assertTrue(
@@ -400,9 +350,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertTrue($result);
     }
 
-    /**
-     * @return void
-     */
     public function testCanCheckForSnapshotExistence(): void
     {
         $this->skipIfCi();
@@ -418,9 +365,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertTrue($this->tester->existsSnapshotInRepository(static::REPOSITORY_NAME, static::SNAPSHOT_NAME));
     }
 
-    /**
-     * @return void
-     */
     public function testCanDeleteSnapshot(): void
     {
         $this->skipIfCi();
@@ -436,9 +380,6 @@ class SearchElasticsearchFacadeTest extends Unit
         $this->assertFalse($this->tester->existsSnapshotInRepository(static::REPOSITORY_NAME, static::SNAPSHOT_NAME));
     }
 
-    /**
-     * @return void
-     */
     protected function skipIfCi(): void
     {
         if (getenv('TRAVIS')) {

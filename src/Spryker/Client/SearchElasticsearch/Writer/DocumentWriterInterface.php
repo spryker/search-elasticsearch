@@ -11,11 +11,6 @@ use Generated\Shared\Transfer\SearchDocumentTransfer;
 
 interface DocumentWriterInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return bool
-     */
     public function writeDocument(SearchDocumentTransfer $searchDocumentTransfer): bool;
 
     /**
@@ -25,11 +20,6 @@ interface DocumentWriterInterface
      */
     public function writeDocuments(array $searchDocumentTransfers): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return bool
-     */
     public function deleteDocument(SearchDocumentTransfer $searchDocumentTransfer): bool;
 
     /**

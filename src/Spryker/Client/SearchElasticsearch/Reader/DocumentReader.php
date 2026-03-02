@@ -19,19 +19,11 @@ class DocumentReader implements DocumentReaderInterface
      */
     protected $elasticaClient;
 
-    /**
-     * @param \Elastica\Client $elasticaClient
-     */
     public function __construct(Client $elasticaClient)
     {
         $this->elasticaClient = $elasticaClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return \Generated\Shared\Transfer\SearchDocumentTransfer
-     */
     public function readDocument(SearchDocumentTransfer $searchDocumentTransfer): SearchDocumentTransfer
     {
         $elasticaDocument = $this->elasticaClient
@@ -45,12 +37,6 @@ class DocumentReader implements DocumentReaderInterface
         return $this->mapElasticaDocumentToSearchDocumentTransfer($elasticaDocument, $searchDocumentTransfer);
     }
 
-    /**
-     * @param \Elastica\Document $document
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return \Generated\Shared\Transfer\SearchDocumentTransfer
-     */
     protected function mapElasticaDocumentToSearchDocumentTransfer(Document $document, SearchDocumentTransfer $searchDocumentTransfer): SearchDocumentTransfer
     {
         /** @var array $data */
@@ -76,11 +62,6 @@ class DocumentReader implements DocumentReaderInterface
         return key($elasticaIndex->getMapping());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return string
-     */
     protected function getIndexName(SearchDocumentTransfer $searchDocumentTransfer): string
     {
         return $searchDocumentTransfer->requireSearchContext()

@@ -20,19 +20,11 @@ class DocumentWriterFactory implements DocumentWriterFactoryInterface
      */
     protected $mappingTypeSupportDetector;
 
-    /**
-     * @param \Spryker\Shared\SearchElasticsearch\MappingType\MappingTypeSupportDetectorInterface $mappingTypeSupportDetector
-     */
     public function __construct(MappingTypeSupportDetectorInterface $mappingTypeSupportDetector)
     {
         $this->mappingTypeSupportDetector = $mappingTypeSupportDetector;
     }
 
-    /**
-     * @param \Elastica\Client $client
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Writer\DocumentWriterInterface
-     */
     public function createDocumentWriter(Client $client): DocumentWriterInterface
     {
         if ($this->mappingTypeSupportDetector->isMappingTypeSupported()) {

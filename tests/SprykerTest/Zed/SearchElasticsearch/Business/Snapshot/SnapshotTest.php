@@ -53,9 +53,6 @@ class SnapshotTest extends Unit
      */
     protected $elasticsearchSnapshot;
 
-    /**
-     * @return void
-     */
     protected function _setUp(): void
     {
         parent::_setUp();
@@ -66,9 +63,6 @@ class SnapshotTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCanCreateSnapshot(): void
     {
         $responseMock = $this->createMock(Response::class);
@@ -89,9 +83,6 @@ class SnapshotTest extends Unit
         $this->elasticsearchSnapshot->createSnapshot(static::REPOSITORY_NAME, static::SNAPSHOT_NAME, static::OPTIONS);
     }
 
-    /**
-     * @return void
-     */
     public function testCanRestoreSnapshot(): void
     {
         $responseMock = $this->createMock(Response::class);
@@ -112,9 +103,6 @@ class SnapshotTest extends Unit
         $this->elasticsearchSnapshot->restoreSnapshot(static::REPOSITORY_NAME, static::SNAPSHOT_NAME, static::OPTIONS);
     }
 
-    /**
-     * @return void
-     */
     public function testCanGetSnapshot(): void
     {
         // Arrange
@@ -135,9 +123,6 @@ class SnapshotTest extends Unit
         $this->assertTrue($result);
     }
 
-    /**
-     * @return void
-     */
     public function testHandlesExceptionThrownWhenAttemptingToGetSnapshot(): void
     {
         // Arrange

@@ -43,9 +43,6 @@ class SearchElasticsearchClientTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testSearchesBySearchString(): void
     {
         // Arrange
@@ -66,11 +63,6 @@ class SearchElasticsearchClientTest extends Unit
         $this->assertMatchFound($resultSet, $searchString);
     }
 
-    /**
-     * @param \Elastica\Query|null $query
-     *
-     * @return \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface
-     */
     protected function createQueryPluginMock(?Query $query = null): QueryInterface
     {
         /** @var \SprykerTest\Client\SearchElasticsearch\Plugin\Fixtures\BaseQueryPlugin|\PHPUnit\Framework\MockObject\MockObject $queryPlugin */
@@ -86,11 +78,6 @@ class SearchElasticsearchClientTest extends Unit
         return $queryPlugin;
     }
 
-    /**
-     * @param string $searchString
-     *
-     * @return \Elastica\Query
-     */
     protected function buildQueryStringQuery(string $searchString): Query
     {
         $query = $this->buildQuery();
@@ -100,19 +87,11 @@ class SearchElasticsearchClientTest extends Unit
         return $query;
     }
 
-    /**
-     * @return \Elastica\Query
-     */
     protected function buildQuery(): Query
     {
         return new Query();
     }
 
-    /**
-     * @param \Elastica\Query\AbstractQuery $matchQuery
-     *
-     * @return \Elastica\Query\BoolQuery
-     */
     protected function buildBoolQuery(AbstractQuery $matchQuery): BoolQuery
     {
         $boolQuery = new BoolQuery();
@@ -121,11 +100,6 @@ class SearchElasticsearchClientTest extends Unit
         return $boolQuery;
     }
 
-    /**
-     * @param string $searchString
-     *
-     * @return \Elastica\Query\MultiMatch
-     */
     protected function buildMultiMatchQuery(string $searchString): MultiMatch
     {
         $fields = [
@@ -141,9 +115,6 @@ class SearchElasticsearchClientTest extends Unit
         return $matchQuery;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\SearchContextTransfer
-     */
     protected function buildSearchContextTransfer(): SearchContextTransfer
     {
         $searchContextTransfer = new SearchContextTransfer();
@@ -154,12 +125,6 @@ class SearchElasticsearchClientTest extends Unit
         return $searchContextTransfer;
     }
 
-    /**
-     * @param \Elastica\ResultSet $resultSet
-     * @param string $expectedSearchValue
-     *
-     * @return void
-     */
     protected function assertMatchFound(ResultSet $resultSet, string $expectedSearchValue): void
     {
         $matchFound = false;
@@ -177,9 +142,6 @@ class SearchElasticsearchClientTest extends Unit
         $this->assertTrue($matchFound);
     }
 
-    /**
-     * @return void
-     */
     public function testCanWriteDocument(): void
     {
         // Arrange
@@ -194,9 +156,6 @@ class SearchElasticsearchClientTest extends Unit
         $this->tester->assertDocumentExists($documentId, static::INDEX_NAME);
     }
 
-    /**
-     * @return void
-     */
     public function testCanWriteMultipleDocuments(): void
     {
         // Arrange
@@ -217,9 +176,6 @@ class SearchElasticsearchClientTest extends Unit
         }
     }
 
-    /**
-     * @return void
-     */
     public function testCanReadDocument(): void
     {
         // Arrange
@@ -235,9 +191,6 @@ class SearchElasticsearchClientTest extends Unit
         $this->assertSame($documentData, $result->getData());
     }
 
-    /**
-     * @return void
-     */
     public function testCanDeleteDocument(): void
     {
         // Arrange
@@ -252,9 +205,6 @@ class SearchElasticsearchClientTest extends Unit
         $this->tester->assertDocumentDoesNotExist($documentId, static::INDEX_NAME);
     }
 
-    /**
-     * @return void
-     */
     public function testCanDeleteMultipleDocuments(): void
     {
         // Arrange

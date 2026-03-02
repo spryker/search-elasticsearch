@@ -27,9 +27,6 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class IndexDefinitionReaderTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testReadConvertsAJsonStringIntoAnArray(): void
     {
         $splFileInfoMock = $this->getFileMock();

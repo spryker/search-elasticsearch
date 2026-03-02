@@ -11,10 +11,5 @@ use Psr\Log\LoggerInterface;
 
 interface IndexMapInstallerInterface
 {
-    /**
-     * @param \Psr\Log\LoggerInterface $logger
-     *
-     * @return void
-     */
     public function install(LoggerInterface $logger): void;
 }

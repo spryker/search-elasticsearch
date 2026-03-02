@@ -68,13 +68,6 @@ abstract class AbstractIndexTest extends Unit
         return $this->createMock(Index::class);
     }
 
-    /**
-     * @param string $indexName
-     * @param array $mappings
-     * @param array $settings
-     *
-     * @return \Generated\Shared\Transfer\IndexDefinitionTransfer
-     */
     protected function createIndexDefinitionTransfer(string $indexName = 'index_name', array $mappings = [[]], array $settings = []): IndexDefinitionTransfer
     {
         return (new IndexDefinitionTransfer())

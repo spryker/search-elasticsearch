@@ -11,9 +11,6 @@ use Elastica\Index;
 
 class MappingTypeSupportDetector implements MappingTypeSupportDetectorInterface
 {
-    /**
-     * @return bool
-     */
     public function isMappingTypeSupported(): bool
     {
         return method_exists(Index::class, 'getType');

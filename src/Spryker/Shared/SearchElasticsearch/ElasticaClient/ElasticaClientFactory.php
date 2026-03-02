@@ -16,11 +16,6 @@ class ElasticaClientFactory implements ElasticaClientFactoryInterface
      */
     protected static $client;
 
-    /**
-     * @param array $clientConfig
-     *
-     * @return \Elastica\Client
-     */
     public function createClient(array $clientConfig): Client
     {
         if (!static::$client) {

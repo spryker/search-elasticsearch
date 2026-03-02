@@ -40,9 +40,6 @@ class IndexSettingsUpdaterTest extends Unit
      */
     protected $indexSettingsUpdater;
 
-    /**
-     * @return void
-     */
     protected function _setUp(): void
     {
         parent::_setUp();
@@ -75,9 +72,6 @@ class IndexSettingsUpdaterTest extends Unit
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     * @return array
-     */
     public function canAcceptIndexDefinitionProvider(): array
     {
         return [
@@ -124,9 +118,6 @@ class IndexSettingsUpdaterTest extends Unit
         $this->indexSettingsUpdater->run($indexDefinitionTransfer, new NullLogger());
     }
 
-    /**
-     * @return array
-     */
     public function setsCorrectSettingsProvider(): array
     {
         return [
@@ -220,13 +211,6 @@ class IndexSettingsUpdaterTest extends Unit
             ->getMock();
     }
 
-    /**
-     * @param array $settings
-     * @param array $mappings
-     * @param string $indexName
-     *
-     * @return \Generated\Shared\Transfer\IndexDefinitionTransfer
-     */
     protected function createIndexDefinitionTransfer(array $settings, array $mappings = [], string $indexName = ''): IndexDefinitionTransfer
     {
         return (new IndexDefinitionTransfer())->setSettings($settings)

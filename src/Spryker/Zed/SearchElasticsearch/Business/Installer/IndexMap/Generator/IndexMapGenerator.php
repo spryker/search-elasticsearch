@@ -59,21 +59,12 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
      */
     protected $twig;
 
-    /**
-     * @param \Spryker\Zed\SearchElasticsearch\SearchElasticsearchConfig $config
-     * @param \Twig\Environment $twig
-     */
     public function __construct(SearchElasticsearchConfig $config, Environment $twig)
     {
         $this->config = $config;
         $this->twig = $twig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\IndexDefinitionTransfer $indexDefinition
-     *
-     * @return void
-     */
     public function generate(IndexDefinitionTransfer $indexDefinition): void
     {
         foreach ($indexDefinition->getMappings() as $mappingName => $mapping) {
@@ -82,11 +73,6 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
         }
     }
 
-    /**
-     * @param string $mappingName
-     *
-     * @return string
-     */
     protected function normalizeToClassName(string $mappingName): string
     {
         $normalized = preg_replace('/\\W+/', '_', $mappingName);
@@ -100,12 +86,6 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
         return $normalized;
     }
 
-    /**
-     * @param string $mappingName
-     * @param array $mapping
-     *
-     * @return void
-     */
     protected function generateIndexMapClass(string $mappingName, array $mapping): void
     {
         $targetDirectory = $this->config->getClassTargetDirectory();
@@ -120,12 +100,6 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
         file_put_contents($targetDirectory . $fileName, $fileContent);
     }
 
-    /**
-     * @param string $mappingName
-     * @param array $mapping
-     *
-     * @return array
-     */
     protected function getTemplateData(string $mappingName, array $mapping): array
     {
         $properties = $this->getMappingProperties($mapping);
@@ -137,12 +111,6 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
         ];
     }
 
-    /**
-     * @param array $properties
-     * @param string|null $path
-     *
-     * @return array
-     */
     protected function getConstants(array $properties, ?string $path = null): array
     {
         $constants = [];
@@ -158,12 +126,6 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
         return $constants;
     }
 
-    /**
-     * @param array $properties
-     * @param string|null $path
-     *
-     * @return array
-     */
     protected function getMetadata(array $properties, ?string $path = null): array
     {
         $metadata = [];
@@ -179,21 +141,11 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
         return $metadata;
     }
 
-    /**
-     * @param array $mapping
-     *
-     * @return array
-     */
     protected function getMappingProperties(array $mapping): array
     {
         return $mapping[static::PROPERTIES] ?? [];
     }
 
-    /**
-     * @param string $string
-     *
-     * @return string
-     */
     protected function convertToConstant(string $string): string
     {
         $normalized = preg_replace('/\\W+/', '_', $string);
@@ -203,13 +155,6 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
         return $normalized;
     }
 
-    /**
-     * @param array $propertyData
-     * @param array $metadata
-     * @param string $propertyConstantName
-     *
-     * @return array
-     */
     protected function getScalarMetadata(array $propertyData, array $metadata, string $propertyConstantName): array
     {
         foreach ($propertyData as $key => $value) {
@@ -221,14 +166,6 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
         return $metadata;
     }
 
-    /**
-     * @param string|null $path
-     * @param array $propertyData
-     * @param string $propertyName
-     * @param array $metadata
-     *
-     * @return array
-     */
     protected function getChildMetadata(?string $path, array $propertyData, string $propertyName, array $metadata): array
     {
         if (!isset($propertyData[static::PROPERTIES])) {
@@ -244,14 +181,6 @@ class IndexMapGenerator implements IndexMapGeneratorInterface
         return $metadata;
     }
 
-    /**
-     * @param string|null $path
-     * @param array $propertyData
-     * @param string $propertyName
-     * @param array $constants
-     *
-     * @return array
-     */
     protected function getChildConstants(?string $path, array $propertyData, string $propertyName, array $constants): array
     {
         if (!isset($propertyData[static::PROPERTIES])) {

@@ -24,9 +24,6 @@ use Spryker\Zed\SearchElasticsearch\Business\Definition\Merger\IndexDefinitionMe
  */
 class IndexDefinitionMergerTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testMergeMergesDefinitions(): void
     {
         $definitionA = ['foo' => ['bar' => 1, 'baz' => 2]];

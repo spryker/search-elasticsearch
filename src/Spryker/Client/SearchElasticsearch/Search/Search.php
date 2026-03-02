@@ -24,9 +24,6 @@ class Search implements SearchInterface
      */
     protected $client;
 
-    /**
-     * @param \Elastica\Client $client
-     */
     public function __construct(Client $client)
     {
         $this->client = $client;
@@ -121,11 +118,6 @@ class Search implements SearchInterface
         return $searchQuery->getSearchContext();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return \Elastica\Index
-     */
     protected function getIndexForQueryFromSearchContext(SearchContextTransfer $searchContextTransfer): Index
     {
         $indexName = $this->getIndexName($searchContextTransfer);
@@ -133,11 +125,6 @@ class Search implements SearchInterface
         return $this->client->getIndex($indexName);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return string
-     */
     protected function getIndexName(SearchContextTransfer $searchContextTransfer): string
     {
         $this->assertSearchContextTransferHasIndexName($searchContextTransfer);
@@ -148,11 +135,6 @@ class Search implements SearchInterface
             ->getIndexName();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return void
-     */
     protected function assertSearchContextTransferHasIndexName(SearchContextTransfer $searchContextTransfer): void
     {
         $searchContextTransfer->requireElasticsearchContext()->getElasticsearchContext()->requireIndexName();

@@ -37,13 +37,6 @@ abstract class AbstractFacetAggregation implements FacetAggregationInterface
      */
     public const PATH_SEPARATOR = '.';
 
-    /**
-     * @param string $fieldName
-     * @param \Elastica\Aggregation\AbstractAggregation $aggregation
-     * @param string|null $path
-     *
-     * @return \Elastica\Aggregation\AbstractAggregation
-     */
     protected function createNestedFacetAggregation(string $fieldName, AbstractAggregation $aggregation, ?string $path = null): AbstractAggregation
     {
         if ($path === null) {
@@ -54,12 +47,6 @@ abstract class AbstractFacetAggregation implements FacetAggregationInterface
             ->addAggregation($aggregation);
     }
 
-    /**
-     * @param string $fieldName
-     * @param int $size
-     *
-     * @return \Elastica\Aggregation\AbstractSimpleAggregation
-     */
     protected function createFacetNameAggregation(string $fieldName, int $size): AbstractSimpleAggregation
     {
         $terms = (new Terms($fieldName . static::NAME_SUFFIX))
@@ -69,12 +56,6 @@ abstract class AbstractFacetAggregation implements FacetAggregationInterface
         return $terms;
     }
 
-    /**
-     * @param string $parentFieldName
-     * @param string $fieldName
-     *
-     * @return \Elastica\Aggregation\AbstractAggregation
-     */
     protected function createStandaloneFacetNameAggregation(string $parentFieldName, string $fieldName): AbstractAggregation
     {
         $filterName = $this->addNestedFieldPrefix($parentFieldName, $fieldName);
@@ -86,22 +67,11 @@ abstract class AbstractFacetAggregation implements FacetAggregationInterface
             ]));
     }
 
-    /**
-     * @param string $nestedFieldName
-     * @param string $fieldName
-     *
-     * @return string
-     */
     protected function addNestedFieldPrefix(string $nestedFieldName, string $fieldName): string
     {
         return $nestedFieldName . static::PATH_SEPARATOR . $fieldName;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return string
-     */
     protected function getNestedFieldName(FacetConfigTransfer $facetConfigTransfer): string
     {
         $nestedFieldName = $facetConfigTransfer->getFieldName();
@@ -116,12 +86,6 @@ abstract class AbstractFacetAggregation implements FacetAggregationInterface
         return $nestedFieldName;
     }
 
-    /**
-     * @param \Elastica\Aggregation\AbstractAggregation $aggregation
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Elastica\Aggregation\AbstractAggregation
-     */
     protected function applyAggregationParams(AbstractAggregation $aggregation, FacetConfigTransfer $facetConfigTransfer): AbstractAggregation
     {
         foreach ($facetConfigTransfer->getAggregationParams() as $aggregationParamKey => $aggregationParamValue) {

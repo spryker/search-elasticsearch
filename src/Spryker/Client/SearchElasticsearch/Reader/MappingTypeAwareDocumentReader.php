@@ -22,19 +22,11 @@ class MappingTypeAwareDocumentReader implements DocumentReaderInterface
      */
     protected $elasticaClient;
 
-    /**
-     * @param \Elastica\Client $elasticaClient
-     */
     public function __construct(Client $elasticaClient)
     {
         $this->elasticaClient = $elasticaClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return \Generated\Shared\Transfer\SearchDocumentTransfer
-     */
     public function readDocument(SearchDocumentTransfer $searchDocumentTransfer): SearchDocumentTransfer
     {
         $indexName = $this->getIndexName($searchDocumentTransfer);
@@ -46,12 +38,6 @@ class MappingTypeAwareDocumentReader implements DocumentReaderInterface
         return $this->mapElasticaDocumentToSearchDocumentTransfer($elasticaDocument, $searchDocumentTransfer);
     }
 
-    /**
-     * @param \Elastica\Document $document
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return \Generated\Shared\Transfer\SearchDocumentTransfer
-     */
     protected function mapElasticaDocumentToSearchDocumentTransfer(Document $document, SearchDocumentTransfer $searchDocumentTransfer): SearchDocumentTransfer
     {
         /** @var array $data */
@@ -64,11 +50,6 @@ class MappingTypeAwareDocumentReader implements DocumentReaderInterface
             ->setData($data);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return string
-     */
     protected function getIndexName(SearchDocumentTransfer $searchDocumentTransfer): string
     {
         return $searchDocumentTransfer->requireSearchContext()

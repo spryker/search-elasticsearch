@@ -11,10 +11,5 @@ use Symfony\Component\Finder\SplFileInfo;
 
 interface IndexDefinitionReaderInterface
 {
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $fileInfo
-     *
-     * @return array
-     */
     public function read(SplFileInfo $fileInfo): array;
 }

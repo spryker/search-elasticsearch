@@ -17,10 +17,6 @@ class PriceRangeExtractor extends RangeExtractor
      */
     protected $moneyClient;
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     * @param \Spryker\Client\SearchElasticsearch\Dependency\Client\SearchElasticsearchToMoneyClientInterface $moneyClient
-     */
     public function __construct(FacetConfigTransfer $facetConfigTransfer, SearchElasticsearchToMoneyClientInterface $moneyClient)
     {
         parent::__construct($facetConfigTransfer);
@@ -67,11 +63,6 @@ class PriceRangeExtractor extends RangeExtractor
         return [$activeMin, $activeMax];
     }
 
-    /**
-     * @param float $value
-     *
-     * @return int
-     */
     protected function convertFromFloatToInteger(float $value): int
     {
         $moneyTransfer = $this->moneyClient->fromFloat((float)$value);

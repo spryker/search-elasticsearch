@@ -36,10 +36,6 @@ class FacetExtractor extends AbstractAggregationExtractor implements Aggregation
      */
     protected $valueTransformerPlugin;
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     * @param \Spryker\Client\SearchElasticsearch\AggregationExtractor\FacetValueTransformerFactoryInterface $facetValueTransformerFactory
-     */
     public function __construct(FacetConfigTransfer $facetConfigTransfer, FacetValueTransformerFactoryInterface $facetValueTransformerFactory)
     {
         $this->facetConfigTransfer = $facetConfigTransfer;
@@ -158,21 +154,11 @@ class FacetExtractor extends AbstractAggregationExtractor implements Aggregation
         return $facetResultValues;
     }
 
-    /**
-     * @param string $fieldName
-     *
-     * @return string
-     */
     protected function getFieldNameWithNameSuffix(string $fieldName): string
     {
         return $fieldName . StringFacetAggregation::NAME_SUFFIX;
     }
 
-    /**
-     * @param string $fieldName
-     *
-     * @return string
-     */
     protected function getFieldNameWithValueSuffix(string $fieldName): string
     {
         return $fieldName . StringFacetAggregation::VALUE_SUFFIX;

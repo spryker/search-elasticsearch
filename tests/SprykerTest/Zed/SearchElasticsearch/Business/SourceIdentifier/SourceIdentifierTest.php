@@ -59,9 +59,6 @@ class SourceIdentifierTest extends Unit
         $this->assertEquals($expectedIndexName, $resolvedIndexName);
     }
 
-    /**
-     * @return array
-     */
     public function sourceIdentifierTranslationDataProvider(): array
     {
         return [
@@ -92,13 +89,6 @@ class SourceIdentifierTest extends Unit
         ];
     }
 
-    /**
-     * @param string $sourceIdentifier
-     * @param string $indexPrefix
-     * @param string|null $currentStore
-     *
-     * @return string
-     */
     protected function buildIndexName(string $sourceIdentifier, string $indexPrefix = '', ?string $currentStore = null): string
     {
         $indexParameters = [

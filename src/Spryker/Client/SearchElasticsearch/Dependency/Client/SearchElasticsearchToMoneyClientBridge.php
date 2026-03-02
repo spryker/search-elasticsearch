@@ -24,12 +24,6 @@ class SearchElasticsearchToMoneyClientBridge implements SearchElasticsearchToMon
         $this->moneyClient = $moneyClient;
     }
 
-    /**
-     * @param float $amount
-     * @param string|null $isoCode
-     *
-     * @return \Generated\Shared\Transfer\MoneyTransfer
-     */
     public function fromFloat(float $amount, ?string $isoCode = null): MoneyTransfer
     {
         return $this->moneyClient->fromFloat($amount, $isoCode);

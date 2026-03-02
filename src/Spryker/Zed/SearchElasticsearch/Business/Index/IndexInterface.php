@@ -12,68 +12,22 @@ use Generated\Shared\Transfer\SearchContextTransfer;
 
 interface IndexInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return bool
-     */
     public function openIndex(SearchContextTransfer $searchContextTransfer): bool;
 
-    /**
-     * @param string|null $storeName
-     *
-     * @return bool
-     */
     public function openIndexes(?string $storeName = null): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return bool
-     */
     public function closeIndex(SearchContextTransfer $searchContextTransfer): bool;
 
-    /**
-     * @param string|null $storeName
-     *
-     * @return bool
-     */
     public function closeIndexes(?string $storeName = null): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return bool
-     */
     public function deleteIndex(SearchContextTransfer $searchContextTransfer): bool;
 
-    /**
-     * @param string|null $storeName
-     *
-     * @return bool
-     */
     public function deleteIndexes(?string $storeName = null): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $sourceSearchContextTransfer
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $targetSearchContextTransfer
-     *
-     * @return bool
-     */
     public function copyIndex(SearchContextTransfer $sourceSearchContextTransfer, SearchContextTransfer $targetSearchContextTransfer): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\ElasticsearchSearchContextTransfer $elasticsearchSearchContextTransfer
-     *
-     * @return int
-     */
     public function getDocumentsTotalCount(ElasticsearchSearchContextTransfer $elasticsearchSearchContextTransfer): int;
 
-    /**
-     * @param \Generated\Shared\Transfer\ElasticsearchSearchContextTransfer $elasticsearchSearchContextTransfer
-     *
-     * @return array
-     */
     public function getIndexMetaData(ElasticsearchSearchContextTransfer $elasticsearchSearchContextTransfer): array;
 
     /**

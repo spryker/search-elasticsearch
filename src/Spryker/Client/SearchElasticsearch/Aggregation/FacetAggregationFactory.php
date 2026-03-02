@@ -30,11 +30,6 @@ class FacetAggregationFactory implements FacetAggregationFactoryInterface
      */
     protected $searchConfig;
 
-    /**
-     * @param \Spryker\Shared\SearchExtension\SourceInterface $indexMap
-     * @param \Spryker\Client\SearchElasticsearch\Aggregation\AggregationBuilderInterface $aggregationBuilder
-     * @param \Spryker\Client\SearchElasticsearch\SearchElasticsearchConfig $searchConfig
-     */
     public function __construct(SourceInterface $indexMap, AggregationBuilderInterface $aggregationBuilder, SearchElasticsearchConfig $searchConfig)
     {
         $this->indexMap = $indexMap;
@@ -42,21 +37,11 @@ class FacetAggregationFactory implements FacetAggregationFactoryInterface
         $this->searchConfig = $searchConfig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Aggregation\FacetAggregationInterface
-     */
     public function create(FacetConfigTransfer $facetConfigTransfer): FacetAggregationInterface
     {
         return $this->createByFacetType($facetConfigTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Aggregation\FacetAggregationInterface
-     */
     protected function createByFacetType(FacetConfigTransfer $facetConfigTransfer): FacetAggregationInterface
     {
         switch ($facetConfigTransfer->getType()) {
@@ -95,31 +80,16 @@ class FacetAggregationFactory implements FacetAggregationFactoryInterface
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return string|null
-     */
     protected function getFacetValueType(FacetConfigTransfer $facetConfigTransfer): ?string
     {
         return $this->indexMap->getType($facetConfigTransfer->getFieldName() . '.facet-value');
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Aggregation\FacetAggregationInterface
-     */
     protected function createCategoryFacetAggregation(FacetConfigTransfer $facetConfigTransfer): FacetAggregationInterface
     {
         return new CategoryFacetAggregation($facetConfigTransfer, $this->aggregationBuilder);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Aggregation\FacetAggregationInterface
-     */
     protected function createStringFacetAggregation(FacetConfigTransfer $facetConfigTransfer): FacetAggregationInterface
     {
         return new StringFacetAggregation(
@@ -129,11 +99,6 @@ class FacetAggregationFactory implements FacetAggregationFactoryInterface
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchElasticsearch\Aggregation\FacetAggregationInterface
-     */
     protected function createNumericFacetAggregation(FacetConfigTransfer $facetConfigTransfer): FacetAggregationInterface
     {
         return new NumericFacetAggregation($facetConfigTransfer, $this->aggregationBuilder, $this->searchConfig);

@@ -44,12 +44,6 @@ class IndexInstallBroker implements IndexInstallBrokerInterface
         $this->storeFacade = $storeFacade;
     }
 
-    /**
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param string|null $storeName
-     *
-     * @return void
-     */
     public function install(LoggerInterface $logger, ?string $storeName): void
     {
         foreach ($this->getGetIndexDefinitionTransfers($storeName) as $indexDefinitionTransfer) {
@@ -57,12 +51,6 @@ class IndexInstallBroker implements IndexInstallBrokerInterface
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\IndexDefinitionTransfer $indexDefinitionTransfer
-     * @param \Psr\Log\LoggerInterface $logger
-     *
-     * @return void
-     */
     protected function installIndexDefinition(IndexDefinitionTransfer $indexDefinitionTransfer, LoggerInterface $logger): void
     {
         foreach ($this->installer as $installer) {
@@ -96,9 +84,6 @@ class IndexInstallBroker implements IndexInstallBrokerInterface
         return $indexDefinitionTransfers;
     }
 
-    /**
-     * @return string
-     */
     protected function getCurrentStore(): string
     {
         return APPLICATION_STORE;

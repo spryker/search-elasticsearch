@@ -55,9 +55,6 @@ abstract class AbstractResultFormatterPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createStringSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -73,9 +70,6 @@ abstract class AbstractResultFormatterPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createMultiStringSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -105,9 +99,6 @@ abstract class AbstractResultFormatterPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createIntegerSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -123,9 +114,6 @@ abstract class AbstractResultFormatterPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createMultiIntegerSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();
@@ -155,9 +143,6 @@ abstract class AbstractResultFormatterPluginTest extends Unit
         return $searchConfigMock;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createCategorySearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();

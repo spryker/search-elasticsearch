@@ -29,11 +29,6 @@ class IndexUpdaterFactory implements IndexUpdaterFactoryInterface
      */
     protected $mappingBuilder;
 
-    /**
-     * @param \Elastica\Client $client
-     * @param \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Mapping\MappingBuilderInterface $mappingBuilder
-     * @param \Spryker\Shared\SearchElasticsearch\MappingType\MappingTypeSupportDetectorInterface $mappingTypeSupportDetector
-     */
     public function __construct(Client $client, MappingBuilderInterface $mappingBuilder, MappingTypeSupportDetectorInterface $mappingTypeSupportDetector)
     {
         $this->client = $client;
@@ -41,9 +36,6 @@ class IndexUpdaterFactory implements IndexUpdaterFactoryInterface
         $this->mappingTypeSupportDetector = $mappingTypeSupportDetector;
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\InstallerInterface
-     */
     public function createIndexUpdater(): InstallerInterface
     {
         if ($this->mappingTypeSupportDetector->isMappingTypeSupported()) {

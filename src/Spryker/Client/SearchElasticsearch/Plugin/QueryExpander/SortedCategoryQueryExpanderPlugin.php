@@ -23,9 +23,6 @@ class SortedCategoryQueryExpanderPlugin extends AbstractPlugin implements QueryE
      */
     protected $categoryParamName;
 
-    /**
-     * @param string $categoryParamName
-     */
     public function __construct(string $categoryParamName)
     {
         $this->categoryParamName = $categoryParamName;
@@ -57,11 +54,6 @@ class SortedCategoryQueryExpanderPlugin extends AbstractPlugin implements QueryE
         return $searchQuery;
     }
 
-    /**
-     * @param \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface $searchQuery
-     *
-     * @return bool
-     */
     protected function isFullTextSearch(QueryInterface $searchQuery): bool
     {
         if (!$searchQuery instanceof SearchStringGetterInterface) {
@@ -135,11 +127,6 @@ class SortedCategoryQueryExpanderPlugin extends AbstractPlugin implements QueryE
         return $requestParameters[$this->categoryParamName];
     }
 
-    /**
-     * @param int $idCategoryNode
-     *
-     * @return string
-     */
     public static function buildSortFieldName(int $idCategoryNode): string
     {
         return sprintf(

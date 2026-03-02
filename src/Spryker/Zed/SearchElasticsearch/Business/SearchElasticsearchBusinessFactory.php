@@ -60,9 +60,6 @@ use Twig\Loader\FilesystemLoader;
  */
 class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Elastica\Client
-     */
     public function getElasticsearchClient(): Client
     {
         return $this->createElasticsearchClientFactory()->createClient(
@@ -70,9 +67,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Definition\Loader\IndexDefinitionLoaderInterface
-     */
     public function createIndexDefinitionLoader(): IndexDefinitionLoaderInterface
     {
         return new IndexDefinitionLoader(
@@ -82,9 +76,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Definition\Finder\SchemaDefinitionFinderInterface
-     */
     public function createIndexDefinitionFinder(): SchemaDefinitionFinderInterface
     {
         return new SchemaDefinitionFinder(
@@ -92,9 +83,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Definition\Reader\IndexDefinitionReaderInterface
-     */
     public function createIndexDefinitionReader(): IndexDefinitionReaderInterface
     {
         return new IndexDefinitionReader(
@@ -102,25 +90,16 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\Dependency\Service\SearchElasticsearchToUtilEncodingServiceInterface
-     */
     public function getUtilEncodingService(): SearchElasticsearchToUtilEncodingServiceInterface
     {
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::SERVICE_UTIL_ENCODING);
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Definition\Merger\IndexDefinitionMergerInterface
-     */
     public function createIndexDefinitionMerger(): IndexDefinitionMergerInterface
     {
         return new IndexDefinitionMerger();
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\SourceIdentifier\SourceIdentifierInterface
-     */
     public function createSourceIdentifier(): SourceIdentifierInterface
     {
         return new SourceIdentifier(
@@ -128,9 +107,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\IndexInstallBrokerInterface
-     */
     public function createIndexInstallBroker(): IndexInstallBrokerInterface
     {
         return new IndexInstallBroker(
@@ -140,9 +116,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Definition\Builder\IndexDefinitionBuilderInterface
-     */
     public function createIndexDefinitionBuilder(): IndexDefinitionBuilderInterface
     {
         return new IndexDefinitionBuilder(
@@ -165,9 +138,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         ];
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\InstallerInterface
-     */
     public function createIndexInstaller(): InstallerInterface
     {
         return new ES6IndexInstaller(
@@ -176,9 +146,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Mapping\MappingBuilderInterface
-     */
     public function createMappingBuilder(): MappingBuilderInterface
     {
         return $this->createMappingBuilderFactory()->createMappingBuilder();
@@ -196,9 +163,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\InstallerInterface
-     */
     public function createIndexUpdater(): InstallerInterface
     {
         return $this->createIndexUpdaterFactory()->createIndexUpdater();
@@ -218,9 +182,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\InstallerInterface
-     */
     public function createIndexSettingsUpdater(): InstallerInterface
     {
         return new IndexSettingsUpdater(
@@ -230,9 +191,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\IndexMap\IndexMapInstallerInterface
-     */
     public function createIndexMapperInstaller(): IndexMapInstallerInterface
     {
         return new IndexMapIndexMapInstaller(
@@ -244,9 +202,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\IndexMap\Cleaner\IndexMapCleanerInterface
-     */
     public function createIndexMapCleaner(): IndexMapCleanerInterface
     {
         return new CleanerIndexMapCleaner(
@@ -254,9 +209,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\IndexMap\Generator\IndexMapGeneratorInterface
-     */
     public function createIndexMapGenerator(): IndexMapGeneratorInterface
     {
         return new GeneratorIndexMapGenerator(
@@ -265,9 +217,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Twig\Environment
-     */
     public function createTwig(): Environment
     {
         return new Environment(
@@ -275,33 +224,21 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Twig\Loader\FilesystemLoader
-     */
     public function createFilesystemLoader(): FilesystemLoader
     {
         return new FilesystemLoader($this->getConfig()->getIndexMapClassTemplateDirectory());
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\ElasticaClient\ElasticaClientFactoryInterface
-     */
     public function createElasticsearchClientFactory(): ElasticaClientFactoryInterface
     {
         return new ElasticaClientFactory();
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Dependency\Service\SearchElasticsearchToUtilSanitizeServiceInterface
-     */
     public function getUtilSanitizeService(): SearchElasticsearchToUtilSanitizeServiceInterface
     {
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::SERVICE_UTIL_SANITIZE);
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Index\IndexInterface
-     */
     public function createIndex(): IndexInterface
     {
         return new Index(
@@ -312,9 +249,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Snapshot\SnapshotInterface
-     */
     public function createSnapshot(): SnapshotInterface
     {
         return new Snapshot(
@@ -322,9 +256,6 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Snapshot\RepositoryInterface
-     */
     public function createRepository(): RepositoryInterface
     {
         return new Repository(
@@ -332,25 +263,16 @@ class SearchElasticsearchBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Elastica\Snapshot
-     */
     public function createElasticaSnapshot(): ElasticaSnapshot
     {
         return new ElasticaSnapshot($this->getElasticsearchClient());
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\MappingType\MappingTypeSupportDetectorInterface
-     */
     public function createMappingTypeSupportDetector(): MappingTypeSupportDetectorInterface
     {
         return new MappingTypeSupportDetector();
     }
 
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Dependency\Facade\SearchElasticsearchToStoreFacadeInterface
-     */
     public function getStoreFacade(): SearchElasticsearchToStoreFacadeInterface
     {
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::FACADE_STORE);

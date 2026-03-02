@@ -48,9 +48,6 @@ class ElasticsearchInMemoryLoggerTest extends Unit
         $this->assertEquals($expectedResult, $elasticsearchInMemoryLogger->getLogs());
     }
 
-    /**
-     * @return array
-     */
     public function canLogCallsDataProvider(): array
     {
         return [
@@ -111,13 +108,6 @@ class ElasticsearchInMemoryLoggerTest extends Unit
         ];
     }
 
-    /**
-     * @param string|null $protocol
-     * @param string|null $host
-     * @param int|null $port
-     *
-     * @return string
-     */
     public function buildUriString(?string $protocol = null, ?string $host = null, ?int $port = null): string
     {
         return sprintf(

@@ -9,9 +9,6 @@ namespace Spryker\Client\SearchElasticsearch\Config;
 
 interface SearchConfigBuilderInterface
 {
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     public function build(): SearchConfigInterface;
 
     /**

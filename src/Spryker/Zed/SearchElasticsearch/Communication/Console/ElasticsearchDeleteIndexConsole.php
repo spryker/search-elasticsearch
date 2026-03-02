@@ -33,9 +33,6 @@ class ElasticsearchDeleteIndexConsole extends AbstractIndexNameAwareSearchIndexC
      */
     public const COMMAND_ALIAS = 'search:index:delete';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this->setName(static::COMMAND_NAME);
@@ -46,11 +43,6 @@ class ElasticsearchDeleteIndexConsole extends AbstractIndexNameAwareSearchIndexC
         parent::configure();
     }
 
-    /**
-     * @param string $indexName
-     *
-     * @return int
-     */
     protected function executeForSingleIndex(string $indexName): int
     {
         $searchContextTransfer = $this->buildSearchContextTransferFromIndexName($indexName);
@@ -66,11 +58,6 @@ class ElasticsearchDeleteIndexConsole extends AbstractIndexNameAwareSearchIndexC
         return static::CODE_ERROR;
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     *
-     * @return int
-     */
     protected function executeForAllIndexes(InputInterface $input): int
     {
         if ($this->getFacade()->deleteIndexes($this->getStore($input))) {
@@ -84,11 +71,6 @@ class ElasticsearchDeleteIndexConsole extends AbstractIndexNameAwareSearchIndexC
         return static::CODE_ERROR;
     }
 
-    /**
-     * @param string $indexName
-     *
-     * @return \Generated\Shared\Transfer\SearchContextTransfer
-     */
     protected function buildSearchContextTransferFromIndexName(string $indexName): SearchContextTransfer
     {
         $elasticsearchSearchContext = new ElasticsearchSearchContextTransfer();

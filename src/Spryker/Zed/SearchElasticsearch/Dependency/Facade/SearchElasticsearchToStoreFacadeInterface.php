@@ -11,9 +11,6 @@ use Generated\Shared\Transfer\StoreTransfer;
 
 interface SearchElasticsearchToStoreFacadeInterface
 {
-    /**
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getCurrentStore(): StoreTransfer;
 
     /**
@@ -21,8 +18,5 @@ interface SearchElasticsearchToStoreFacadeInterface
      */
     public function getAllStores(): array;
 
-    /**
-     * @return bool
-     */
     public function isDynamicStoreEnabled(): bool;
 }

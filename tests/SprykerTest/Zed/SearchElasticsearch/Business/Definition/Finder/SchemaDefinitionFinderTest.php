@@ -36,9 +36,6 @@ class SchemaDefinitionFinderTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testCanFindSchemaDefinitionFiles(): void
     {
         $this->tester->mockConfigMethod('getJsonSchemaDefinitionDirectories', $this->tester->getFixturesSchemaDirectory());

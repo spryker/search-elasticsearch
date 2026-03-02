@@ -37,11 +37,6 @@ class StoreQueryExpanderPlugin extends AbstractPlugin implements QueryExpanderPl
         return $searchQuery;
     }
 
-    /**
-     * @param \Elastica\Query $query
-     *
-     * @return void
-     */
     protected function addStoreFilterToQuery(Query $query): void
     {
         $boolQuery = $this->getBoolQuery($query);
@@ -75,9 +70,6 @@ class StoreQueryExpanderPlugin extends AbstractPlugin implements QueryExpanderPl
         return $boolQuery;
     }
 
-    /**
-     * @return string
-     */
     protected function getStoreName(): string
     {
         $storeTransfer = $this->getFactory()->getStoreClient()->getCurrentStore();

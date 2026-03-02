@@ -26,20 +26,11 @@ abstract class AbstractNestedQuery implements NestedQueryInterface
      */
     protected $queryBuilder;
 
-    /**
-     * @param \Spryker\Client\SearchElasticsearch\Query\QueryBuilderInterface $queryBuilder
-     */
     public function __construct(QueryBuilderInterface $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
     }
 
-    /**
-     * @param string $fieldName
-     * @param array $queries
-     *
-     * @return \Elastica\Query\Nested
-     */
     protected function bindMultipleNestedQuery(string $fieldName, array $queries): Nested
     {
         $boolQuery = $this->queryBuilder->createBoolQuery();

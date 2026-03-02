@@ -52,11 +52,6 @@ class SearchElasticsearchDependencyProvider extends AbstractDependencyProvider
      */
     public const SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     public function provideServiceLayerDependencies(Container $container): Container
     {
         $container = $this->addStoreClient($container);
@@ -69,11 +64,6 @@ class SearchElasticsearchDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addSearchConfigBuilderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_SEARCH_CONFIG_BUILDER, function (Container $container): array {
@@ -93,11 +83,6 @@ class SearchElasticsearchDependencyProvider extends AbstractDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addStoreClient(Container $container): Container
     {
         $container->set(static::CLIENT_STORE, function (Container $container): SearchElasticsearchToStoreClientInterface {
@@ -109,11 +94,6 @@ class SearchElasticsearchDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addLocaleClient(Container $container): Container
     {
         $container->set(static::CLIENT_LOCALE, function (Container $container): SearchElasticsearchToLocaleClientInterface {
@@ -125,11 +105,6 @@ class SearchElasticsearchDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addSearchConfigExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_SEARCH_CONFIG_EXPANDER, function (Container $container): array {
@@ -149,11 +124,6 @@ class SearchElasticsearchDependencyProvider extends AbstractDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addMoneyClient(Container $container): Container
     {
         $container->set(static::CLIENT_MONEY, function (Container $container): SearchElasticsearchToMoneyClientInterface {
@@ -165,11 +135,6 @@ class SearchElasticsearchDependencyProvider extends AbstractDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addUtilEncodingService(Container $container): Container
     {
         $container->set(static::SERVICE_UTIL_ENCODING, function (Container $container) {

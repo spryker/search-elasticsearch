@@ -21,19 +21,11 @@ class MappingTypeAwareDocumentWriter implements DocumentWriterInterface
      */
     protected $elasticaClient;
 
-    /**
-     * @param \Elastica\Client $client
-     */
     public function __construct(Client $client)
     {
         $this->elasticaClient = $client;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return bool
-     */
     public function writeDocument(SearchDocumentTransfer $searchDocumentTransfer): bool
     {
         $document = $this->createElasticaDocument($searchDocumentTransfer);
@@ -74,11 +66,6 @@ class MappingTypeAwareDocumentWriter implements DocumentWriterInterface
         return $documents;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return bool
-     */
     public function deleteDocument(SearchDocumentTransfer $searchDocumentTransfer): bool
     {
         $indexName = $this->getIndexName($searchDocumentTransfer);
@@ -106,11 +93,6 @@ class MappingTypeAwareDocumentWriter implements DocumentWriterInterface
         return $response->isOk();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return string
-     */
     protected function getIndexName(SearchDocumentTransfer $searchDocumentTransfer): string
     {
         return $searchDocumentTransfer->requireSearchContext()
@@ -121,11 +103,6 @@ class MappingTypeAwareDocumentWriter implements DocumentWriterInterface
             ->getIndexName();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return string
-     */
     protected function getTypeName(SearchDocumentTransfer $searchDocumentTransfer): string
     {
         return $searchDocumentTransfer->requireSearchContext()
@@ -136,11 +113,6 @@ class MappingTypeAwareDocumentWriter implements DocumentWriterInterface
             ->getTypeName();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return \Elastica\Document
-     */
     protected function createElasticaDocument(SearchDocumentTransfer $searchDocumentTransfer): Document
     {
         return new Document(

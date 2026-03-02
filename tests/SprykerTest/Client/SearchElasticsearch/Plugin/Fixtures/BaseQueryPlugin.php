@@ -63,9 +63,6 @@ class BaseQueryPlugin implements QueryInterface, SearchContextAwareQueryInterfac
         $this->searchString = $searchString;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSearchString(): ?string
     {
         return $this->searchString;

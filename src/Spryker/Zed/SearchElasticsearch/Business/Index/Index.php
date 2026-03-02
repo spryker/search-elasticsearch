@@ -40,12 +40,6 @@ class Index implements IndexInterface
      */
     protected $storeFacade;
 
-    /**
-     * @param \Elastica\Client $elasticaClient
-     * @param \Spryker\Zed\SearchElasticsearch\Business\SourceIdentifier\SourceIdentifierInterface $sourceIdentifier
-     * @param \Spryker\Zed\SearchElasticsearch\SearchElasticsearchConfig $config
-     * @param \Spryker\Zed\SearchElasticsearch\Dependency\Facade\SearchElasticsearchToStoreFacadeInterface $storeFacade
-     */
     public function __construct(
         Client $elasticaClient,
         SourceIdentifierInterface $sourceIdentifier,
@@ -58,21 +52,11 @@ class Index implements IndexInterface
         $this->storeFacade = $storeFacade;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return bool
-     */
     public function openIndex(SearchContextTransfer $searchContextTransfer): bool
     {
         return $this->getIndex($searchContextTransfer)->open()->isOk();
     }
 
-    /**
-     * @param string|null $storeName
-     *
-     * @return bool
-     */
     public function openIndexes(?string $storeName = null): bool
     {
         if (!$storeName) {
@@ -87,21 +71,11 @@ class Index implements IndexInterface
         return $this->executeOpenIndexes($storeName);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return bool
-     */
     public function closeIndex(SearchContextTransfer $searchContextTransfer): bool
     {
         return $this->getIndex($searchContextTransfer)->close()->isOk();
     }
 
-    /**
-     * @param string|null $storeName
-     *
-     * @return bool
-     */
     public function closeIndexes(?string $storeName = null): bool
     {
         if (!$storeName) {
@@ -117,21 +91,11 @@ class Index implements IndexInterface
         return $this->executeCloseIndexes($storeName);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return bool
-     */
     public function deleteIndex(SearchContextTransfer $searchContextTransfer): bool
     {
         return $this->getIndex($searchContextTransfer)->delete()->isOk();
     }
 
-    /**
-     * @param string|null $storeName
-     *
-     * @return bool
-     */
     public function deleteIndexes(?string $storeName = null): bool
     {
         if (!$storeName) {
@@ -146,12 +110,6 @@ class Index implements IndexInterface
         return $this->executeDeleteIndexes($storeName);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $sourceSearchContextTransfer
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $targetSearchContextTransfer
-     *
-     * @return bool
-     */
     public function copyIndex(SearchContextTransfer $sourceSearchContextTransfer, SearchContextTransfer $targetSearchContextTransfer): bool
     {
         return $this->elasticaClient->request(
@@ -161,11 +119,6 @@ class Index implements IndexInterface
         )->isOk();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ElasticsearchSearchContextTransfer $elasticsearchSearchContextTransfer
-     *
-     * @return int
-     */
     public function getDocumentsTotalCount(ElasticsearchSearchContextTransfer $elasticsearchSearchContextTransfer): int
     {
         $indexName = $elasticsearchSearchContextTransfer->requireIndexName()->getIndexName();
@@ -179,11 +132,6 @@ class Index implements IndexInterface
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ElasticsearchSearchContextTransfer $elasticsearchSearchContextTransfer
-     *
-     * @return array
-     */
     public function getIndexMetaData(ElasticsearchSearchContextTransfer $elasticsearchSearchContextTransfer): array
     {
         $metaData = [];
@@ -220,12 +168,6 @@ class Index implements IndexInterface
         return $this->getAvailableIndexNames($storeName);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $sourceSearchContextTransfer
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $targetSearchContextTransfer
-     *
-     * @return array
-     */
     protected function buildCopyCommandRequestData(
         SearchContextTransfer $sourceSearchContextTransfer,
         SearchContextTransfer $targetSearchContextTransfer
@@ -243,11 +185,6 @@ class Index implements IndexInterface
         ];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return \Elastica\Index
-     */
     protected function getIndex(SearchContextTransfer $searchContextTransfer): ElasticaIndex
     {
         $indexName = $this->resolveIndexNameFromSearchContextTransfer($searchContextTransfer);
@@ -255,11 +192,6 @@ class Index implements IndexInterface
         return $this->elasticaClient->getIndex($indexName);
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Elastica\Index|null
-     */
     protected function getAllIndexes(string $storeName): ?ElasticaIndex
     {
         $availableIndexNamesFormattedString = $this->getAvailableIndexNamesFormattedString($storeName);
@@ -271,11 +203,6 @@ class Index implements IndexInterface
         return $this->elasticaClient->getIndex($availableIndexNamesFormattedString);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return string
-     */
     protected function resolveIndexNameFromSearchContextTransfer(SearchContextTransfer $searchContextTransfer): string
     {
         $this->assertIndexNameIsSet($searchContextTransfer);
@@ -283,21 +210,11 @@ class Index implements IndexInterface
         return $searchContextTransfer->getElasticsearchContext()->getIndexName();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return void
-     */
     protected function assertIndexNameIsSet(SearchContextTransfer $searchContextTransfer): void
     {
         $searchContextTransfer->requireElasticsearchContext()->getElasticsearchContext()->requireIndexName();
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return string
-     */
     protected function getAvailableIndexNamesFormattedString(string $storeName): string
     {
         return implode(',', $this->getAvailableIndexNames($storeName));
@@ -319,11 +236,6 @@ class Index implements IndexInterface
         return array_intersect($supportedIndexNames, $this->elasticaClient->getCluster()->getIndexNames());
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return bool
-     */
     protected function executeOpenIndexes(string $storeName): bool
     {
         $allIndexes = $this->getAllIndexes($storeName);
@@ -335,11 +247,6 @@ class Index implements IndexInterface
         return true;
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return bool
-     */
     protected function executeCloseIndexes(string $storeName): bool
     {
         $allIndexes = $this->getAllIndexes($storeName);
@@ -351,11 +258,6 @@ class Index implements IndexInterface
         return true;
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return bool
-     */
     protected function executeDeleteIndexes(string $storeName): bool
     {
         $allIndexes = $this->getAllIndexes($storeName);

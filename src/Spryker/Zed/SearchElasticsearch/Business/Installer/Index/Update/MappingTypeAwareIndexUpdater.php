@@ -11,12 +11,6 @@ use Elastica\Index;
 
 class MappingTypeAwareIndexUpdater extends AbstractIndexUpdater
 {
-    /**
-     * @param array $mappings
-     * @param \Elastica\Index $index
-     *
-     * @return void
-     */
     protected function buildMapping(array $mappings, Index $index): void
     {
         /** @var \Elastica\Type\Mapping $mapping */

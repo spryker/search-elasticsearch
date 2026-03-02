@@ -25,10 +25,6 @@ class RangeExtractor extends AbstractAggregationExtractor implements Aggregation
      */
     protected $valueTransformerPlugin;
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     * @param \Spryker\Client\SearchExtension\Dependency\Plugin\FacetSearchResultValueTransformerPluginInterface|null $valueTransformerPlugin
-     */
     public function __construct(FacetConfigTransfer $facetConfigTransfer, ?FacetSearchResultValueTransformerPluginInterface $valueTransformerPlugin = null)
     {
         $this->facetConfigTransfer = $facetConfigTransfer;

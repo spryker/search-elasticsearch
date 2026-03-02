@@ -70,23 +70,12 @@ abstract class AbstractSuggestionExpanderPlugin extends AbstractPlugin implement
         }
     }
 
-    /**
-     * @param \Elastica\Query $query
-     * @param \Elastica\Suggest\AbstractSuggest $suggest
-     *
-     * @return void
-     */
     protected function addSuggestion(Query $query, AbstractSuggest $suggest): void
     {
         $suggestion = $this->getSuggestion($query);
         $suggestion->addSuggestion($suggest);
     }
 
-    /**
-     * @param \Elastica\Query $query
-     *
-     * @return \Elastica\Suggest
-     */
     protected function getSuggestion(Query $query): Suggest
     {
         return $query->getParam('suggest');

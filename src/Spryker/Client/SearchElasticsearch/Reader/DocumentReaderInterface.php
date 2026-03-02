@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\SearchDocumentTransfer;
 
 interface DocumentReaderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\SearchDocumentTransfer $searchDocumentTransfer
-     *
-     * @return \Generated\Shared\Transfer\SearchDocumentTransfer
-     */
     public function readDocument(SearchDocumentTransfer $searchDocumentTransfer): SearchDocumentTransfer;
 }

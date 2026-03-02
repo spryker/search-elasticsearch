@@ -12,8 +12,5 @@ namespace Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Mapping;
  */
 interface MappingBuilderFactoryInterface
 {
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\Mapping\MappingBuilderInterface
-     */
     public function createMappingBuilder(): MappingBuilderInterface;
 }

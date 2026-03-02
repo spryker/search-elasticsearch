@@ -19,19 +19,7 @@ interface SourceIdentifierInterface
      */
     public function translateToIndexName(string $sourceIdentifier, ?string $storeName): string;
 
-    /**
-     * @param string $sourceIdentifier
-     * @param string|null $storeName
-     *
-     * @return bool
-     */
     public function isSupported(string $sourceIdentifier, ?string $storeName): bool;
 
-    /**
-     * @param string $sourceIdentifier
-     * @param string|null $storeName
-     *
-     * @return bool
-     */
     public function isPrefixedWithStoreName(string $sourceIdentifier, ?string $storeName): bool;
 }

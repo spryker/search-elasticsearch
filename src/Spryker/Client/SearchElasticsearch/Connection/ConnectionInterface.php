@@ -11,8 +11,5 @@ use Generated\Shared\Transfer\SearchConnectionResponseTransfer;
 
 interface ConnectionInterface
 {
-    /**
-     * @return \Generated\Shared\Transfer\SearchConnectionResponseTransfer
-     */
     public function checkConnection(): SearchConnectionResponseTransfer;
 }

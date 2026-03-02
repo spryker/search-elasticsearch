@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\SearchContextTransfer;
 
 interface SourceIdentifierInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return bool
-     */
     public function isSupported(SearchContextTransfer $searchContextTransfer): bool;
 }

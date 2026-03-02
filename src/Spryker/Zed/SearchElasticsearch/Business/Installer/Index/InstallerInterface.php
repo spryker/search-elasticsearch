@@ -12,18 +12,7 @@ use Psr\Log\LoggerInterface;
 
 interface InstallerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\IndexDefinitionTransfer $indexDefinitionTransfer
-     *
-     * @return bool
-     */
     public function accept(IndexDefinitionTransfer $indexDefinitionTransfer): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\IndexDefinitionTransfer $indexDefinitionTransfer
-     * @param \Psr\Log\LoggerInterface $logger
-     *
-     * @return void
-     */
     public function run(IndexDefinitionTransfer $indexDefinitionTransfer, LoggerInterface $logger): void;
 }

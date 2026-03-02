@@ -22,19 +22,12 @@ class CategoryFacetAggregation extends AbstractFacetAggregation
      */
     protected $aggregationBuilder;
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     * @param \Spryker\Client\SearchElasticsearch\Aggregation\AggregationBuilderInterface $aggregationBuilder
-     */
     public function __construct(FacetConfigTransfer $facetConfigTransfer, AggregationBuilderInterface $aggregationBuilder)
     {
         $this->facetConfigTransfer = $facetConfigTransfer;
         $this->aggregationBuilder = $aggregationBuilder;
     }
 
-    /**
-     * @return \Elastica\Aggregation\AbstractAggregation
-     */
     public function createAggregation(): AbstractAggregation
     {
         $fieldName = $this->facetConfigTransfer->getFieldName();

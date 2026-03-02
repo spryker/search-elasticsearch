@@ -54,11 +54,6 @@ class FuzzyQueryExpanderPlugin extends AbstractPlugin implements QueryExpanderPl
         return $searchQuery;
     }
 
-    /**
-     * @param \Elastica\Query\BoolQuery $boolQuery
-     *
-     * @return \Elastica\Query\MultiMatch|null
-     */
     protected function getMultiMatchQuery(BoolQuery $boolQuery): ?MultiMatch
     {
         if ($boolQuery->hasParam(static::MUST_KEY)) {

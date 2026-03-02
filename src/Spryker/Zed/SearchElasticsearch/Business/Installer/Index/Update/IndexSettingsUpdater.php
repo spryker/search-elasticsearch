@@ -40,11 +40,6 @@ class IndexSettingsUpdater implements InstallerInterface
      */
     protected $utilSanitizeService;
 
-    /**
-     * @param \Elastica\Client $client
-     * @param \Spryker\Zed\SearchElasticsearch\SearchElasticsearchConfig $config
-     * @param \Spryker\Zed\SearchElasticsearch\Dependency\Service\SearchElasticsearchToUtilSanitizeServiceInterface $utilSanitizeService
-     */
     public function __construct(Client $client, SearchElasticsearchConfig $config, SearchElasticsearchToUtilSanitizeServiceInterface $utilSanitizeService)
     {
         $this->client = $client;
@@ -52,11 +47,6 @@ class IndexSettingsUpdater implements InstallerInterface
         $this->utilSanitizeService = $utilSanitizeService;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\IndexDefinitionTransfer $indexDefinitionTransfer
-     *
-     * @return bool
-     */
     public function accept(IndexDefinitionTransfer $indexDefinitionTransfer): bool
     {
         $index = $this->client->getIndex($indexDefinitionTransfer->getIndexName());
@@ -64,12 +54,6 @@ class IndexSettingsUpdater implements InstallerInterface
         return $index->exists() && $indexDefinitionTransfer->getSettings();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\IndexDefinitionTransfer $indexDefinitionTransfer
-     * @param \Psr\Log\LoggerInterface $logger
-     *
-     * @return void
-     */
     public function run(IndexDefinitionTransfer $indexDefinitionTransfer, LoggerInterface $logger): void
     {
         $index = $this->client->getIndex($indexDefinitionTransfer->getIndexName());
@@ -145,12 +129,6 @@ class IndexSettingsUpdater implements InstallerInterface
         return $settings;
     }
 
-    /**
-     * @param array $settings
-     * @param string $removeSettingPath
-     *
-     * @return array
-     */
     protected function removeSettingPath(array $settings, string $removeSettingPath): array
     {
         $settingsElement = &$settings;
@@ -173,11 +151,6 @@ class IndexSettingsUpdater implements InstallerInterface
         return $settings;
     }
 
-    /**
-     * @param array $settingPathArray
-     *
-     * @return int
-     */
     protected function getLastPathNumber(array $settingPathArray): int
     {
         end($settingPathArray);
@@ -186,11 +159,6 @@ class IndexSettingsUpdater implements InstallerInterface
         return key($settingPathArray);
     }
 
-    /**
-     * @param array $settings
-     *
-     * @return array
-     */
     protected function removeBlacklistedSettings(array $settings): array
     {
         $blacklistSettingsForIndexUpdate = $this->config->getBlacklistSettingsForIndexUpdate();
@@ -216,11 +184,6 @@ class IndexSettingsUpdater implements InstallerInterface
         return (bool)$settings;
     }
 
-    /**
-     * @param array $settings
-     *
-     * @return array
-     */
     protected function filterEmptySettings(array $settings): array
     {
         return $this->utilSanitizeService->filterOutBlankValuesRecursively($settings);

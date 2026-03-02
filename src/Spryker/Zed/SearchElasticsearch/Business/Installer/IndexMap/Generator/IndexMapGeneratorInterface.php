@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\IndexDefinitionTransfer;
 
 interface IndexMapGeneratorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\IndexDefinitionTransfer $indexDefinition
-     *
-     * @return void
-     */
     public function generate(IndexDefinitionTransfer $indexDefinition): void;
 }

@@ -12,10 +12,5 @@ use Spryker\Client\SearchExtension\Dependency\Plugin\FacetSearchResultValueTrans
 
 interface FacetValueTransformerFactoryInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return \Spryker\Client\SearchExtension\Dependency\Plugin\FacetSearchResultValueTransformerPluginInterface|null
-     */
     public function createTransformer(FacetConfigTransfer $facetConfigTransfer): ?FacetSearchResultValueTransformerPluginInterface;
 }

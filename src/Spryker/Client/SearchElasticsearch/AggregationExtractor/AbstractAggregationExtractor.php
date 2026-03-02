@@ -21,11 +21,6 @@ abstract class AbstractAggregationExtractor implements AggregationExtractorInter
      */
     public const DOC_COUNT = 'doc_count';
 
-    /**
-     * @param \Generated\Shared\Transfer\FacetConfigTransfer $facetConfigTransfer
-     *
-     * @return string
-     */
     protected function getNestedFieldName(FacetConfigTransfer $facetConfigTransfer): string
     {
         $nestedFieldName = $facetConfigTransfer->getFieldName();
@@ -40,12 +35,6 @@ abstract class AbstractAggregationExtractor implements AggregationExtractorInter
         return $nestedFieldName;
     }
 
-    /**
-     * @param string $fieldName
-     * @param string $nestedFieldName
-     *
-     * @return string
-     */
     protected function addNestedFieldPrefix(string $fieldName, string $nestedFieldName): string
     {
         return sprintf('%s%s%s', $fieldName, static::PATH_SEPARATOR, $nestedFieldName);

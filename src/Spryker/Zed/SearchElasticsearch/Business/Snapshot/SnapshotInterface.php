@@ -27,19 +27,7 @@ interface SnapshotInterface
      */
     public function restoreSnapshot(string $repositoryName, string $snapshotName, array $options = []): bool;
 
-    /**
-     * @param string $repositoryName
-     * @param string $snapshotName
-     *
-     * @return bool
-     */
     public function existsSnapshot(string $repositoryName, string $snapshotName): bool;
 
-    /**
-     * @param string $repositoryName
-     * @param string $snapshotName
-     *
-     * @return bool
-     */
     public function deleteSnapshot(string $repositoryName, string $snapshotName): bool;
 }

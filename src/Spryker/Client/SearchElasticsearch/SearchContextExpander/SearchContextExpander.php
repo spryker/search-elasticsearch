@@ -18,19 +18,11 @@ class SearchContextExpander implements SearchContextExpanderInterface
      */
     protected $indexNameResolver;
 
-    /**
-     * @param \Spryker\Client\SearchElasticsearch\Index\IndexNameResolver\IndexNameResolverInterface $indexNameResolver
-     */
     public function __construct(IndexNameResolverInterface $indexNameResolver)
     {
         $this->indexNameResolver = $indexNameResolver;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\SearchContextTransfer $searchContextTransfer
-     *
-     * @return \Generated\Shared\Transfer\SearchContextTransfer
-     */
     public function expandSearchContext(SearchContextTransfer $searchContextTransfer): SearchContextTransfer
     {
         $sourceIdentifier = $searchContextTransfer->requireSourceIdentifier()->getSourceIdentifier();
@@ -41,12 +33,6 @@ class SearchContextExpander implements SearchContextExpanderInterface
         return $searchContextTransfer;
     }
 
-    /**
-     * @param string $indexName
-     * @param string $sourceIdentifier
-     *
-     * @return \Generated\Shared\Transfer\ElasticsearchSearchContextTransfer
-     */
     protected function createElasticsearchContext(string $indexName, string $sourceIdentifier): ElasticsearchSearchContextTransfer
     {
         $elasticsearchSearchContextTransfer = new ElasticsearchSearchContextTransfer();

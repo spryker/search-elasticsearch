@@ -44,11 +44,6 @@ class SearchStringQuery implements QueryInterface, SearchContextAwareQueryInterf
      */
     protected $searchContextTransfer;
 
-    /**
-     * @param string $searchString
-     * @param int|null $limit
-     * @param int|null $offset
-     */
     public function __construct(string $searchString, ?int $limit = null, ?int $offset = null)
     {
         $this->searchString = $searchString;
@@ -115,21 +110,11 @@ class SearchStringQuery implements QueryInterface, SearchContextAwareQueryInterf
         $this->searchContextTransfer = $searchContextTransfer;
     }
 
-    /**
-     * @param string $searchString
-     *
-     * @return \Elastica\Query\QueryString
-     */
     protected function createStringQuery(string $searchString): QueryString
     {
         return new QueryString($searchString);
     }
 
-    /**
-     * @param \Elastica\Query $baseQuery
-     *
-     * @return void
-     */
     protected function setLimit(Query $baseQuery): void
     {
         if ($this->limit !== null) {
@@ -137,11 +122,6 @@ class SearchStringQuery implements QueryInterface, SearchContextAwareQueryInterf
         }
     }
 
-    /**
-     * @param \Elastica\Query $baseQuery
-     *
-     * @return void
-     */
     protected function setOffset(Query $baseQuery): void
     {
         if ($this->offset !== null) {
@@ -149,9 +129,6 @@ class SearchStringQuery implements QueryInterface, SearchContextAwareQueryInterf
         }
     }
 
-    /**
-     * @return void
-     */
     protected function setupDefaultSearchContext(): void
     {
         $searchContextTransfer = new SearchContextTransfer();
@@ -160,9 +137,6 @@ class SearchStringQuery implements QueryInterface, SearchContextAwareQueryInterf
         $this->searchContextTransfer = $searchContextTransfer;
     }
 
-    /**
-     * @return bool
-     */
     protected function hasSearchContext(): bool
     {
         return (bool)$this->searchContextTransfer;

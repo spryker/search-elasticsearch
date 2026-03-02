@@ -17,8 +17,5 @@ interface ElasticsearchLoggerInterface
      */
     public function log(array $payload, $result = null): void;
 
-    /**
-     * @return array
-     */
     public function getLogs(): array;
 }

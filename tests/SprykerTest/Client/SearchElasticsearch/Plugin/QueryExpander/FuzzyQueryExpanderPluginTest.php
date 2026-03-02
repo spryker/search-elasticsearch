@@ -25,9 +25,6 @@ use Spryker\Client\SearchElasticsearch\Query\QueryBuilder;
  */
 class FuzzyQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
 {
-    /**
-     * @return void
-     */
     public function testExpandQueryShouldExpandQueryPluginWithFuzziness(): void
     {
         // Arrange
@@ -45,9 +42,6 @@ class FuzzyQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
         $this->assertEquals($this->createExpectedMultiMatchQuery(), $query);
     }
 
-    /**
-     * @return void
-     */
     public function testExpandQueryShouldNotExpandQueryPluginWithFuzziness(): void
     {
         // Arrange
@@ -70,17 +64,11 @@ class FuzzyQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
         $this->assertEquals($expectedQuery, $query);
     }
 
-    /**
-     * @return \Elastica\Query\MultiMatch
-     */
     protected function createMultiMatchQuery(): MultiMatch
     {
         return (new MultiMatch())->setFields(['test'])->setQuery('');
     }
 
-    /**
-     * @return \Elastica\Query
-     */
     protected function createExpectedMultiMatchQuery(): Query
     {
         $query = $this->createBaseQuery();

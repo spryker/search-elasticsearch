@@ -18,11 +18,6 @@ interface FacetConfigInterface
      */
     public function addFacet(FacetConfigTransfer $facetConfigTransfer);
 
-    /**
-     * @param string $facetName
-     *
-     * @return \Generated\Shared\Transfer\FacetConfigTransfer|null
-     */
     public function get(string $facetName): ?FacetConfigTransfer;
 
     /**

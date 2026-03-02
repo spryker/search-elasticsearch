@@ -11,10 +11,5 @@ use Elastica\Client;
 
 interface ElasticaClientFactoryInterface
 {
-    /**
-     * @param array $clientConfig
-     *
-     * @return \Elastica\Client
-     */
     public function createClient(array $clientConfig): Client;
 }

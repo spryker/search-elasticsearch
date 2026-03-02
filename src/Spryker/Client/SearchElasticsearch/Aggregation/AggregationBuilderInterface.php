@@ -15,38 +15,13 @@ use Elastica\Aggregation\TopHits;
 
 interface AggregationBuilderInterface
 {
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\GlobalAggregation
-     */
     public function createGlobalAggregation(string $name): GlobalAggregation;
 
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\Filter
-     */
     public function createFilterAggregation(string $name): Filter;
 
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\Terms
-     */
     public function createTermsAggregation(string $name): Terms;
 
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\Stats
-     */
     public function createStatsAggregation(string $name): Stats;
 
-    /**
-     * @param string $name
-     *
-     * @return \Elastica\Aggregation\TopHits
-     */
     public function createTopHitsAggregation(string $name): TopHits;
 }

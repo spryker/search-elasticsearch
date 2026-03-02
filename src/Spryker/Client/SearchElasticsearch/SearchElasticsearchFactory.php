@@ -70,9 +70,6 @@ use Spryker\Shared\SearchExtension\SourceInterface;
  */
 class SearchElasticsearchFactory extends AbstractFactory
 {
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Search\SearchInterface
-     */
     public function createSearch(): SearchInterface
     {
         if (!$this->getConfig()->isDevelopmentMode()) {
@@ -82,9 +79,6 @@ class SearchElasticsearchFactory extends AbstractFactory
         return $this->createLoggableSearchClient();
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Search\SearchInterface
-     */
     public function createSearchClient(): SearchInterface
     {
         return new Search(
@@ -92,9 +86,6 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Connection\ConnectionInterface
-     */
     public function createConnection(): ConnectionInterface
     {
         return new Connection(
@@ -102,9 +93,6 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Search\SearchInterface
-     */
     public function createLoggableSearchClient(): SearchInterface
     {
         return new LoggableSearch(
@@ -113,9 +101,6 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\Logger\ElasticsearchLoggerInterface
-     */
     public function createElasticsearchLogger(): ElasticsearchLoggerInterface
     {
         return new ElasticsearchInMemoryLogger(
@@ -124,9 +109,6 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Index\IndexNameResolver\IndexNameResolverInterface
-     */
     public function createIndexNameResolver(): IndexNameResolverInterface
     {
         return new IndexNameResolver(
@@ -135,57 +117,31 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Aggregation\AggregationBuilderInterface
-     */
     public function createAggregationBuilder(): AggregationBuilderInterface
     {
         return new AggregationBuilder();
     }
 
-    /**
-     * @param string $searchString
-     * @param int|null $limit
-     * @param int|null $offset
-     *
-     * @return \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface
-     */
     public function createSearchKeysQuery(string $searchString, ?int $limit = null, ?int $offset = null): QueryInterface
     {
         return new SearchKeysQuery($searchString, $this->getConfig(), $limit, $offset);
     }
 
-    /**
-     * @param string $searchString
-     * @param int|null $limit
-     * @param int|null $offset
-     *
-     * @return \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface
-     */
     public function createSearchStringQuery(string $searchString, ?int $limit = null, ?int $offset = null): QueryInterface
     {
         return new SearchStringQuery($searchString, $limit, $offset);
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Query\QueryBuilderInterface
-     */
     public function createQueryBuilder(): QueryBuilderInterface
     {
         return new QueryBuilder();
     }
 
-    /**
-     * @return \Spryker\Shared\SearchExtension\SourceInterface
-     */
     protected function createSource(): SourceInterface
     {
         return new PageIndexMap();
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Aggregation\FacetAggregationFactoryInterface
-     */
     public function createFacetAggregationFactory(): FacetAggregationFactoryInterface
     {
         return new FacetAggregationFactory(
@@ -195,17 +151,11 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\AggregationExtractor\FacetValueTransformerFactoryInterface
-     */
     public function createFacetValueTransformerFactory(): FacetValueTransformerFactoryInterface
     {
         return new FacetValueTransformerFactory();
     }
 
-    /**
-     * @return \Elastica\Client
-     */
     public function getElasticaClient(): Client
     {
         return $this->createElasticaClientFactory()->createClient(
@@ -213,25 +163,16 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\ElasticaClient\ElasticaClientFactoryInterface
-     */
     public function createElasticaClientFactory(): ElasticaClientFactoryInterface
     {
         return new ElasticaClientFactory();
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Suggest\SuggestBuilderInterface
-     */
     public function createSuggestBuilder(): SuggestBuilderInterface
     {
         return new SuggestBuilder();
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\AggregationExtractor\AggregationExtractorFactoryInterface
-     */
     public function createAggregationExtractorFactory(): AggregationExtractorFactoryInterface
     {
         return new AggregationExtractorFactory($this->getMoneyClient());
@@ -245,25 +186,16 @@ class SearchElasticsearchFactory extends AbstractFactory
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::PLUGINS_SEARCH_CONFIG_EXPANDER);
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Dependency\Client\SearchElasticsearchToStoreClientInterface
-     */
     public function getStoreClient(): SearchElasticsearchToStoreClientInterface
     {
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::CLIENT_STORE);
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\Dependency\Client\SearchElasticsearchToLocaleClientInterface
-     */
     public function getLocaleClient(): SearchElasticsearchToLocaleClientInterface
     {
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::CLIENT_LOCALE);
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Query\QueryFactoryInterface
-     */
     public function createQueryFactory(): QueryFactoryInterface
     {
         return new QueryFactory(
@@ -280,9 +212,6 @@ class SearchElasticsearchFactory extends AbstractFactory
         return new SourceIdentifier($this->getConfig());
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\SearchContextExpander\SearchContextExpanderInterface
-     */
     public function createSearchContextExpander(): SearchContextExpanderInterface
     {
         return new SearchContextExpander(
@@ -290,25 +219,16 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Dependency\Client\SearchElasticsearchToMoneyClientInterface
-     */
     public function getMoneyClient(): SearchElasticsearchToMoneyClientInterface
     {
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::CLIENT_MONEY);
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     public function getSearchConfig(): SearchConfigInterface
     {
         return $this->createSearchConfigBuilder()->build();
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigBuilderInterface
-     */
     public function createSearchConfigBuilder(): SearchConfigBuilderInterface
     {
         $searchConfigBuilder = new SearchConfigBuilder(
@@ -326,25 +246,16 @@ class SearchElasticsearchFactory extends AbstractFactory
         return $searchConfigBuilder;
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\FacetConfigInterface
-     */
     public function createFacetConfig(): FacetConfigInterface
     {
         return new FacetConfig();
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SortConfigInterface
-     */
     public function createSortConfig(): SortConfigInterface
     {
         return new SortConfig();
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\PaginationConfigInterface
-     */
     public function createPaginationConfig(): PaginationConfigInterface
     {
         return new PaginationConfig();
@@ -358,17 +269,11 @@ class SearchElasticsearchFactory extends AbstractFactory
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::PLUGINS_SEARCH_CONFIG_BUILDER);
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Writer\DocumentWriterInterface
-     */
     public function createDocumentWriter(): DocumentWriterInterface
     {
         return $this->createDocumentWriterFactory()->createDocumentWriter($this->getElasticaClient());
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Writer\DocumentWriterFactoryInterface
-     */
     public function createDocumentWriterFactory(): DocumentWriterFactoryInterface
     {
         return new DocumentWriterFactory(
@@ -376,17 +281,11 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Reader\DocumentReaderInterface
-     */
     public function createDocumentReader(): DocumentReaderInterface
     {
         return $this->createDocumentReaderFactory()->createDocumentReader($this->getElasticaClient());
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Reader\DocumentReaderFactoryInterface
-     */
     public function createDocumentReaderFactory(): DocumentReaderFactoryInterface
     {
         return new DocumentReaderFactory(
@@ -394,17 +293,11 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\MappingType\MappingTypeSupportDetectorInterface
-     */
     public function createMappingTypeSupportDetector(): MappingTypeSupportDetectorInterface
     {
         return new MappingTypeSupportDetector();
     }
 
-    /**
-     * @return \Spryker\Shared\SearchElasticsearch\Dependency\Service\SearchElasticsearchToUtilEncodingServiceInterface
-     */
     public function getUtilEncodingService(): SearchElasticsearchToUtilEncodingServiceInterface
     {
         return $this->getProvidedDependency(SearchElasticsearchDependencyProvider::SERVICE_UTIL_ENCODING);

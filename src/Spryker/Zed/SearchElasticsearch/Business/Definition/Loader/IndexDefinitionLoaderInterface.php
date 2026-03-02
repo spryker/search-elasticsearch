@@ -9,10 +9,5 @@ namespace Spryker\Zed\SearchElasticsearch\Business\Definition\Loader;
 
 interface IndexDefinitionLoaderInterface
 {
-    /**
-     * @param string|null $storeName
-     *
-     * @return array
-     */
     public function load(?string $storeName = null): array;
 }

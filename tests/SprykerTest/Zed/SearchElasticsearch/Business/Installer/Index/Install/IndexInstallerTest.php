@@ -28,9 +28,6 @@ use SprykerTest\Zed\SearchElasticsearch\Business\Installer\Index\AbstractIndexTe
  */
 class IndexInstallerTest extends AbstractIndexTest
 {
-    /**
-     * @return void
-     */
     public function testCanSendRequestToElasticsearchOnIndexCreation(): void
     {
         $fixtureMappings = ['foo' => 'bar'];
@@ -53,9 +50,6 @@ class IndexInstallerTest extends AbstractIndexTest
         $indexInstaller->run($this->createIndexDefinitionTransfer(), new NullLogger());
     }
 
-    /**
-     * @return void
-     */
     public function testLoggsInstallationMessage(): void
     {
         $indexName = 'index-name';
@@ -102,9 +96,6 @@ class IndexInstallerTest extends AbstractIndexTest
         $this->assertEquals($expectedIsAccepted, $isAccepted);
     }
 
-    /**
-     * @return array
-     */
     public function isAcceptedWhenIndexExistsProvider(): array
     {
         return [

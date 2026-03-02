@@ -11,8 +11,5 @@ use Spryker\Zed\SearchElasticsearch\Business\Installer\Index\InstallerInterface;
 
 interface IndexUpdaterFactoryInterface
 {
-    /**
-     * @return \Spryker\Zed\SearchElasticsearch\Business\Installer\Index\InstallerInterface
-     */
     public function createIndexUpdater(): InstallerInterface;
 }

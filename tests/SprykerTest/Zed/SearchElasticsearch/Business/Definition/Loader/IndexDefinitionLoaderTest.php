@@ -61,9 +61,6 @@ class IndexDefinitionLoaderTest extends Unit
      */
     protected $indexDefinitionLoader;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -75,9 +72,6 @@ class IndexDefinitionLoaderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testLoadReturnsAnArrayOfDefinitions(): void
     {
         $indexDefinitions = $this->indexDefinitionLoader->load();
@@ -86,9 +80,6 @@ class IndexDefinitionLoaderTest extends Unit
         $this->assertCount(1, $indexDefinitions);
     }
 
-    /**
-     * @return void
-     */
     public function testCanLoadIndexDefinitionsFromFile(): void
     {
         $result = $this->indexDefinitionLoader->load();

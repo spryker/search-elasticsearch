@@ -60,9 +60,6 @@ class SortedQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
         $this->assertEquals($expectedQuery, $query);
     }
 
-    /**
-     * @return array
-     */
     public function sortedQueryExpanderDataProvider(): array
     {
         return [
@@ -72,9 +69,6 @@ class SortedQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
         ];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataWithoutSorting(): array
     {
         $searchConfigMock = $this->createSimpleSortSearchConfig();
@@ -87,9 +81,6 @@ class SortedQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
         return [$searchConfigMock, $expectedQuery, $requestParameters];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataForSimpleStringSort(): array
     {
         $searchConfigMock = $this->createSimpleSortSearchConfig();
@@ -112,9 +103,6 @@ class SortedQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
         return [$searchConfigMock, $expectedQuery, $requestParameters];
     }
 
-    /**
-     * @return array
-     */
     protected function getDataForInvalidParameterSort(): array
     {
         $searchConfig = $this->createSimpleSortSearchConfig();
@@ -129,9 +117,6 @@ class SortedQueryExpanderPluginTest extends AbstractQueryExpanderPluginTest
         return [$searchConfig, $expectedQuery, $requestParameters];
     }
 
-    /**
-     * @return \Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface
-     */
     protected function createSimpleSortSearchConfig(): SearchConfigInterface
     {
         $searchConfigMock = $this->createSearchConfigMock();

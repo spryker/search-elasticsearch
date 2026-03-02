@@ -28,21 +28,11 @@ class Repository implements RepositoryInterface
      */
     protected $elasticaSnapshot;
 
-    /**
-     * @param \Elastica\Snapshot $elasticaSnapshot
-     */
     public function __construct(ElasticaSnapshot $elasticaSnapshot)
     {
         $this->elasticaSnapshot = $elasticaSnapshot;
     }
 
-    /**
-     * @param string $repositoryName
-     * @param string $type
-     * @param array $settings
-     *
-     * @return bool
-     */
     public function registerSnapshotRepository(string $repositoryName, string $type = self::TYPE_FILESYSTEM, array $settings = []): bool
     {
         $settings = $this->buildRepositorySettings($repositoryName, $type, $settings);
@@ -50,11 +40,6 @@ class Repository implements RepositoryInterface
         return $this->elasticaSnapshot->registerRepository($repositoryName, $type, $settings)->isOk();
     }
 
-    /**
-     * @param string $repositoryName
-     *
-     * @return bool
-     */
     public function existsSnapshotRepository(string $repositoryName): bool
     {
         try {
@@ -66,13 +51,6 @@ class Repository implements RepositoryInterface
         }
     }
 
-    /**
-     * @param string $repositoryName
-     * @param string $type
-     * @param array $settings
-     *
-     * @return array
-     */
     protected function buildRepositorySettings(string $repositoryName, string $type = self::TYPE_FILESYSTEM, array $settings = []): array
     {
         if ($type === static::TYPE_FILESYSTEM && !isset($settings[static::SETTINGS_LOCATION])) {

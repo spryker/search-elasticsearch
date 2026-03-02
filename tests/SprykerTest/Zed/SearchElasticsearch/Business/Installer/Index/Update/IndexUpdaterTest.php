@@ -53,9 +53,6 @@ class IndexUpdaterTest extends AbstractIndexTest
         $this->assertEquals($expectedIsAccepted, $isAccepted);
     }
 
-    /**
-     * @return array
-     */
     public function isAcceptedWhenIndexExistsProvider(): array
     {
         return [
@@ -98,9 +95,6 @@ class IndexUpdaterTest extends AbstractIndexTest
         $indexUpdater->run($indexDefinitionTransfer, new NullLogger());
     }
 
-    /**
-     * @return array
-     */
     public function canUpdateMappingsProvider(): array
     {
         return [

@@ -27,9 +27,6 @@ class SourceIdentifier implements SourceIdentifierInterface
      */
     protected $searchElasticsearchConfig;
 
-    /**
-     * @param \Spryker\Zed\SearchElasticsearch\SearchElasticsearchConfig $searchElasticsearchConfig
-     */
     public function __construct(SearchElasticsearchConfig $searchElasticsearchConfig)
     {
         $this->searchElasticsearchConfig = $searchElasticsearchConfig;
@@ -62,12 +59,6 @@ class SourceIdentifier implements SourceIdentifierInterface
         return $this->buildIndexName($sourceIdentifier, $storeName);
     }
 
-    /**
-     * @param string $sourceIdentifier
-     * @param string|null $storeName
-     *
-     * @return bool
-     */
     public function isSupported(string $sourceIdentifier, ?string $storeName): bool
     {
         $configSourceIdentifier = $this->findMatchingConfigSourceIdentifier($sourceIdentifier);
@@ -116,12 +107,6 @@ class SourceIdentifier implements SourceIdentifierInterface
         return mb_strpos($sourceIdentifier, $this->findMatchingConfigSourceIdentifier($sourceIdentifier)) > 0;
     }
 
-    /**
-     * @param string $sourceIdentifier
-     * @param string|null $currentStore
-     *
-     * @return string
-     */
     protected function buildIndexName(string $sourceIdentifier, ?string $currentStore = null): string
     {
         $indexParameters = [
@@ -133,11 +118,6 @@ class SourceIdentifier implements SourceIdentifierInterface
         return mb_strtolower(implode('_', array_filter($indexParameters)));
     }
 
-    /**
-     * @param string $sourceIdentifier
-     *
-     * @return string|null
-     */
     protected function findMatchingConfigSourceIdentifier(string $sourceIdentifier): ?string
     {
         $supportedSourceIdentifiers = $this->searchElasticsearchConfig->getSupportedSourceIdentifiers();

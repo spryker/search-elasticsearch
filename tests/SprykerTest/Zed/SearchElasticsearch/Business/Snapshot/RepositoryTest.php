@@ -65,9 +65,6 @@ class RepositoryTest extends Unit
      */
     protected $elasticsearchRepository;
 
-    /**
-     * @return void
-     */
     protected function _setUp(): void
     {
         parent::_setUp();
@@ -102,9 +99,6 @@ class RepositoryTest extends Unit
         $this->elasticsearchRepository->registerSnapshotRepository(static::REPOSITORY_NAME, $type, $inputSettings);
     }
 
-    /**
-     * @return void
-     */
     public function testCanGetRepository(): void
     {
         $this->elasticaSnapshotMock
@@ -117,9 +111,6 @@ class RepositoryTest extends Unit
         $this->assertTrue($result);
     }
 
-    /**
-     * @return void
-     */
     public function testHandlesResponseExceptionThrownWhenAttemptingToGetRepository(): void
     {
         // Arrange
@@ -139,9 +130,6 @@ class RepositoryTest extends Unit
         $this->assertFalse($result);
     }
 
-    /**
-     * @return void
-     */
     public function testHandlesNotFoundExceptionThrownWhenAttemptingToGetRepository(): void
     {
         // Arrange
@@ -156,9 +144,6 @@ class RepositoryTest extends Unit
         $this->assertFalse($result);
     }
 
-    /**
-     * @return array
-     */
     public function buildsSettingsWithLocationProvider(): array
     {
         return [

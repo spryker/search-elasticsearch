@@ -29,11 +29,6 @@ class IndexDefinitionLoader implements IndexDefinitionLoaderInterface
      */
     protected $sourceIdentifier;
 
-    /**
-     * @param \Spryker\Zed\SearchElasticsearch\Business\Definition\Finder\SchemaDefinitionFinderInterface $schemaDefinitionFinder
-     * @param \Spryker\Zed\SearchElasticsearch\Business\Definition\Reader\IndexDefinitionReaderInterface $indexDefinitionReader
-     * @param \Spryker\Zed\SearchElasticsearch\Business\SourceIdentifier\SourceIdentifierInterface $sourceIdentifier
-     */
     public function __construct(
         SchemaDefinitionFinderInterface $schemaDefinitionFinder,
         IndexDefinitionReaderInterface $indexDefinitionReader,
@@ -44,11 +39,6 @@ class IndexDefinitionLoader implements IndexDefinitionLoaderInterface
         $this->sourceIdentifier = $sourceIdentifier;
     }
 
-    /**
-     * @param string|null $storeName
-     *
-     * @return array
-     */
     public function load(?string $storeName = null): array
     {
         $indexDefinitions = [];
@@ -79,11 +69,6 @@ class IndexDefinitionLoader implements IndexDefinitionLoaderInterface
         return array_merge($indexDefinitions, $storePrefixedIndexDefinitions);
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $indexDefinitionJsonFile
-     *
-     * @return string
-     */
     protected function getSourceIdentifierFromFile(SplFileInfo $indexDefinitionJsonFile): string
     {
         $fileName = $indexDefinitionJsonFile->getFilename();
@@ -92,13 +77,6 @@ class IndexDefinitionLoader implements IndexDefinitionLoaderInterface
         return substr($fileName, 0, -strlen($fileExtension) - 1);
     }
 
-    /**
-     * @param string $sourceIdentifier
-     * @param \Symfony\Component\Finder\SplFileInfo $schemaDefinitionFile
-     * @param string|null $storeName
-     *
-     * @return array
-     */
     protected function buildIndexDefinition(string $sourceIdentifier, SplFileInfo $schemaDefinitionFile, ?string $storeName): array
     {
         return [
