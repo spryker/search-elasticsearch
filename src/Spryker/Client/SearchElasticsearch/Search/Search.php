@@ -10,7 +10,9 @@ namespace Spryker\Client\SearchElasticsearch\Search;
 use Elastica\Client;
 use Elastica\Exception\ResponseException;
 use Elastica\Index;
+use Elastica\Multi\Search as MultiSearch;
 use Elastica\ResultSet;
+use Elastica\Search as ElasticaSearch;
 use Generated\Shared\Transfer\SearchContextTransfer;
 use Spryker\Client\SearchElasticsearch\Exception\InvalidSearchQueryException;
 use Spryker\Client\SearchElasticsearch\Exception\SearchResponseException;
@@ -138,5 +140,56 @@ class Search implements SearchInterface
     protected function assertSearchContextTransferHasIndexName(SearchContextTransfer $searchContextTransfer): void
     {
         $searchContextTransfer->requireElasticsearchContext()->getElasticsearchContext()->requireIndexName();
+    }
+
+    /**
+     * @param array<string, \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface> $searchQueries
+     * @param array<string, array<\Spryker\Client\SearchExtension\Dependency\Plugin\ResultFormatterPluginInterface>> $resultFormattersPerQuery
+     * @param array<string, mixed> $requestParameters
+     *
+     * @throws \Spryker\Client\SearchElasticsearch\Exception\SearchResponseException
+     *
+     * @return array<string, mixed>
+     */
+    public function multiSearch(array $searchQueries, array $resultFormattersPerQuery, array $requestParameters = []): array
+    {
+        $multiSearch = new MultiSearch($this->client);
+
+        foreach ($searchQueries as $key => $searchQuery) {
+            $searchContext = $this->getSearchContext($searchQuery);
+            $index = $this->getIndexForQueryFromSearchContext($searchContext);
+
+            $elasticaSearch = new ElasticaSearch($this->client);
+            $elasticaSearch->addIndex($index);
+            $elasticaSearch->setQuery($searchQuery->getSearchQuery());
+
+            $multiSearch->addSearch($elasticaSearch, $key);
+        }
+
+        try {
+            $multiResultSet = $multiSearch->search();
+        } catch (ResponseException $e) {
+            throw new SearchResponseException(
+                sprintf('Multi search failed with the following reason: %s', $e->getMessage()),
+                $e->getCode(),
+                $e,
+            );
+        }
+
+        $results = [];
+
+        foreach ($multiResultSet->getResultSets() as $key => $resultSet) {
+            $formatters = $resultFormattersPerQuery[$key] ?? [];
+
+            if (!$formatters) {
+                $results[$key] = $resultSet;
+
+                continue;
+            }
+
+            $results[$key] = $this->formatSearchResults($formatters, $resultSet, $requestParameters);
+        }
+
+        return $results;
     }
 }

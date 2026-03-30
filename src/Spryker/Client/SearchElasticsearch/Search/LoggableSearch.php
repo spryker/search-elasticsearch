@@ -49,4 +49,29 @@ class LoggableSearch implements SearchInterface
 
         return $result;
     }
+
+    /**
+     * @param array<string, \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface> $searchQueries
+     * @param array<string, array<\Spryker\Client\SearchExtension\Dependency\Plugin\ResultFormatterPluginInterface>> $resultFormattersPerQuery
+     * @param array<string, mixed> $requestParameters
+     *
+     * @return array<string, mixed>
+     */
+    public function multiSearch(array $searchQueries, array $resultFormattersPerQuery, array $requestParameters = []): array
+    {
+        $results = $this->search->multiSearch($searchQueries, $resultFormattersPerQuery, $requestParameters);
+
+        foreach ($searchQueries as $key => $searchQuery) {
+            $this->elasticsearchLogger->log(
+                [
+                    'multi_search_key' => $key,
+                    'query' => $searchQuery->getSearchQuery()->toArray(),
+                    'parameters' => $requestParameters,
+                ],
+                $results[$key] ?? [],
+            );
+        }
+
+        return $results;
+    }
 }

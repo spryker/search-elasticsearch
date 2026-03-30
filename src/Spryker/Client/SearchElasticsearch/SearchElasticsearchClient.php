@@ -114,4 +114,20 @@ class SearchElasticsearchClient extends AbstractClient implements SearchElastics
     {
         return $this->getFactory()->createConnection()->checkConnection();
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param array<string, \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface> $searchQueries
+     * @param array<string, array<\Spryker\Client\SearchExtension\Dependency\Plugin\ResultFormatterPluginInterface>> $resultFormattersPerQuery
+     * @param array<string, mixed> $requestParameters
+     *
+     * @return array<string, mixed>
+     */
+    public function multiSearch(array $searchQueries, array $resultFormattersPerQuery, array $requestParameters = []): array
+    {
+        return $this->getFactory()->createSearch()->multiSearch($searchQueries, $resultFormattersPerQuery, $requestParameters);
+    }
 }

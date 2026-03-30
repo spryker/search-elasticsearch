@@ -99,4 +99,20 @@ interface SearchElasticsearchClientInterface
      * @return \Generated\Shared\Transfer\SearchConnectionResponseTransfer
      */
     public function checkConnection(): SearchConnectionResponseTransfer;
+
+    /**
+     * Specification:
+     * - Executes multiple search queries in a single batch request using Elasticsearch _msearch endpoint.
+     * - Each query is identified by a string key.
+     * - Returns results keyed by the same keys as the input queries.
+     *
+     * @api
+     *
+     * @param array<string, \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface> $searchQueries
+     * @param array<string, array<\Spryker\Client\SearchExtension\Dependency\Plugin\ResultFormatterPluginInterface>> $resultFormattersPerQuery
+     * @param array<string, mixed> $requestParameters
+     *
+     * @return array<string, mixed>
+     */
+    public function multiSearch(array $searchQueries, array $resultFormattersPerQuery, array $requestParameters = []): array;
 }

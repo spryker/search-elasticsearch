@@ -19,6 +19,7 @@ use Generated\Shared\Transfer\ElasticsearchSearchContextTransfer;
 use Generated\Shared\Transfer\SearchContextTransfer;
 use Generated\Shared\Transfer\SearchDocumentTransfer;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
+use Spryker\Client\SearchExtension\Dependency\Plugin\ResultFormatterPluginInterface;
 use SprykerTest\Client\SearchElasticsearch\Plugin\Fixtures\BaseQueryPlugin;
 use SprykerTest\Shared\SearchElasticsearch\Helper\ElasticsearchHelper;
 
@@ -224,6 +225,93 @@ class SearchElasticsearchClientTest extends Unit
         foreach ([$documentId, $anotherDocumentId] as $id) {
             $this->tester->assertDocumentDoesNotExist($id, static::INDEX_NAME);
         }
+    }
+
+    public function testMultiSearchReturnsResultSetsKeyedByInputQueryKey(): void
+    {
+        // Arrange
+        $firstDocumentId = 'document-multisearch-alpha';
+        $secondDocumentId = 'document-multisearch-beta';
+        $firstSearchValue = 'alphavalue';
+        $secondSearchValue = 'betavalue';
+
+        $this->tester->haveDocumentInIndex(static::INDEX_NAME, $firstDocumentId, ['foo' => $firstSearchValue]);
+        $this->tester->haveDocumentInIndex(static::INDEX_NAME, $secondDocumentId, ['foo' => $secondSearchValue]);
+
+        $firstQuery = $this->createQueryPluginMock($this->buildQueryStringQuery($firstSearchValue));
+        $secondQuery = $this->createQueryPluginMock($this->buildQueryStringQuery($secondSearchValue));
+
+        // Act
+        $results = $this->tester->getClient()->multiSearch(
+            ['first_key' => $firstQuery, 'second_key' => $secondQuery],
+            ['first_key' => [], 'second_key' => []],
+        );
+
+        // Assert
+        $this->assertArrayHasKey('first_key', $results);
+        $this->assertArrayHasKey('second_key', $results);
+        $this->assertInstanceOf(ResultSet::class, $results['first_key']);
+        $this->assertInstanceOf(ResultSet::class, $results['second_key']);
+        $this->assertMatchFound($results['first_key'], $firstSearchValue);
+        $this->assertMatchFound($results['second_key'], $secondSearchValue);
+    }
+
+    public function testMultiSearchFindsMultipleValuesFromTheSameDocument(): void
+    {
+        // Arrange
+        // Single document with two searchable fields — both queries must return results under separate keys.
+        $documentId = 'document-multisearch-shared';
+        $firstSearchValue = 'sharedtermone';
+        $secondSearchValue = 'sharedtermtwo';
+
+        $this->tester->haveDocumentInIndex(static::INDEX_NAME, $documentId, [
+            'field_one' => $firstSearchValue,
+            'field_two' => $secondSearchValue,
+        ]);
+
+        $firstQuery = $this->createQueryPluginMock($this->buildQueryStringQuery($firstSearchValue));
+        $secondQuery = $this->createQueryPluginMock($this->buildQueryStringQuery($secondSearchValue));
+
+        // Act
+        $results = $this->tester->getClient()->multiSearch(
+            ['query_one' => $firstQuery, 'query_two' => $secondQuery],
+            ['query_one' => [], 'query_two' => []],
+        );
+
+        // Assert
+        // Both queries hit the same document but must be returned under separate keys.
+        $this->assertArrayHasKey('query_one', $results);
+        $this->assertArrayHasKey('query_two', $results);
+        $this->assertInstanceOf(ResultSet::class, $results['query_one']);
+        $this->assertInstanceOf(ResultSet::class, $results['query_two']);
+        $this->assertMatchFound($results['query_one'], $firstSearchValue);
+        $this->assertMatchFound($results['query_two'], $secondSearchValue);
+    }
+
+    public function testMultiSearchWithFormattersReturnsFormattedResultsPerKey(): void
+    {
+        // Arrange
+        $documentId = 'document-multisearch-formatted';
+        $searchValue = 'formattedvalue';
+
+        $this->tester->haveDocumentInIndex(static::INDEX_NAME, $documentId, ['foo' => $searchValue]);
+
+        $query = $this->createQueryPluginMock($this->buildQueryStringQuery($searchValue));
+
+        $resultFormatter = $this->createMock(ResultFormatterPluginInterface::class);
+        $resultFormatter->method('getName')->willReturn('custom');
+        $resultFormatter->method('formatResult')->willReturn('formatted');
+
+        // Act
+        $results = $this->tester->getClient()->multiSearch(
+            ['formatted_key' => $query],
+            ['formatted_key' => [$resultFormatter]],
+        );
+
+        // Assert
+        $this->assertArrayHasKey('formatted_key', $results);
+        $this->assertIsArray($results['formatted_key']);
+        $this->assertArrayHasKey('custom', $results['formatted_key']);
     }
 
     /**

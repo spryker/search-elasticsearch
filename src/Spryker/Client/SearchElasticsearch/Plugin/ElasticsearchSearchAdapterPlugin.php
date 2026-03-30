@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\SearchContextTransfer;
 use Generated\Shared\Transfer\SearchDocumentTransfer;
 use Spryker\Client\Kernel\AbstractPlugin;
 use Spryker\Client\SearchExtension\Dependency\Plugin\ConnectionCheckerAdapterPluginInterface;
+use Spryker\Client\SearchExtension\Dependency\Plugin\MultiSearchAdapterPluginInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 use Spryker\Client\SearchExtension\Dependency\Plugin\SearchAdapterPluginInterface;
 
@@ -19,7 +20,7 @@ use Spryker\Client\SearchExtension\Dependency\Plugin\SearchAdapterPluginInterfac
  * @method \Spryker\Client\SearchElasticsearch\SearchElasticsearchClientInterface getClient()
  * @method \Spryker\Client\SearchElasticsearch\SearchElasticsearchFactory getFactory()()
  */
-class ElasticsearchSearchAdapterPlugin extends AbstractPlugin implements SearchAdapterPluginInterface, ConnectionCheckerAdapterPluginInterface
+class ElasticsearchSearchAdapterPlugin extends AbstractPlugin implements SearchAdapterPluginInterface, ConnectionCheckerAdapterPluginInterface, MultiSearchAdapterPluginInterface
 {
     /**
      * @var string
@@ -151,5 +152,22 @@ class ElasticsearchSearchAdapterPlugin extends AbstractPlugin implements SearchA
     public function checkConnection(): SearchConnectionResponseTransfer
     {
         return $this->getClient()->checkConnection();
+    }
+
+    /**
+     * {@inheritDoc}
+     * - Executes multiple search queries in a single batch request using Elasticsearch _msearch endpoint.
+     *
+     * @api
+     *
+     * @param array<string, \Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface> $searchQueries
+     * @param array<string, array<\Spryker\Client\SearchExtension\Dependency\Plugin\ResultFormatterPluginInterface>> $resultFormattersPerQuery
+     * @param array<string, mixed> $requestParameters
+     *
+     * @return array<string, mixed>
+     */
+    public function multiSearch(array $searchQueries, array $resultFormattersPerQuery, array $requestParameters = []): array
+    {
+        return $this->getClient()->multiSearch($searchQueries, $resultFormattersPerQuery, $requestParameters);
     }
 }
