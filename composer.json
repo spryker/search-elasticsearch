@@ -24,6 +24,7 @@
         "spryker/code-sniffer": "*",
         "spryker/container": "*",
         "spryker/propel": "*",
+        "spryker/search": "*",
         "spryker/session": "*",
         "spryker/storage": "*",
         "spryker/testify": "*"
