@@ -16,6 +16,8 @@ use Spryker\Shared\SearchElasticsearch\SearchElasticsearchConstants;
 class SearchElasticsearchConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @var int
      */
     public const FACET_NAME_AGGREGATION_SIZE = 10;
