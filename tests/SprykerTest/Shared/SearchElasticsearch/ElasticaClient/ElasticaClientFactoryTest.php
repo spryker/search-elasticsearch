@@ -44,7 +44,6 @@ class ElasticaClientFactoryTest extends Unit
     {
         $factoryReflectionClass = new ReflectionClass(ElasticaClientFactory::class);
         $clientProperty = $factoryReflectionClass->getProperty('client');
-        $clientProperty->setAccessible(true);
         $clientProperty->setValue(
             $this->createMock(Client::class),
         );

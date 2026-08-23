@@ -171,7 +171,6 @@ class ElasticsearchHelper extends Module
     {
         $factoryReflectionClass = new ReflectionClass(ElasticaClientFactory::class);
         $clientProperty = $factoryReflectionClass->getProperty('client');
-        $clientProperty->setAccessible(true);
         $clientProperty->setValue(null);
     }
 

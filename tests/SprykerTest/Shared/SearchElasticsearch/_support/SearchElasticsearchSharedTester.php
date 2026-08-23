@@ -55,7 +55,6 @@ class SearchElasticsearchSharedTester extends Actor
         ], $clientConfig);
         $refClass = new ReflectionClass(ElasticsearchInMemoryLogger::class);
         $property = $refClass->getProperty('logs');
-        $property->setAccessible(true);
         $property->setValue([]);
 
         return new ElasticsearchInMemoryLogger(
