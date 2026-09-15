@@ -27,6 +27,11 @@ use Spryker\Client\SearchElasticsearch\Config\SearchConfigBuilderInterface;
 use Spryker\Client\SearchElasticsearch\Config\SearchConfigInterface;
 use Spryker\Client\SearchElasticsearch\Config\SortConfig;
 use Spryker\Client\SearchElasticsearch\Config\SortConfigInterface;
+use Spryker\Client\SearchElasticsearch\Connection\Cache\ApcuConnectionCheckCache;
+use Spryker\Client\SearchElasticsearch\Connection\Cache\ConnectionCheckCacheInterface;
+use Spryker\Client\SearchElasticsearch\Connection\Cache\FilesystemConnectionCheckCache;
+use Spryker\Client\SearchElasticsearch\Connection\Cache\NullConnectionCheckCache;
+use Spryker\Client\SearchElasticsearch\Connection\CachedConnection;
 use Spryker\Client\SearchElasticsearch\Connection\Connection;
 use Spryker\Client\SearchElasticsearch\Connection\ConnectionInterface;
 use Spryker\Client\SearchElasticsearch\Dependency\Client\SearchElasticsearchToMoneyClientInterface;
@@ -86,11 +91,85 @@ class SearchElasticsearchFactory extends AbstractFactory
         );
     }
 
+    /**
+     * Health-check only. This is not a general-purpose search connection: the returned object
+     * exposes nothing beyond `checkConnection()`, and real search traffic runs through
+     * `createSearchClient()` on the shared Elastica client instead.
+     */
     public function createConnection(): ConnectionInterface
     {
-        return new Connection(
-            $this->getElasticaClient(),
+        return new CachedConnection(
+            $this->createElasticsearchConnection(),
+            $this->createConnectionCheckCache(),
+            $this->getConfig()->getConnectionCheckCacheTtlSeconds(),
+            $this->getConfig()->getConnectionCheckCacheFailureTtlSeconds(),
         );
+    }
+
+    public function createElasticsearchConnection(): ConnectionInterface
+    {
+        return new Connection(
+            $this->createConnectionCheckElasticaClient(),
+        );
+    }
+
+    /**
+     * Deliberately not the shared client from `getElasticaClient()`: that one is a process-wide
+     * singleton serving real search traffic, and the connection check needs its own, tighter
+     * timeouts without imposing them on queries.
+     *
+     * The consequence is that a project overriding `createElasticaClientFactory()` - to sign
+     * requests or swap the transport - does not have that override applied here. Override this
+     * method too in that case, or the check may report a healthy search engine as unreachable.
+     */
+    public function createConnectionCheckElasticaClient(): Client
+    {
+        return new Client(
+            $this->getConfig()->getConnectionCheckClientConfig(),
+        );
+    }
+
+    public function createConnectionCheckCache(): ConnectionCheckCacheInterface
+    {
+        foreach ($this->createConnectionCheckCacheCandidates() as $connectionCheckCache) {
+            if ($connectionCheckCache->isAvailable()) {
+                return $connectionCheckCache;
+            }
+        }
+
+        return $this->createNullConnectionCheckCache();
+    }
+
+    /**
+     * Ordered by preference: the first backend usable in the current runtime wins. A project adding
+     * its own backend prepends it here instead of reimplementing the selection. The null backend is
+     * not a candidate - it reports itself unavailable by design and is the fallback above.
+     *
+     * @return array<\Spryker\Client\SearchElasticsearch\Connection\Cache\ConnectionCheckCacheInterface>
+     */
+    public function createConnectionCheckCacheCandidates(): array
+    {
+        return [
+            $this->createApcuConnectionCheckCache(),
+            $this->createFilesystemConnectionCheckCache(),
+        ];
+    }
+
+    public function createFilesystemConnectionCheckCache(): ConnectionCheckCacheInterface
+    {
+        return new FilesystemConnectionCheckCache(
+            $this->getConfig()->getConnectionCheckCacheDirectory(),
+        );
+    }
+
+    public function createApcuConnectionCheckCache(): ConnectionCheckCacheInterface
+    {
+        return new ApcuConnectionCheckCache();
+    }
+
+    public function createNullConnectionCheckCache(): ConnectionCheckCacheInterface
+    {
+        return new NullConnectionCheckCache();
     }
 
     public function createLoggableSearchClient(): SearchInterface

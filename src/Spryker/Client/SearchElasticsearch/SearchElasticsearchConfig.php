@@ -40,6 +40,40 @@ class SearchElasticsearchConfig extends AbstractBundleConfig
     /**
      * @api
      *
+     * @return array<string, mixed>
+     */
+    public function getConnectionCheckClientConfig(): array
+    {
+        return $this->getSharedConfig()->getConnectionCheckClientConfig();
+    }
+
+    /**
+     * @api
+     */
+    public function getConnectionCheckCacheDirectory(): string
+    {
+        return $this->getSharedConfig()->getConnectionCheckCacheDirectory();
+    }
+
+    /**
+     * @api
+     */
+    public function getConnectionCheckCacheTtlSeconds(): int
+    {
+        return $this->getSharedConfig()->getConnectionCheckCacheTtlSeconds();
+    }
+
+    /**
+     * @api
+     */
+    public function getConnectionCheckCacheFailureTtlSeconds(): int
+    {
+        return $this->getSharedConfig()->getConnectionCheckCacheFailureTtlSeconds();
+    }
+
+    /**
+     * @api
+     *
      * @return int
      */
     public function getFullTextBoostedBoostingValue(): int

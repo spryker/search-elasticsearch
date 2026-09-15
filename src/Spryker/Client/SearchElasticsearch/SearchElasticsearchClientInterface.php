@@ -25,7 +25,7 @@ interface SearchElasticsearchClientInterface
      * @param array<\Spryker\Client\SearchExtension\Dependency\Plugin\ResultFormatterPluginInterface> $resultFormatters
      * @param array<string, mixed> $requestParameters
      *
-     * @return \Elastica\ResultSet|array
+     * @return \Elastica\ResultSet|array<string, mixed>
      */
     public function search(QueryInterface $searchQuery, array $resultFormatters = [], array $requestParameters = []);
 
@@ -92,9 +92,17 @@ interface SearchElasticsearchClientInterface
 
     /**
      * Specification:
-     * - Sends request to Elasticsearch for checking connection.
+     * - Sends a cluster health request to Elasticsearch for checking connection.
+     * - Returns a response transfer whose raw response holds the cluster health document.
+     * - Reuses a recent result instead of querying Elasticsearch again, for the number of seconds
+     *   configured via `SearchElasticsearchConstants::CONNECTION_CHECK_CACHE_TTL_SECONDS`
+     *   (`CONNECTION_CHECK_CACHE_FAILURE_TTL_SECONDS` after a failure). Callers that need an
+     *   uncached check must set both to 0.
+     * - Throws an exception if the connection fails, including when replaying a recent failure.
      *
      * @api
+     *
+     * @throws \Exception
      *
      * @return \Generated\Shared\Transfer\SearchConnectionResponseTransfer
      */
