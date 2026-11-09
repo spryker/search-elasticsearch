@@ -7,6 +7,7 @@
 
 namespace Spryker\Client\SearchElasticsearch\Search;
 
+use Elastica\ResultSet;
 use Spryker\Client\SearchExtension\Dependency\Plugin\QueryInterface;
 use Spryker\Shared\SearchElasticsearch\Logger\ElasticsearchLoggerInterface;
 
@@ -33,7 +34,7 @@ class LoggableSearch implements SearchInterface
      * @param array<\Spryker\Client\SearchExtension\Dependency\Plugin\ResultFormatterPluginInterface> $resultFormatters
      * @param array<string, mixed> $requestParameters
      *
-     * @return \Elastica\ResultSet|array
+     * @return \Elastica\ResultSet|array<string, mixed>
      */
     public function search(QueryInterface $searchQuery, array $resultFormatters = [], array $requestParameters = [])
     {
@@ -44,7 +45,7 @@ class LoggableSearch implements SearchInterface
                 'query' => $searchQuery->getSearchQuery()->toArray(),
                 'parameters' => $requestParameters,
             ],
-            $result,
+            $this->getLoggableResult($result),
         );
 
         return $result;
@@ -68,10 +69,19 @@ class LoggableSearch implements SearchInterface
                     'query' => $searchQuery->getSearchQuery()->toArray(),
                     'parameters' => $requestParameters,
                 ],
-                $results[$key] ?? [],
+                $this->getLoggableResult($results[$key] ?? []),
             );
         }
 
         return $results;
+    }
+
+    protected function getLoggableResult(mixed $result): mixed
+    {
+        if ($result instanceof ResultSet) {
+            return $result->getResponse()->getData();
+        }
+
+        return $result;
     }
 }

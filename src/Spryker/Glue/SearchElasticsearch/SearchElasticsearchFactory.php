@@ -23,6 +23,7 @@ class SearchElasticsearchFactory extends AbstractFactory
     {
         return new ElasticsearchDataCollector(
             $this->createElasticsearchLogger(),
+            $this->getUtilEncodingService(),
         );
     }
 

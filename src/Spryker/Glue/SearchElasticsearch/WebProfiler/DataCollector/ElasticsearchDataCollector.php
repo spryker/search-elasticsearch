@@ -7,32 +7,49 @@
 
 namespace Spryker\Glue\SearchElasticsearch\WebProfiler\DataCollector;
 
+use Spryker\Shared\SearchElasticsearch\Dependency\Service\SearchElasticsearchToUtilEncodingServiceInterface;
 use Spryker\Shared\SearchElasticsearch\Logger\ElasticsearchLoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
 use Throwable;
 
-class ElasticsearchDataCollector extends DataCollector
+class ElasticsearchDataCollector extends DataCollector implements LateDataCollectorInterface
 {
-    /**
-     * @var string
-     */
-    protected const DATA_COLLECTOR_NAME = 'elasticsearch';
+    protected const string DATA_COLLECTOR_NAME = 'elasticsearch';
 
-    /**
-     * @var \Spryker\Shared\SearchElasticsearch\Logger\ElasticsearchLoggerInterface
-     */
-    protected $elasticsearchLogger;
+    protected const string KEY_LOGS = 'logs';
 
-    public function __construct(ElasticsearchLoggerInterface $elasticsearchLogger)
-    {
-        $this->elasticsearchLogger = $elasticsearchLogger;
+    protected const string KEY_DESTINATION = 'destination';
+
+    protected const string KEY_PAYLOAD = 'payload';
+
+    protected const string KEY_RESULT = 'result';
+
+    public function __construct(
+        protected ElasticsearchLoggerInterface $elasticsearchLogger,
+        protected SearchElasticsearchToUtilEncodingServiceInterface $utilEncodingService,
+    ) {
     }
 
     public function collect(Request $request, Response $response, ?Throwable $exception = null): void
     {
-        $this->data['logs'] = $this->elasticsearchLogger->getLogs();
+    }
+
+    public function lateCollect(): void
+    {
+        $logs = [];
+
+        foreach ($this->elasticsearchLogger->getLogs() as $log) {
+            $logs[] = [
+                static::KEY_DESTINATION => $log[static::KEY_DESTINATION] ?? null,
+                static::KEY_PAYLOAD => $this->cloneVar($this->decodeLogValue($log[static::KEY_PAYLOAD] ?? null)),
+                static::KEY_RESULT => $this->cloneVar($this->decodeLogValue($log[static::KEY_RESULT] ?? null)),
+            ];
+        }
+
+        $this->data[static::KEY_LOGS] = $logs;
     }
 
     public function getName(): string
@@ -46,10 +63,19 @@ class ElasticsearchDataCollector extends DataCollector
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<int, array<string, mixed>>
      */
     public function getLogs(): array
     {
-        return $this->data['logs'];
+        return $this->data[static::KEY_LOGS] ?? [];
+    }
+
+    protected function decodeLogValue(mixed $value): mixed
+    {
+        if (!is_string($value)) {
+            return $value;
+        }
+
+        return $this->utilEncodingService->decodeJson($value, true) ?? $value;
     }
 }

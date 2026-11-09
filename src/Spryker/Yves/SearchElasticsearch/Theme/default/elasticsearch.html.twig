@@ -30,32 +30,151 @@
 
 {% block panel %}
     <style>
-        table {
-            table-layout:fixed;
+        .es-log-table {
+            table-layout: auto;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
         }
-        td {
+        .es-log-table .col-shrink {
+            white-space: nowrap;
+            width: 1%;
+        }
+        .es-log-table .col-fill {
+            width: 99%;
+        }
+        .es-log-table th {
+            background: #2e3d50;
+            color: #fff;
+            padding: 9px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .es-log-table td {
+            padding: 8px 10px;
+            vertical-align: top;
+            border-bottom: none;
+            background: transparent;
+        }
+        .es-log-table tbody tr.es-log-row-even td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .es-log-table code {
+            background: #eef1f5;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #3c4c60;
+        }
+        .es-log-table pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            font-size: 12px;
+        }
+        .es-log-details-row td {
+            padding-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .es-log-details-cell {
+            padding: 6px 10px 10px 10px;
+        }
+        .es-log-details-content {
+            border-radius: 4px;
+            padding: 10px 14px;
+            margin-top: 4px;
             overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .es-log-table details {
+            padding-top: 4px;
+        }
+        .es-log-table details summary {
+            display: inline-block;
+            cursor: pointer;
+            font-size: 12px;
+            color: #ccc;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+            user-select: none;
+            transition: background 0.12s, border-color 0.12s, color 0.12s;
+        }
+        .es-log-table details summary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.35);
+            color: #fff;
+        }
+        .es-log-table details[open] summary {
+            margin-bottom: 6px;
+            background: #2e3d50;
+            border-color: #2e3d50;
+            color: #fff;
+        }
+        .es-log-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            border: 1px dashed #ddd;
+            border-radius: 6px;
         }
     </style>
 
     <h2>Elasticsearch Search Requests</h2>
-    <table>
-        <tr>
-            <th>Destination</th>
-            <th>Payload</th>
-            <th>Result</th>
-        </tr>
 
-        {% for logData in collector.logs %}
-            <tr>
-                <td>{{ logData['destination'] }}</td>
-                <td>
-                    <pre>{{ logData['payload'] }}</pre>
-                </td>
-                <td>
-                    <pre>{{ logData['result'] }}</pre>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% set logs = collector.logs %}
+
+    {% if logs is empty %}
+        <div class="es-log-empty">
+            No Elasticsearch search requests were captured for this request.
+        </div>
+    {% else %}
+        <table class="es-log-table">
+            <thead>
+                <tr>
+                    <th class="col-shrink">#</th>
+                    <th class="col-fill">Destination</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i, log in logs %}
+                    <tr class="{% if i is even %}es-log-row-even{% endif %}">
+                        <td class="col-shrink">{{ i + 1 }}</td>
+                        <td><code>{{ log.destination }}</code></td>
+                    </tr>
+                    <tr class="es-log-details-row {% if i is even %}es-log-row-even{% endif %}">
+                        <td colspan="2" class="es-log-details-cell">
+                            <details>
+                                <summary>Show payload</summary>
+                                <div class="es-log-details-content">
+                                    {{ _self.renderLogValue(log.payload) }}
+                                </div>
+                            </details>
+                            <details>
+                                <summary>Show result</summary>
+                                <div class="es-log-details-content">
+                                    {{ _self.renderLogValue(log.result) }}
+                                </div>
+                            </details>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}
+
+{% macro renderLogValue(value) %}
+    {% if value is iterable %}
+        {{ profiler_dump(value) }}
+    {% else %}
+        <pre>{{ value }}</pre>
+    {% endif %}
+{% endmacro %}
