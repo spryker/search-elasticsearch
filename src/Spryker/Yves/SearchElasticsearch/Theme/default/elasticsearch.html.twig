@@ -125,6 +125,18 @@
             border: 1px dashed #ddd;
             border-radius: 6px;
         }
+        .es-log-actions {
+            margin: 0 0 10px 0;
+        }
+        .es-log-copy-json {
+            margin-left: 8px;
+        }
+        .es-log-toggle-row {
+            margin-right: 8px;
+        }
+        .es-log-json-source {
+            display: none;
+        }
     </style>
 
     <h2>Elasticsearch Search Requests</h2>
@@ -136,6 +148,9 @@
             No Elasticsearch search requests were captured for this request.
         </div>
     {% else %}
+        <div class="es-log-actions">
+            <button type="button" class="btn btn-sm" data-profiler-toggle-all=".es-log-table">Expand all</button>
+        </div>
         <table class="es-log-table">
             <thead>
                 <tr>
@@ -151,14 +166,17 @@
                     </tr>
                     <tr class="es-log-details-row {% if i is even %}es-log-row-even{% endif %}">
                         <td colspan="2" class="es-log-details-cell">
+                            <button type="button" class="btn btn-sm es-log-toggle-row" data-profiler-toggle-row>Expand</button>
                             <details>
-                                <summary>Show payload</summary>
+                                <summary>Show payload <button type="button" class="btn btn-sm es-log-copy-json" data-profiler-copy-json>Copy JSON</button></summary>
+                                <textarea class="es-log-json-source" data-profiler-json-source readonly>{{ _self.renderJson(log.payload) }}</textarea>
                                 <div class="es-log-details-content">
                                     {{ _self.renderLogValue(log.payload) }}
                                 </div>
                             </details>
                             <details>
-                                <summary>Show result</summary>
+                                <summary>Show result <button type="button" class="btn btn-sm es-log-copy-json" data-profiler-copy-json>Copy JSON</button></summary>
+                                <textarea class="es-log-json-source" data-profiler-json-source readonly>{{ _self.renderJson(log.result) }}</textarea>
                                 <div class="es-log-details-content">
                                     {{ _self.renderLogValue(log.result) }}
                                 </div>
@@ -169,6 +187,115 @@
             </tbody>
         </table>
     {% endif %}
+
+    <script>
+        (function () {
+            var copyText = function (text) {
+                if (navigator.clipboard && window.isSecureContext) {
+                    return navigator.clipboard.writeText(text);
+                }
+
+                return new Promise(function (resolve, reject) {
+                    var textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    textarea.setAttribute('readonly', '');
+                    textarea.style.position = 'fixed';
+                    textarea.style.top = '-1000px';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+
+                    try {
+                        document.execCommand('copy') ? resolve() : reject(new Error('Copy command was rejected.'));
+                    } finally {
+                        document.body.removeChild(textarea);
+                    }
+                });
+            };
+
+            var showCopyResult = function (button, label) {
+                var originalLabel = button.getAttribute('data-original-label') || button.textContent;
+                button.setAttribute('data-original-label', originalLabel);
+                button.textContent = label;
+                window.setTimeout(function () {
+                    button.textContent = originalLabel;
+                }, 2000);
+            };
+
+            document.querySelectorAll('[data-profiler-copy-json]').forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    var source = button.closest('details').querySelector('[data-profiler-json-source]');
+
+                    copyText(source.value).then(function () {
+                        showCopyResult(button, 'Copied!');
+                    }, function () {
+                        showCopyResult(button, 'Copy failed');
+                    });
+                });
+            });
+
+            var setDumpNodesState = function (nodes, fromClass, toClass, arrow) {
+                nodes.forEach(function (node) {
+                    node.className = node.className.replace(new RegExp('\\b' + fromClass + '\\b'), toClass);
+
+                    if (node.previousSibling && node.previousSibling.lastChild) {
+                        node.previousSibling.lastChild.innerHTML = arrow;
+                    }
+                });
+            };
+
+            var expandNestedDumps = function (container) {
+                setDumpNodesState(container.querySelectorAll('.sf-dump-compact'), 'sf-dump-compact', 'sf-dump-expanded', '\u25BC');
+            };
+
+            var collapseNestedDumps = function (container) {
+                setDumpNodesState(container.querySelectorAll('.sf-dump-expanded .sf-dump-expanded'), 'sf-dump-expanded', 'sf-dump-compact', '\u25B6');
+            };
+
+            var initDetailsToggle = function (button, getDetails, expandLabel, collapseLabel) {
+                var hasClosedDetails = function () {
+                    return Array.prototype.some.call(getDetails(), function (details) {
+                        return !details.open;
+                    });
+                };
+                var refreshLabel = function () {
+                    button.textContent = hasClosedDetails() ? expandLabel : collapseLabel;
+                };
+
+                button.addEventListener('click', function () {
+                    var isOpen = hasClosedDetails();
+
+                    getDetails().forEach(function (details) {
+                        details.open = isOpen;
+
+                        if (isOpen) {
+                            expandNestedDumps(details);
+
+                            return;
+                        }
+
+                        collapseNestedDumps(details);
+                    });
+                    refreshLabel();
+                });
+                document.addEventListener('toggle', refreshLabel, true);
+            };
+
+            document.querySelectorAll('[data-profiler-toggle-all]').forEach(function (button) {
+                initDetailsToggle(button, function () {
+                    return document.querySelectorAll(button.getAttribute('data-profiler-toggle-all') + ' details');
+                }, 'Expand all', 'Collapse all');
+            });
+
+            document.querySelectorAll('[data-profiler-toggle-row]').forEach(function (button) {
+                initDetailsToggle(button, function () {
+                    return button.closest('td').querySelectorAll('details');
+                }, 'Expand', 'Collapse');
+            });
+        })();
+    </script>
 {% endblock %}
 
 {% macro renderLogValue(value) %}
@@ -177,4 +304,13 @@
     {% else %}
         <pre>{{ value }}</pre>
     {% endif %}
+{% endmacro %}
+
+{% macro renderJson(value) %}
+    {%- set rawValue = value.getValue is defined ? value.getValue(true) : value -%}
+    {%- if rawValue is iterable -%}
+        {{ rawValue|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_INVALID_UTF8_SUBSTITUTE')) }}
+    {%- else -%}
+        {{ rawValue }}
+    {%- endif -%}
 {% endmacro %}
